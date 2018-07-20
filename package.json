@@ -33,16 +33,18 @@
     }
   },
   "dependencies": {
+    "@material-ui/core": "^1.4.0",
+    "@material-ui/icons": "^1.1.0",
     "eth-block-tracker-es5": "^2.3.2",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "react-redux": "^5.0.2",
-    "react-router": "^3.0.2",
+    "react-router": "^3.2.1",
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
     "redux-auth-wrapper": "^1.0.0",
     "redux-saga": "^0.15.3",
-    "redux-thunk": "^2.2.0",
+    "redux-thunk": "^2.3.0",
     "web3": "1.0.0-beta.34"
   },
   "devDependencies": {
@@ -95,7 +97,7 @@
     "webpack-dev-server": "1.16.2",
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "1.0.0"
-  },   
+  },
   "babel": {
     "presets": [
       "react-app"
