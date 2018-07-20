@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import MenuAppBarContainer from '../appbar/MenuAppBarContainer'
+import Typography from '@material-ui/core/Typography';
+import ResponsiveDrawerContainer from '../drawer/ResponsiveDrawerContainer'
 
 class Home extends Component {
   render() {
-    return (
-      <div>
-        <MenuAppBarContainer />
-        Hello there ther
-      </div>
+    return (      
+      <ResponsiveDrawerContainer>
+        <Typography noWrap>{'You think water moves fast? You should see Mariner 5.'}</Typography>
+      </ResponsiveDrawerContainer>
     )
   }
 }

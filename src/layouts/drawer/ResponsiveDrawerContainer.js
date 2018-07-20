@@ -1,4 +1,4 @@
-import MenuAppBar from './MenuAppBar'
+import ResponsiveDrawer from './ResponsiveDrawer'
 import { drizzleConnect } from 'drizzle-react'
 
 // May still need this even with data function to refresh component on updates for this contract.
@@ -11,6 +11,6 @@ const mapStateToProps = state => {
   }
 }
 
-const MenuAppBarContainer = drizzleConnect(MenuAppBar, mapStateToProps);
+const ResponsiveDrawerContainer = drizzleConnect(ResponsiveDrawer, mapStateToProps);
 
-export default MenuAppBarContainer
+export default ResponsiveDrawerContainer
