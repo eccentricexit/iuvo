@@ -6,6 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
+import Favorite from '@material-ui/icons/Favorite'
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
@@ -23,7 +24,7 @@ const styles = theme => ({
     position: 'relative',
     display: 'flex',
     width: '100%',
-  },
+  },  
   appBar: {
     position: 'absolute',
     marginLeft: drawerWidth,
@@ -46,11 +47,10 @@ const styles = theme => ({
   },
   toolbar: {
       ...theme.mixins.toolbar,      
-      paddingLeft: theme.spacing.unit * 3,
       display: 'flex',
       flexGrow: 1,
-      flexDirection: 'column',
-      alignItems: 'flex-start',
+      flexDirection: 'row',
+      alignItems: 'center',
       justifyContent: 'center',
   },
   drawerPaper: {
@@ -76,11 +76,12 @@ class ResponsiveDrawer extends React.Component {
   };
 
   render() {
-    const { classes, theme, children } = this.props;
+    const { classes, theme, children, currentPage } = this.props;
 
     const drawer = (
       <div>        
         <div className={classes.toolbar}>          
+            <Favorite className={classes.icon} color="secondary"/>
             <Typography variant="title" color="inherit" className={classes.title}>
               IUVO
             </Typography>          
@@ -105,7 +106,7 @@ class ResponsiveDrawer extends React.Component {
               <MenuIcon />
             </IconButton> 
             <Typography variant="title" color="inherit" noWrap>
-              Responsive drawer
+              {currentPage}
             </Typography>           
           </Toolbar>
         </AppBar>

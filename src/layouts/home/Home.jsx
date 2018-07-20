@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography';
 import ResponsiveDrawerContainer from '../drawer/ResponsiveDrawerContainer'
+import DoctorListContainer from './DoctorListContainer'
 
 class Home extends Component {
   render() {
     return (      
-      <ResponsiveDrawerContainer>
-        <Typography noWrap>{'You think water moves fast? You should see Mariner 5.'}</Typography>
+      <ResponsiveDrawerContainer currentPage="Home">
+        <DoctorListContainer />
       </ResponsiveDrawerContainer>
     )
   }
