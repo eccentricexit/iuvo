@@ -1,20 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Drawer from '@material-ui/core/Drawer'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
 import Favorite from '@material-ui/icons/Favorite'
-import IconButton from '@material-ui/core/IconButton';
-import Hidden from '@material-ui/core/Hidden';
-import Divider from '@material-ui/core/Divider';
-import MenuIcon from '@material-ui/icons/Menu';
-import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import IconButton from '@material-ui/core/IconButton'
+import Hidden from '@material-ui/core/Hidden'
+import Divider from '@material-ui/core/Divider'
+import MenuIcon from '@material-ui/icons/Menu'
+import { mailFolderListItems, otherMailFolderListItems } from './tileData'
 import { AccountData } from 'drizzle-react-components'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const styles = theme => ({
   root: {
@@ -64,19 +64,19 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
   },
-});
+})
 
 class ResponsiveDrawer extends React.Component {
   state = {
     mobileOpen: false,
-  };
+  }
 
   handleDrawerToggle = () => {
-    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
-  };
+    this.setState(state => ({ mobileOpen: !state.mobileOpen }))
+  }
 
   render() {
-    const { classes, theme, children, currentPage } = this.props;
+    const { classes, theme, children, currentPage } = this.props
 
     const drawer = (
       <div>        
@@ -91,7 +91,7 @@ class ResponsiveDrawer extends React.Component {
         <Divider />
         <List>{otherMailFolderListItems}</List>
       </div>
-    );
+    )
 
     return (
       <div className={classes.root}>
@@ -142,13 +142,13 @@ class ResponsiveDrawer extends React.Component {
           {children}
         </main>
       </div>
-    );
+    )
   }
 }
 
 ResponsiveDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);
+export default withStyles(styles, { withTheme: true })(ResponsiveDrawer)

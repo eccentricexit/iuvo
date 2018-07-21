@@ -16,7 +16,6 @@ class DoctorListContainer extends Component {
         })
       }
     })
-    
   }
   render () {
     const { IuvoCore } = this.props.contracts
@@ -29,7 +28,6 @@ class DoctorListContainer extends Component {
   }
 }
 
-// May still need this even with data function to refresh component on updates for this contract.
 const mapStateToProps = state => {
   return {
     accounts: state.accounts,

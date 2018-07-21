@@ -7,11 +7,10 @@ import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List'
 import Typography from '@material-ui/core/Typography'
 import { ContractData } from 'drizzle-react-components'
+import DoctorListItem from './DoctorListItem'
+
 
 const styles = {
-  card: {
-    minWidth: 275
-  },  
   title: {
     marginBottom: 16,
     fontSize: 14
@@ -24,36 +23,19 @@ const styles = {
 function DoctorList (props) {
   const { classes, doctors, numDoctors } = props
 
-  return (
-    <div>
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography className={classes.title} color='textSecondary'>
-            Available Doctors: {numDoctors}
-          </Typography>
-          {doctors && doctors.map(doctor => (
-            <ListItem key={doctor.name} doctor={doctor} classes={classes}/>
-          ))}
-        </CardContent>        
-      </Card>
-    </div>
+  return (    
+    <Card className={classes.card}>
+      <CardContent>
+        <Typography className={classes.title} color='textSecondary'>
+          Available Doctors: {numDoctors}
+        </Typography>
+        {doctors && doctors.map(doctor => (
+          <DoctorListItem key={doctor.name} doctor={doctor} classes={classes}/>
+        ))}
+      </CardContent>        
+    </Card>    
   )
 }
-
-const ListItem = ({ doctor, classes }) => {
-  const { name, bio ,rating } = doctor
-  return (
-    <div>
-      <Typography variant='headline' component='h2'>
-        {name}
-      </Typography>      
-      <CardActions>
-        <Button color='primary'>Hire</Button>
-      </CardActions>
-    </div>
-  )
-}
-
 
 
 export default withStyles(styles)(DoctorList)
