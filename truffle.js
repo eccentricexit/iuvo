@@ -1,10 +1,10 @@
 module.exports = {
-  migrations_directory: "./migrations",
+  migrations_directory: './migrations',
   networks: {
     development: {
-      host: "localhost",
+      host: 'localhost',
       port: 8545,
-      network_id: "*" // Match any network id
+      network_id: '*' // Match any network id
     }
   },
   solc: {
@@ -12,5 +12,5 @@ module.exports = {
       enabled: true,
       runs: 500
     }
-  } 
-};
+  }
+}

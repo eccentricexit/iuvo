@@ -11,6 +11,6 @@ const mapStateToProps = state => {
   }
 }
 
-const ResponsiveDrawerContainer = drizzleConnect(ResponsiveDrawer, mapStateToProps);
+const ResponsiveDrawerContainer = drizzleConnect(ResponsiveDrawer, mapStateToProps)
 
 export default ResponsiveDrawerContainer

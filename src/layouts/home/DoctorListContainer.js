@@ -11,6 +11,6 @@ const mapStateToProps = state => {
   }
 }
 
-const DoctorListContainer = drizzleConnect(DoctorList, mapStateToProps);
+const DoctorListContainer = drizzleConnect(DoctorList, mapStateToProps)
 
 export default DoctorListContainer

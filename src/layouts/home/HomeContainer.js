@@ -11,6 +11,6 @@ const mapStateToProps = state => {
   }
 }
 
-const HomeContainer = drizzleConnect(Home, mapStateToProps);
+const HomeContainer = drizzleConnect(Home, mapStateToProps)
 
 export default HomeContainer
