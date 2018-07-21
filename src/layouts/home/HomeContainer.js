@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { drizzleConnect } from 'drizzle-react'
 import PropTypes from 'prop-types'
-import ResponsiveDrawerContainer from '../drawer/ResponsiveDrawerContainer'
 import { withStyles } from '@material-ui/core/styles'
 import DoctorListContainer from './DoctorListContainer'
 import Grid from '@material-ui/core/Grid'
@@ -26,17 +25,12 @@ const styles = theme => ({
 class HomeContainer extends Component {
   render () {
     const { classes } = this.props
-    return (
-      <ResponsiveDrawerContainer currentPage='Home'>
-        <Grid container spacing={24} className={classes.container}>
-          <Grid item className={classes.categories}>
-            <DoctorListContainer />
-          </Grid>
-          <Grid item className={classes.doctors}>
-            <DoctorListContainer />
-          </Grid>
-        </Grid>
-      </ResponsiveDrawerContainer>
+    return (      
+      <Grid container spacing={24} className={classes.container}>
+        <Grid item className={classes.categories}>
+          <DoctorListContainer />
+        </Grid>          
+      </Grid>
     )
   }
 }
@@ -52,8 +46,7 @@ const mapStateToProps = state => {
 }
 
 HomeContainer.contextTypes = {
-  drizzle: PropTypes.object,
-  classes: PropTypes.object.isRequired
+  drizzle: PropTypes.object  
 }
 
 export default withStyles(styles)(drizzleConnect(HomeContainer, mapStateToProps))

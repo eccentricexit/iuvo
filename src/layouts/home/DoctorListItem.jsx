@@ -3,6 +3,7 @@ import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
+import { Typography } from '@material-ui/core';
 
 const DoctorListItem = ({ doctor, classes }) => {
   const { name, bio, rating } = doctor
@@ -11,6 +12,7 @@ const DoctorListItem = ({ doctor, classes }) => {
     <ListItem dense button className={classes.listItem}>
       <Avatar alt='Portrait' src={require('../../../assets/portrait.jpg')} />
       <ListItemText primary={name} secondary={bio} />
+      <Typography>{`rating: ${rating}`}</Typography>
       <Divider />
     </ListItem>
   )

@@ -22,6 +22,9 @@ ReactDOM.render((
         <Route path='/' component={App}>
           <IndexRoute component={HomeContainer} />
         </Route>
+        <Route path='/:id' component={App}>
+          <IndexRoute component={HomeContainer} />
+        </Route>
       </Router>
     </LoadingContainer>
   </DrizzleProvider>
