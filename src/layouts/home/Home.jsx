@@ -3,8 +3,8 @@ import Typography from '@material-ui/core/Typography'
 import ResponsiveDrawerContainer from '../drawer/ResponsiveDrawerContainer'
 import DoctorListContainer from './DoctorListContainer'
 
-class Home extends Component {
-  render () {
+class Home extends Component {  
+  render () {    
     return (
       <ResponsiveDrawerContainer currentPage='Home'>
         <DoctorListContainer />

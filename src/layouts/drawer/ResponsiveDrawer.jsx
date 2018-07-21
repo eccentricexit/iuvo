@@ -12,13 +12,13 @@ import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import { AccountData } from 'drizzle-react-components'
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
-    height: 430,
+    flexGrow: 1,    
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
