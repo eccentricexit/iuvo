@@ -9,10 +9,10 @@ const drizzleOptions = {
     }
   },
   contracts: [
-    IuvoCore    
+    IuvoCore
   ],
   events: {
-    
+
   },
   polls: {
     accounts: 1500

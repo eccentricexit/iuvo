@@ -12,7 +12,6 @@ import Hidden from '@material-ui/core/Hidden'
 import Divider from '@material-ui/core/Divider'
 import MenuIcon from '@material-ui/icons/Menu'
 import { mailFolderListItems, otherMailFolderListItems } from './tileData'
-import { AccountData } from 'drizzle-react-components'
 
 const drawerWidth = 240
 

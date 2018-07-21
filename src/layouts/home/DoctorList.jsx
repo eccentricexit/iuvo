@@ -1,14 +1,9 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import List from '@material-ui/core/List'
 import Typography from '@material-ui/core/Typography'
-import { ContractData } from 'drizzle-react-components'
 import DoctorListItem from './DoctorListItem'
-
 
 const styles = {
   title: {
@@ -17,25 +12,24 @@ const styles = {
   },
   pos: {
     marginBottom: 12
-  },  
+  }
 }
 
 function DoctorList (props) {
   const { classes, doctors, numDoctors } = props
 
-  return (    
+  return (
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} color='textSecondary'>
           Available Doctors: {numDoctors}
         </Typography>
         {doctors && doctors.map(doctor => (
-          <DoctorListItem key={doctor.name} doctor={doctor} classes={classes}/>
+          <DoctorListItem key={doctor.name} doctor={doctor} classes={classes} />
         ))}
-      </CardContent>        
-    </Card>    
+      </CardContent>
+    </Card>
   )
 }
-
 
 export default withStyles(styles)(DoctorList)
