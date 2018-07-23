@@ -1,39 +1,72 @@
-pragma solidity ^0.4.16;
+pragma solidity 0.4.24;
 
+import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
+import "kleros-interaction/contracts/standard/arbitration/ArbitrableTransaction.sol";
 
-contract IuvoCore {
+contract IuvoCore is Pausable{
     
     mapping (address => Doctor) public doctors;
-    
-    Doctor[] public doctorsArray;
-    uint256 public doctorsArraySize;
-    Doctor public singleDoctor;
+    mapping (address => bool) public doctorPresentInStorage;
+    address[] public doctorsArray;    
 
     struct Doctor {
+        uint256 pos;
         string name;
         string rating;
         string bio;
-        address paymentAccount;
+        string ipfsProfilePic;
     }
 
-    constructor() public {
-        address doc1Addr = 0xbCcc714d56bc0da0fd33d96d2a87b680dD6D0DF6;
-        address doc2Addr = 0xaee905FdD3ED851e48d22059575b9F4245A82B04;
-        address doc3Addr = 0xaee905FdD3ED851e48d22059575b9F4245A82B04;
+    function setDoctor(
+        string _name, 
+        string _rating, 
+        string _bio, 
+        string _ipfsProfilePic
+    ) 
+        public 
+    {
+        if(doctorPresentInStorage[msg.sender]){
+            // update data
+            Doctor storage docToUpdate = doctors[msg.sender];
+            docToUpdate.name = _name;
+            docToUpdate.bio = _bio;
+            docToUpdate.ipfsProfilePic = _ipfsProfilePic;
+        } else {
+            // new doctor
+            Doctor memory newDoc = Doctor(
+                doctorsArray.length,
+                _name,
+                _rating, 
+                _bio, 
+                _ipfsProfilePic
+            );
+            doctorsArray.push(msg.sender);            
+            doctors[msg.sender] = newDoc;
+            doctorPresentInStorage[msg.sender] = true;
+        }
+    }
 
-        Doctor memory doc1 = Doctor("Dr. John Doe", "4.1", "I'm awesome.", doc1Addr);
-        Doctor memory doc2 = Doctor("Dr. Doe Jo", "3.3", "I'm working on it.", doc2Addr);
-        Doctor memory doc3 = Doctor("Dr. Manhattan", "5.0", "humans are boring.", doc3Addr);
+    function deleteDoctor() public {
+        require(doctorPresentInStorage[msg.sender]);
+        uint256 toBeDeletedPosition = doctors[msg.sender].pos;
+        uint256 lastDoctorPosition = doctorsArray.length-1;
 
-        doctors[doc1Addr] = doc1;
-        doctors[doc2Addr] = doc2;
-        doctors[doc3Addr] = doc3;
+        // Replace with last
+        doctorsArray[toBeDeletedPosition] = doctorsArray[lastDoctorPosition];
 
-        doctorsArray.push(doc1);
-        doctorsArraySize++;
-        doctorsArray.push(doc2);
-        doctorsArraySize++;
-        doctorsArray.push(doc3);
-        doctorsArraySize++;
+        // Update position
+        doctors[doctorsArray[toBeDeletedPosition]].pos = toBeDeletedPosition;
+
+        // Delete last item
+        delete doctorsArray[lastDoctorPosition];
+        doctorsArray.length--;
+
+        // Remove from mapping
+        delete doctors[msg.sender];
+        doctorPresentInStorage[msg.sender] = false;
+    }
+
+    function doctorsArrayLength() public view returns (uint256){
+        return doctorsArray.length;
     }
 }
