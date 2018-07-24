@@ -118,4 +118,8 @@ contract IuvoCore is Pausable{
     function doctorAppointmentsLength(address _doctor) public view returns (uint256){
         return doctorAppointments[_doctor].length;
     }
+
+    function returnDoctorsArray() public view returns (address[]) {
+        return doctorsArray;
+    }
 }

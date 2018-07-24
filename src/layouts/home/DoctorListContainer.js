@@ -9,12 +9,8 @@ class DoctorListContainer extends Component {
     const { IuvoCore } = context.drizzle.contracts
     this.doctors = []
 
-    IuvoCore.methods.doctorsArraySize().call().then(size => {
-      for (let i = 0; i < size; i++) {
-        IuvoCore.methods.doctorsArray(i).call().then(doctor => {
-          this.doctors.push(doctor)
-        })
-      }
+    IuvoCore.methods.returnDoctorsArray().call().then(doctors => {
+      // TODO
     })
   }
   render () {
