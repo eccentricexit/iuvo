@@ -2,11 +2,14 @@ pragma solidity 0.4.24;
 
 import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 import "kleros-interaction/contracts/standard/arbitration/ArbitrableTransaction.sol";
+import "kleros-interaction/contracts/standard/arbitration/Arbitrator.sol";
 
 contract IuvoCore is Pausable{
     
-    mapping (address => Doctor) public doctors;
-    mapping (address => bool) public doctorPresentInStorage;
+    mapping(address => Doctor) public doctors;
+    mapping(address => bool) public doctorPresentInStorage;
+    mapping(address => Appointment[]) public doctorAppointments;
+
     address[] public doctorsArray;    
 
     struct Doctor {
@@ -15,15 +18,25 @@ contract IuvoCore is Pausable{
         string rating;
         string bio;
         string ipfsProfilePic;
+        string ipfsContract;
+    }
+
+    struct Appointment {
+        address payee;
+        address payer;
+        address arbitrableAppointment;
+        string ipfsContract;
     }
 
     function setDoctor(
         string _name, 
         string _rating, 
         string _bio, 
-        string _ipfsProfilePic
+        string _ipfsProfilePic,
+        string _ipfsContract
     ) 
-        public 
+        public
+        whenNotPaused
     {
         if(doctorPresentInStorage[msg.sender]){
             // update data
@@ -31,6 +44,7 @@ contract IuvoCore is Pausable{
             docToUpdate.name = _name;
             docToUpdate.bio = _bio;
             docToUpdate.ipfsProfilePic = _ipfsProfilePic;
+            docToUpdate.ipfsContract = _ipfsContract;
         } else {
             // new doctor
             Doctor memory newDoc = Doctor(
@@ -38,7 +52,8 @@ contract IuvoCore is Pausable{
                 _name,
                 _rating, 
                 _bio, 
-                _ipfsProfilePic
+                _ipfsProfilePic,
+                _ipfsContract
             );
             doctorsArray.push(msg.sender);            
             doctors[msg.sender] = newDoc;
@@ -46,7 +61,7 @@ contract IuvoCore is Pausable{
         }
     }
 
-    function deleteDoctor() public {
+    function deleteDoctor() public whenNotPaused {
         require(doctorPresentInStorage[msg.sender]);
         uint256 toBeDeletedPosition = doctors[msg.sender].pos;
         uint256 lastDoctorPosition = doctorsArray.length-1;
@@ -66,7 +81,41 @@ contract IuvoCore is Pausable{
         doctorPresentInStorage[msg.sender] = false;
     }
 
+    function hireDoctor(
+        address _doctor,
+        string _ipfsContract,
+        address _arbitrator,
+        string _metaEvidence,
+        uint _timeout,
+        bytes _arbitratorExtraData
+    ) 
+        public
+        payable
+        whenNotPaused
+    {
+        address arbitrableAppointment = new ArbitrableTransaction(
+            Arbitrator(_arbitrator),
+            _timeout,
+            _doctor,
+            _arbitratorExtraData,
+            _metaEvidence
+        );
+
+        Appointment memory appointment = Appointment(
+            _doctor,
+            msg.sender,
+            arbitrableAppointment,
+            _ipfsContract
+        );
+
+        doctorAppointments[_doctor].push(appointment);
+    }
+
     function doctorsArrayLength() public view returns (uint256){
         return doctorsArray.length;
+    }
+
+    function doctorAppointmentsLength(address _doctor) public view returns (uint256){
+        return doctorAppointments[_doctor].length;
     }
 }
