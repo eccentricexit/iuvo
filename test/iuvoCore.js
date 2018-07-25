@@ -10,7 +10,9 @@ contract('IuvoCore', function (accounts) {
   beforeEach(async () => {
     iuvoCore = await IuvoCore.new()
     pausableProxy = await PausableProxy.new(iuvoCore.address)
+    console.info('pausable Proxy: ',pausableProxy.address)
     iuvoCorebyProxy = IuvoCore.at(pausableProxy.address)
+    console.info('iuvoCorebyProxy: ',iuvoCorebyProxy.address)
     await iuvoCorebyProxy.initialize()
   })
 
