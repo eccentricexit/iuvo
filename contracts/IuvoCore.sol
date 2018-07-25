@@ -1,10 +1,10 @@
 pragma solidity 0.4.24;
 
-import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
+import "./PausableUpgradeable.sol";
 import "kleros-interaction/contracts/standard/arbitration/ArbitrableTransaction.sol";
 import "kleros-interaction/contracts/standard/arbitration/Arbitrator.sol";
 
-contract IuvoCore is Pausable{
+contract IuvoCore is PausableUpgradeable{
     
     mapping(address => Doctor) public doctors;
     mapping(address => bool) public doctorPresentInStorage;
