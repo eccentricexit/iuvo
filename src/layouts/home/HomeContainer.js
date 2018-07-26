@@ -40,8 +40,6 @@ const mapStateToProps = state => {
   return {
     accounts: state.accounts,
     drizzleStatus: state.drizzleStatus,
-    IuvoCore: state.contracts.IuvoCore,
-    contracts: state.contracts
   }
 }
 

@@ -17,12 +17,12 @@ class App extends Component {
 }
 
 // May still need this even with data function to refresh component on updates for this contract.
-const mapStateToProps = state => {
+const mapStateToProps = ({ accounts, drizzleStatus, web3, contracts }) => {
   return {
-    accounts: state.accounts,
-    drizzleStatus: state.drizzleStatus,
-    IuvoCore: state.contracts.IuvoCore,
-    contracts: state.contracts
+    accounts,
+    drizzleStatus,
+    web3,
+    contracts
   }
 }
 

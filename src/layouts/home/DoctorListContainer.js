@@ -2,16 +2,26 @@ import React, { Component } from 'react'
 import DoctorList from './DoctorList'
 import { drizzleConnect } from 'drizzle-react'
 import PropTypes from 'prop-types'
+import IuvoCore from '../../../build/contracts/IuvoCore.json'
 
 class DoctorListContainer extends Component {
-  constructor (props, context) {
+  constructor (props, context) { 
     super(props)
-    const { IuvoCore } = context.drizzle.contracts
+    const { web3, contracts } = context.drizzle
     this.doctors = []
-
-    IuvoCore.methods.returnDoctorsArray().call().then(doctors => {
-      // TODO
+    
+    const proxyAddress = contracts.PausableProxy.address
+    const iuvoCoreAbi = IuvoCore.abi
+    const iuvoCoreByProxy = new web3.eth.Contract(
+      iuvoCoreAbi,
+      proxyAddress
+    )
+       
+    context.drizzle.addContract({
+      contractName: 'IuvoCore',
+      web3Contract: iuvoCoreByProxy
     })
+    
   }
   render () {
     const { IuvoCore } = this.props.contracts
@@ -24,12 +34,12 @@ class DoctorListContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ accounts, drizzleStatus, contracts, web3}) => {
   return {
-    accounts: state.accounts,
-    drizzleStatus: state.drizzleStatus,
-    IuvoCore: state.contracts.IuvoCore,
-    contracts: state.contracts
+    accounts,
+    drizzleStatus,
+    contracts,
+    web3
   }
 }
 

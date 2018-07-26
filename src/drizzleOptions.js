@@ -1,4 +1,5 @@
 import IuvoCore from './../build/contracts/IuvoCore.json'
+import PausableProxy from './../build/contracts/PausableProxy.json' 
 
 const drizzleOptions = {
   web3: {
@@ -9,11 +10,10 @@ const drizzleOptions = {
     }
   },
   contracts: [
-    IuvoCore
+    IuvoCore,
+    PausableProxy
   ],
-  events: {
-
-  },
+  events: {},
   polls: {
     accounts: 1500
   }
