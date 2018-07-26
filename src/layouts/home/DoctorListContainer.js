@@ -2,29 +2,37 @@ import React, { Component } from 'react'
 import DoctorList from './DoctorList'
 import { drizzleConnect } from 'drizzle-react'
 import PropTypes from 'prop-types'
-import IuvoCore from '../../../build/contracts/IuvoCore.json'
+import { IUVO_CORE_BY_PROXY } from '../../util/contractNames'
 
 class DoctorListContainer extends Component {
   constructor (props, context) { 
     super(props)
     const { web3, contracts } = context.drizzle
+    const { IuvoCore, PausableProxy, IuvoCoreByProxy } = contracts
     this.doctors = []
     
-    const proxyAddress = contracts.PausableProxy.address
+    const proxyAddress = PausableProxy.address
     const iuvoCoreAbi = IuvoCore.abi
-    const iuvoCoreByProxy = new web3.eth.Contract(
+    const iuvoCoreByProxyInstance = new web3.eth.Contract(
       iuvoCoreAbi,
       proxyAddress
     )
-       
+
     context.drizzle.addContract({
-      contractName: 'IuvoCore',
-      web3Contract: iuvoCoreByProxy
+      contractName: IUVO_CORE_BY_PROXY,
+      web3Contract: iuvoCoreByProxyInstance
     })
-    
+
+    // const dataKey = iuvoCoreByProxyInstance.methods.returnDoctorsArray().cache()
+    // console.info(dataKey)
+
+    // Use the dataKey to display data from the store.
+    // return state.contracts.SimpleStorage.methods.storedData[dataKey].value
+
   }
+
   render () {
-    const { IuvoCore } = this.props.contracts
+    const { IuvoCore } = this.props.contracts    
 
     if (!IuvoCore.initialized) {
       return <span>Initializing...</span>
