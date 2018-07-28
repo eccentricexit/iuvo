@@ -3,6 +3,7 @@ import DoctorList from './DoctorList'
 import { drizzleConnect } from 'drizzle-react'
 import PropTypes from 'prop-types'
 import { IUVO_CORE_BY_PROXY } from '../../util/contractNames'
+import { ipfs } from '../../util/web3/getIpfs'
 
 class DoctorListContainer extends Component {
   constructor (props, context) { 
@@ -31,11 +32,25 @@ class DoctorListContainer extends Component {
         .then(doctorAddresses => {
           doctorAddresses.forEach(address => {
             iuvoCoreByProxyInstance.methods.doctors(address).call().then( doctor => {
+              
+              ipfs.files.cat(doctor.ipfsProfilePic, function (err, file) {
+                if (err) {
+                    throw err
+                }
+                const img = file.toString("base64");
+                doctor.imgRaw = "data:image/png;base64," + img
+              })
               this.doctors.push(doctor)
             })            
           })
+
+          console.info('done adding doctors')
         })
     }
+  }
+
+  componentDidMount() {
+    console.info('component did mount')
   }
 
   render () {

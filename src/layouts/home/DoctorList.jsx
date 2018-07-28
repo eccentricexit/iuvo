@@ -17,7 +17,6 @@ const styles = {
 
 function DoctorList (props) {
   const { classes, doctors, numDoctors } = props
-  console.info('doctors',doctors)
 
   return (
     <Card className={classes.card}>

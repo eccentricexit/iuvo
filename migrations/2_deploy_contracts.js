@@ -21,7 +21,7 @@ module.exports = async (deployer,network,accounts) => {
       "Dr. Nancy",
       "4.4",
       "Love taking care of people",
-      "ipfshashProfilePic",
+      "QmcSD36n81qTdHWCiHoFt1jiVpcW1eZoHJALFbBJxYRhLf",
       "contract for my services",
       { from: doctorA }
     )
@@ -30,7 +30,7 @@ module.exports = async (deployer,network,accounts) => {
       "Dr. John McClaine",
       "4.0",
       "Love taking care of money",
-      "ipfshashProfilePic",
+      "QmPHFmDDcaXWPu7yxUC3PnZBvo9B61MgxHu6YUTsH7C8hD",
       "ipfshashcontract for my services",
       { from: doctorB }
     )
@@ -39,7 +39,7 @@ module.exports = async (deployer,network,accounts) => {
       "Dr. Naman",
       "4.1",
       "Love taking care of people",
-      "ipfshashProfilePic",
+      "QmYnz2Bsnrt6cvatDgoxwFVNBLknfxnrpduYkxqfYHpuwT",
       "ipfshashcontract for my services",
       { from: doctorC }
     )
