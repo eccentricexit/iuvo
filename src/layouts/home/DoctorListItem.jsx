@@ -9,7 +9,7 @@ const DoctorListItem = ({ doctor, classes }) => {
   const { name, bio, rating } = doctor
 
   return (
-    <ListItem dense button className={classes.listItem}>
+    <ListItem dense button className={classes.listItem} key={name}>
       <Avatar alt='Portrait' src={require('../../../assets/portrait.jpg')} />
       <ListItemText primary={name} secondary={bio} />
       <Typography>{`rating: ${rating}`}</Typography>

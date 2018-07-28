@@ -23,12 +23,19 @@ class DoctorListContainer extends Component {
       web3Contract: iuvoCoreByProxyInstance
     })
 
-    // const dataKey = iuvoCoreByProxyInstance.methods.returnDoctorsArray().cache()
-    // console.info(dataKey)
-
-    // Use the dataKey to display data from the store.
-    // return state.contracts.SimpleStorage.methods.storedData[dataKey].value
-
+    if(props.drizzleStatus.initialized){
+      iuvoCoreByProxyInstance
+        .methods
+        .returnDoctorsArray()
+        .call()
+        .then(doctorAddresses => {
+          doctorAddresses.forEach(address => {
+            iuvoCoreByProxyInstance.methods.doctors(address).call().then( doctor => {
+              this.doctors.push(doctor)
+            })            
+          })
+        })
+    }
   }
 
   render () {
