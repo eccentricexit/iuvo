@@ -14,7 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Avatar from '@material-ui/core/Avatar'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import { menuListItems } from './tileData'
-import { uport, web3 } from '../../util/connectors'
+import { uport } from '../../util/connectors'
 
 const drawerWidth = 240
 

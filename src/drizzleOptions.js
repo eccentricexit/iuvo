@@ -1,5 +1,5 @@
 import IuvoCore from './../build/contracts/IuvoCore.json'
-import PausableProxy from './../build/contracts/PausableProxy.json' 
+import PausableProxy from './../build/contracts/PausableProxy.json'
 
 const drizzleOptions = {
   web3: {

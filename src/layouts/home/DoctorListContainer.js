@@ -6,12 +6,12 @@ import { IUVO_CORE_BY_PROXY } from '../../util/contractNames'
 import { ipfs } from '../../util/web3/getIpfs'
 
 class DoctorListContainer extends Component {
-  constructor (props, context) { 
+  constructor (props, context) {
     super(props)
     const { web3, contracts } = context.drizzle
-    const { IuvoCore, PausableProxy, IuvoCoreByProxy } = contracts
+    const { IuvoCore, PausableProxy } = contracts
     this.doctors = []
-    
+
     const proxyAddress = PausableProxy.address
     const iuvoCoreAbi = IuvoCore.abi
     const iuvoCoreByProxyInstance = new web3.eth.Contract(
@@ -24,24 +24,23 @@ class DoctorListContainer extends Component {
       web3Contract: iuvoCoreByProxyInstance
     })
 
-    if(props.drizzleStatus.initialized){
+    if (props.drizzleStatus.initialized) {
       iuvoCoreByProxyInstance
         .methods
         .returnDoctorsArray()
         .call()
         .then(doctorAddresses => {
           doctorAddresses.forEach(address => {
-            iuvoCoreByProxyInstance.methods.doctors(address).call().then( doctor => {
-              
+            iuvoCoreByProxyInstance.methods.doctors(address).call().then(doctor => {
               ipfs.files.cat(doctor.ipfsProfilePic, function (err, file) {
                 if (err) {
-                    throw err
+                  throw err
                 }
-                const img = file.toString("base64");
-                doctor.imgRaw = "data:image/png;base64," + img
+                const img = file.toString('base64')
+                doctor.imgRaw = 'data:image/png;base64,' + img
               })
               this.doctors.push(doctor)
-            })            
+            })
           })
 
           console.info('done adding doctors')
@@ -49,12 +48,8 @@ class DoctorListContainer extends Component {
     }
   }
 
-  componentDidMount() {
-    console.info('component did mount')
-  }
-
   render () {
-    const { IuvoCore } = this.props.contracts    
+    const { IuvoCore } = this.props.contracts
 
     if (!IuvoCore.initialized) {
       return <span>Initializing...</span>

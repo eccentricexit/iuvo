@@ -7,7 +7,7 @@ import StarIcon from '@material-ui/icons/Star'
 import ReportIcon from '@material-ui/icons/Report'
 
 export const menuListItems = (
-  <div>    
+  <div>
     <ListItem button>
       <ListItemIcon>
         <StarIcon />
@@ -25,6 +25,6 @@ export const menuListItems = (
         <Timer />
       </ListItemIcon>
       <ListItemText primary='Ongoing contracts' />
-    </ListItem>    
+    </ListItem>
   </div>
 )

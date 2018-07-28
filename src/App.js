@@ -26,9 +26,8 @@ const mapStateToProps = ({ accounts, drizzleStatus, web3, contracts }) => {
   }
 }
 
-
 App.contextTypes = {
-  drizzle: PropTypes.object  
+  drizzle: PropTypes.object
 }
 
-export default drizzleConnect(App,mapStateToProps)
+export default drizzleConnect(App, mapStateToProps)

@@ -25,11 +25,11 @@ const styles = theme => ({
 class HomeContainer extends Component {
   render () {
     const { classes } = this.props
-    return (      
+    return (
       <Grid container spacing={24} className={classes.container}>
         <Grid item className={classes.categories}>
           <DoctorListContainer />
-        </Grid>          
+        </Grid>
       </Grid>
     )
   }
@@ -39,12 +39,12 @@ class HomeContainer extends Component {
 const mapStateToProps = state => {
   return {
     accounts: state.accounts,
-    drizzleStatus: state.drizzleStatus,
+    drizzleStatus: state.drizzleStatus
   }
 }
 
 HomeContainer.contextTypes = {
-  drizzle: PropTypes.object  
+  drizzle: PropTypes.object
 }
 
 export default withStyles(styles)(drizzleConnect(HomeContainer, mapStateToProps))
