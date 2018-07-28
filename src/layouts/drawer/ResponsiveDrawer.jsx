@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
@@ -11,10 +11,10 @@ import IconButton from '@material-ui/core/IconButton'
 import Hidden from '@material-ui/core/Hidden'
 import Divider from '@material-ui/core/Divider'
 import MenuIcon from '@material-ui/icons/Menu'
+import Avatar from '@material-ui/core/Avatar'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import { menuListItems } from './tileData'
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
+import { uport, web3 } from '../../util/connectors'
 
 const drawerWidth = 240
 
@@ -74,10 +74,10 @@ const styles = theme => ({
   }
 })
 
-class ResponsiveDrawer extends React.Component {
+class ResponsiveDrawer extends Component {
   state = {
     mobileOpen: false,
-    anchorEl: null
+    credentials: null
   }
 
   handleDrawerToggle = () => {
@@ -92,16 +92,24 @@ class ResponsiveDrawer extends React.Component {
     this.setState({ anchorEl: null });
   }
 
+  handleLogin = () => {
+    uport.requestCredentials({requested: ['name','avatar']}).then(credentials => {
+      console.info(credentials.avatar)
+      this.setState({credentials})
+    })
+  }
+
   render() {
     const { classes, theme, children, currentPage } = this.props
+    const { credentials } = this.state
 
     const drawer = (
       <div>        
         <div className={classes.toolbar}>          
-            <Favorite className={classes.icon} color="secondary"/>
-            <Typography variant="title" color="inherit" className={classes.title}>
-              IUVO
-            </Typography>          
+          <Favorite className={classes.icon} color="secondary"/>
+          <Typography variant="title" color="inherit" className={classes.title}>
+            IUVO
+          </Typography>          
         </div>
         <Divider />
         <List>{menuListItems}</List>        
@@ -124,11 +132,14 @@ class ResponsiveDrawer extends React.Component {
               {currentPage}
             </Typography>            
             <IconButton
-              onClick={this.handleMenu}
+              onClick={this.handleLogin}
               color="inherit"
               className={classes.accountIcon}
             >
-              <AccountCircle />
+              {!credentials
+                ? <AccountCircle  />
+                : <Avatar alt="Profile pic" src={credentials.avatar.uri} />
+              }
             </IconButton>
           </Toolbar>
         </AppBar>
