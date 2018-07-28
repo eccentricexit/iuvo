@@ -11,12 +11,15 @@ import IconButton from '@material-ui/core/IconButton'
 import Hidden from '@material-ui/core/Hidden'
 import Divider from '@material-ui/core/Divider'
 import MenuIcon from '@material-ui/icons/Menu'
+import AccountCircle from '@material-ui/icons/AccountCircle'
 import { menuListItems } from './tileData'
+import MenuItem from '@material-ui/core/MenuItem'
+import Menu from '@material-ui/core/Menu'
 
 const drawerWidth = 240
 
 const styles = theme => ({
-  root: {
+  root: { 
     flexGrow: 1,    
     zIndex: 1,
     overflow: 'hidden',
@@ -30,6 +33,9 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
+  },
+  rowDirecton: {
+    flexDirection: 'row'
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
@@ -45,12 +51,12 @@ const styles = theme => ({
     },
   },
   toolbar: {
-      ...theme.mixins.toolbar,      
-      display: 'flex',
-      flexGrow: 1,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
+    ...theme.mixins.toolbar,      
+    display: 'flex',
+    flexGrow: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   drawerPaper: {
     width: drawerWidth,
@@ -63,15 +69,27 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
   },
+  accountIcon: {
+    marginLeft: 'auto'
+  }
 })
 
 class ResponsiveDrawer extends React.Component {
   state = {
     mobileOpen: false,
+    anchorEl: null
   }
 
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }))
+  }
+
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  }
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
   }
 
   render() {
@@ -104,7 +122,14 @@ class ResponsiveDrawer extends React.Component {
             </IconButton> 
             <Typography variant="title" color="inherit" noWrap>
               {currentPage}
-            </Typography>           
+            </Typography>            
+            <IconButton
+              onClick={this.handleMenu}
+              color="inherit"
+              className={classes.accountIcon}
+            >
+              <AccountCircle />
+            </IconButton>
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
