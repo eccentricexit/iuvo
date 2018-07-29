@@ -7,6 +7,7 @@ module.exports = async (deployer, network, accounts) => {
   const doctorA = accounts[1]
   const doctorB = accounts[2]
   const doctorC = accounts[3]
+  const doctorD = accounts[4]
 
   deployer.deploy(IuvoCore)
     .then(async () => {
@@ -49,7 +50,7 @@ module.exports = async (deployer, network, accounts) => {
         'Come in sick, go out treated',
         'QmSmxngeX8YbswMcjsH3xQskq3v6RvJ1mGRsF1K5oiTXxh',
         'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
-        { from: doctorC }
+        { from: doctorD }
       )
     })
 }
