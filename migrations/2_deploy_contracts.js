@@ -4,11 +4,11 @@ const IuvoCoreByProxy = artifacts.require('IuvoCore')
 
 module.exports = async (deployer, network, accounts) => {
   const owner = accounts[0]
-  const ratingOracle = accounts[9]
-  const doctorA = accounts[1]
-  const doctorB = accounts[2]
-  const doctorC = accounts[3]
-  const doctorD = accounts[4]
+  const ratingOracle = accounts[1]
+  const doctorA = accounts[9]
+  const doctorB = accounts[8]
+  const doctorC = accounts[7]
+  const doctorD = accounts[6]
 
   deployer.deploy(IuvoCore)
     .then(async () => {
@@ -31,7 +31,7 @@ module.exports = async (deployer, network, accounts) => {
       )
       await iuvoCoreByProxy.setRating(
         doctorA,
-        "4.2",
+        '4.2',
         { from: ratingOracle }
       )
 
@@ -44,7 +44,7 @@ module.exports = async (deployer, network, accounts) => {
       )
       await iuvoCoreByProxy.setRating(
         doctorB,
-        "4.0",
+        '4.0',
         { from: ratingOracle }
       )
 
@@ -57,7 +57,7 @@ module.exports = async (deployer, network, accounts) => {
       )
       await iuvoCoreByProxy.setRating(
         doctorC,
-        "4.4",
+        '4.4',
         { from: ratingOracle }
       )
 
@@ -70,9 +70,8 @@ module.exports = async (deployer, network, accounts) => {
       )
       await iuvoCoreByProxy.setRating(
         doctorD,
-        "3.5",
+        '3.5',
         { from: ratingOracle }
       )
-      
     })
 }
