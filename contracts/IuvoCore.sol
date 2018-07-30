@@ -89,10 +89,6 @@ contract IuvoCore is PausableUpgradeable{
         _;  
     }
 
-    constructor(address _ratingOracle){
-        ratingOracle = _ratingOracle;
-    }
-
     /** @dev Set new Doctor data. Can be used to either update data 
      *  or register a new doctor for `msg.sender`'s address.
      *  @param _name The name of the doctor.
@@ -213,6 +209,13 @@ contract IuvoCore is PausableUpgradeable{
         docToUpdate.rating = _rating;
 
         emit DoctorRatingUpdated(_doctor,_rating);
+    }
+
+    /** @dev Sets the rating oracle.
+     *  @param _ratingOracle The address that will be allowed to set a doctor's rating.
+     */
+    function setRatingOracle(address _ratingOracle) public onlyOwner{
+        ratingOracle = _ratingOracle;
     }
 
     /** @dev Returns the number of doctors on the platform.
