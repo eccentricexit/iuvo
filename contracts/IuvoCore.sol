@@ -1,7 +1,8 @@
 /**
  *  @title IuvoCore
  *  @author Matheus Alencar - <mtsalenc@gmail.com> 
- *  Bug Bounties: This code hasn't undertaken a bug bounty program yet.
+ *  Bug Bounties: This code hasn't undertaken a bug bounty program. It
+ *  was built for educational purposes only.
  */
 pragma solidity 0.4.24;
 
@@ -13,7 +14,6 @@ import "kleros-interaction/contracts/standard/arbitration/Arbitrator.sol";
  *  @title IuvoCore
  *  @author Matheus Alencar - <mtsalenc@gmail.com>
  *  Upgradable IuvoCore contract. This is a meeting point between patients and doctors.
- *  Deployes a new kleros arbitrable transaction when a doctor is hired.
  *  This contract was built for educational purposes.
  */
 contract IuvoCore is PausableUpgradeable{
@@ -23,7 +23,7 @@ contract IuvoCore is PausableUpgradeable{
     mapping(address => uint256) public doctorPosition;
     mapping(address => bool) public doctorExists;
     address[] public doctorAddresses;
-    Docotor[] public doctors;
+    Doctor[] public doctors;
     
     mapping(address => uint[]) public doctorAppointments;
     mapping(address => uint[]) public patientAppointments;
