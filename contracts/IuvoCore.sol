@@ -18,7 +18,7 @@ import "kleros-interaction/contracts/standard/arbitration/Arbitrator.sol";
  */
 contract IuvoCore is PausableUpgradeable{
 
-    address ratingOracle;
+    address public ratingOracle;
 
     mapping(address => uint256) public doctorPosition;
     mapping(address => bool) public doctorExists;
@@ -132,7 +132,15 @@ contract IuvoCore is PausableUpgradeable{
             doctorAddresses.push(doctorAddr);
         }
 
-        emit NewDoctorData(doctorAddr,_name,_bio,_profilePicIpfsAddr,_contractIpfsAddr);
+        uint256 doctorPos = doctorPosition[doctorAddr];
+        Doctor storage updatedDoctor = doctors[doctorPos];
+        emit NewDoctorData(
+            doctorAddr,
+            updatedDoctor.name,
+            updatedDoctor.bio,
+            updatedDoctor.profilePicIpfsAddr,
+            updatedDoctor.contractIpfsAddr
+        );
     }
 
     /** @dev Deletes doctor's data.
