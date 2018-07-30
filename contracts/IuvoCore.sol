@@ -51,15 +51,38 @@ contract IuvoCore is PausableUpgradeable{
      *  @param _profilePicIpfsAddr The doctor's profile picture ipfs address/hash
      *  @param _contractIpfsAddr The contract's ipfs address/hash
      */
+    event NewDoctorData(
+        address _doctor,
+        string _name,  
+        string _bio,
+        string _profilePicIpfsAddr,
+        string _contractIpfsAddr
+    );
 
     /** @dev Indicate `_doctor`'s data has been removed.
      *  @param _doctor The doctor's address.     
      */
+    event DoctorDataDeleted(
+        address _doctor        
+    );
 
     /** @dev Indicate that the `_doctor`'s rating has been updated.
      *  @param _doctor The doctor's address.
      *  @param _rating The doctor's new rating.
      */
+    event DoctorRatingUpdated(
+        address _doctor,
+        string _rating
+    );
+
+    /** @dev Indicate that `_doctor` has been hired by `_patient`
+     *  @param _doctor The doctor's address.
+     *  @param _patient The patient that hired the doctor.
+     */
+    event DoctorHired(
+        address _doctor,
+        address _patient
+    );
 
     modifier onlyRatingOracle() {
         require(msg.sender==oracle); 
