@@ -103,7 +103,6 @@ contract IuvoCore is PausableUpgradeable{
     function setDoctor(
         string _name,
         string _bio, 
-        string _ipfsContract
         string _profilePicIpfsAddr,
         string _contractIpfsAddr
     ) 
