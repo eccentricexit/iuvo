@@ -86,7 +86,7 @@ contract IuvoCore is PausableUpgradeable{
     );
 
     modifier onlyRatingOracle() {
-        require(msg.sender==oracle); 
+        require(msg.sender==ratingOracle); 
         _;  
     }
 
@@ -109,7 +109,7 @@ contract IuvoCore is PausableUpgradeable{
         address doctorAddr = msg.sender;
         if(doctorExists[doctorAddr]){
             // update data
-            uint256 doctorPositionInArray = doctorsPosition[doctorAddr];
+            uint256 doctorPositionInArray = doctorPosition[doctorAddr];
 
             Doctor storage docToUpdate = doctors[doctorPositionInArray];
             docToUpdate.name = _name;
@@ -119,7 +119,6 @@ contract IuvoCore is PausableUpgradeable{
         } else {
             // new doctor
             Doctor memory newDoc = Doctor(
-                doctors.length,
                 _name,
                 "Waiting review", 
                 _bio, 
@@ -128,12 +127,12 @@ contract IuvoCore is PausableUpgradeable{
                 doctorAddr
             );
             doctors.push(newDoc);
-            doctorsMapping[doctorAddr] = doctors.length-1;
+            doctorPosition[doctorAddr] = doctors.length-1;
             doctorExists[doctorAddr] = true;
             doctorAddresses.push(doctorAddr);
         }
 
-        emit NewDoctorData(doctorAddr,_name,_rating,_bio,_profilePicIpfsAddr);
+        emit NewDoctorData(doctorAddr,_name,_bio,_profilePicIpfsAddr,_contractIpfsAddr);
     }
 
     /** @dev Deletes doctor's data.
@@ -160,9 +159,11 @@ contract IuvoCore is PausableUpgradeable{
 
     /** @dev Hires a doctor and deploys a kleros arbitrable transaction contract.
      *  @param _doctor The address of the doctor being hired.
-     *  @param _bio The bio of the doctor.
-     *  @param _profilePicIpfsAddr The doctor's profile picture ipfs address/hash.
-     *  @param _contractIpfsAddr The doctor's contract ipfs address/hash.
+     *  @param _contractIpfsAddr The ipfs address/hash of the contract for this service.
+     *  @param _arbitrator The arbitrator of the contract.
+     *  @param _metaEvidence Link to meta-evidence JSON.
+     *  @param _timeout  Time after which a party automatically loose a dispute.
+     *  @param _arbitratorExtraData Extra data for the arbitrator.
      */
     function hireDoctor(
         address _doctor,
@@ -233,7 +234,7 @@ contract IuvoCore is PausableUpgradeable{
     }
 
     /** @dev Returns the number appointments associated with a `_patient`.
-     *  @param _doctor The patient being queried.
+     *  @param _patient The patient being queried.
      */
     function patientAppointmentsLength(address _patient) public view returns (uint256) {
         return patientAppointments[_patient].length;
@@ -242,6 +243,6 @@ contract IuvoCore is PausableUpgradeable{
     /** @dev Returns the number appointments associated with a `_doctor`.
      */
     function returnDoctorsArray() public view returns (address[]) {
-        return doctorsAddresses;
+        return doctorAddresses;
     }
 }
