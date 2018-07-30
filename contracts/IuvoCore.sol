@@ -35,6 +35,7 @@ contract IuvoCore is PausableUpgradeable{
         string bio;
         string profilePicIpfsAddr;
         string contractIpfsAddr;
+        address doctorAddr;
     }
 
     struct Appointment {
@@ -113,7 +114,6 @@ contract IuvoCore is PausableUpgradeable{
             Doctor storage docToUpdate = doctors[doctorPositionInArray];
             docToUpdate.name = _name;
             docToUpdate.bio = _bio;
-            docToUpdate.rating = "Waiting review";
             docToUpdate.profilePicIpfsAddr = _profilePicIpfsAddr;
             docToUpdate.contractIpfsAddr = _contractIpfsAddr;
         } else {
@@ -121,10 +121,11 @@ contract IuvoCore is PausableUpgradeable{
             Doctor memory newDoc = Doctor(
                 doctors.length,
                 _name,
-                _rating, 
+                "Waiting review", 
                 _bio, 
                 _profilePicIpfsAddr,
-                _contractIpfsAddr
+                _contractIpfsAddr,
+                doctorAddr
             );
             doctors.push(newDoc);
             doctorsMapping[doctorAddr] = doctors.length-1;
@@ -139,21 +140,21 @@ contract IuvoCore is PausableUpgradeable{
      */
     function deleteDoctor() public whenNotPaused {
         require(doctorExists[msg.sender]);
-        uint256 toBeDeletedPosition = doctorsMapping[msg.sender].pos;
+        uint256 toBeDeletedPosition = doctorPosition[msg.sender];
         uint256 lastDoctorPosition = doctors.length-1;
 
-        // Replace with last
+        // Overwrite with last
         doctors[toBeDeletedPosition] = doctors[lastDoctorPosition];
 
         // Update position
-        doctorsMapping[doctors[toBeDeletedPosition]].pos = toBeDeletedPosition;
+        doctorPosition[doctors[toBeDeletedPosition].doctorAddr] = toBeDeletedPosition;
 
         // Delete last item
         delete doctors[lastDoctorPosition];
         doctors.length--;
 
         // Remove from mapping
-        delete doctorsMapping[msg.sender];
+        delete doctorPosition[msg.sender];
         doctorExists[msg.sender] = false;
     }
 
