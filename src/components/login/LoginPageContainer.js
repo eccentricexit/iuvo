@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
-import Login from './Login'
+import LoginPage from './LoginPage'
 import { drizzleConnect } from 'drizzle-react'
 
 class LoginContainer extends Component {
   render () {
-    return <Login />
+    return <LoginPage />
   }
 }
 
 const mapStateToProps = () => {
-  return {    
-  }
+  return {}
 }
 
 export default drizzleConnect(LoginContainer, mapStateToProps)

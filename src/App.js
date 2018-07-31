@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import ResponsiveDrawerContainer from '../src/layouts/drawer/ResponsiveDrawerContainer'
+import ResponsiveDrawerContainer from '../src/components/drawer/ResponsiveDrawerContainer'
 import { drizzleConnect } from 'drizzle-react'
 import PropTypes from 'prop-types'
 import './App.css'
-import LoginContainer from './layouts/login/LoginContainer'
+import LoginContainer from './components/login/LoginPageContainer'
 
 class App extends Component {
   render () {

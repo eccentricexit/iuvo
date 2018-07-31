@@ -6,7 +6,7 @@ import { DrizzleProvider } from 'drizzle-react'
 
 // Layouts
 import App from './App'
-import HomeContainer from './layouts/home/HomeContainer'
+import HomeContainer from './components/home/HomeContainer'
 import { LoadingContainer } from 'drizzle-react-components'
 
 import store from './store'
@@ -16,18 +16,18 @@ import drizzleOptions from './drizzleOptions'
 const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render((
-  <DrizzleProvider options={drizzleOptions} store={store}>
-    <LoadingContainer>
-      <Router history={history}>
-        <Route path='/' component={App}>
-          <IndexRoute component={HomeContainer} />
-        </Route>
-        <Route path='/:id' component={App}>
-          <IndexRoute component={HomeContainer} />
-        </Route>
-      </Router>
-    </LoadingContainer>
-  </DrizzleProvider>
-),
-document.getElementById('root')
+    <DrizzleProvider options={drizzleOptions} store={store}>
+      <LoadingContainer>
+        <Router history={history}>
+          <Route path='/' component={App}>
+            <IndexRoute component={HomeContainer} />
+          </Route>
+          <Route path='/:id' component={App}>
+            <IndexRoute component={HomeContainer} />
+          </Route>
+        </Router>
+      </LoadingContainer>
+    </DrizzleProvider>
+  ),
+  document.getElementById('root')
 )
