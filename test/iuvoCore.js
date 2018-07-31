@@ -120,9 +120,23 @@ contract('IuvoCore', function (accounts) {
   describe('Appointments', () => {
     beforeEach(deployContracts)
   
-    it('should patients to hire doctors', async () => {
+    it('should allow patients to hire doctors', async () => {
+
+      let numberOfAppointments = (await iuvoCoreByProxy.appointmentsLength()).toNumber()
+      assert.equal(numberOfAppointments,0,'there should be no appointments yet')
       
-      
+      await iuvoCoreByProxy.hireDoctor(
+        doctorA,
+        "QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm",
+        0x0,
+        "https://kleros.io",
+        100,
+        0x0,
+        { from: patientA }
+      )
+
+      numberOfAppointments = (await iuvoCoreByProxy.appointmentsLength()).toNumber()
+      assert.equal(numberOfAppointments,1,'there should be an appointment')
       
     })   
     

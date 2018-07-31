@@ -134,6 +134,7 @@ contract IuvoCore is PausableUpgradeable{
 
         uint256 doctorPos = doctorPosition[doctorAddr];
         Doctor storage updatedDoctor = doctors[doctorPos];
+
         emit NewDoctorData(
             doctorAddr,
             updatedDoctor.name,
@@ -228,10 +229,16 @@ contract IuvoCore is PausableUpgradeable{
         ratingOracle = _ratingOracle;
     }
 
-    /** @dev Returns the number of doctors on the platform.
+    /** @dev Returns the number of registered doctors.
      */
     function doctorsArrayLength() public view returns (uint256) {
         return doctors.length;
+    }
+
+    /** @dev Returns the number registered appointments.
+     */
+    function appointmentsLength() public view returns (uint256) {
+        return appointments.length;
     }
 
     /** @dev Returns the number appointments associated with a `_doctor`.
