@@ -9,6 +9,7 @@ module.exports = async (deployer, network, accounts) => {
   const doctorB = accounts[8]
   const doctorC = accounts[7]
   const doctorD = accounts[6]
+  const patientA = accounts[5]
 
   deployer.deploy(IuvoCore)
     .then(async () => {
@@ -73,5 +74,16 @@ module.exports = async (deployer, network, accounts) => {
         '3.5',
         { from: ratingOracle }
       )
+        
+      await iuvoCoreByProxy.hireDoctor(
+        doctorA,
+        "QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm",
+        0x0,
+        "https://kleros.io",
+        100,
+        0x0,
+        { from: patientA }
+      )
+
     })
 }
