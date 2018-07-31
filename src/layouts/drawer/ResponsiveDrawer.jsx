@@ -69,7 +69,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
   },
-  accountIcon: {
+  accountAddress: {
     marginLeft: 'auto'
   }
 })
@@ -94,8 +94,8 @@ class ResponsiveDrawer extends Component {
 
   handleLogin = () => {
     uport.requestCredentials({requested: ['name','avatar']}).then(credentials => {
-      console.info(credentials.avatar)
-      this.setState({credentials})
+      console.info(credentials)
+      this.setState({ credentials })
     })
   }
 
@@ -130,11 +130,16 @@ class ResponsiveDrawer extends Component {
             </IconButton> 
             <Typography variant="title" color="inherit" noWrap>
               {currentPage}
-            </Typography>            
+            </Typography>
+            <Typography className={classes.accountAddress} color="inherit">
+              {!credentials 
+                ? ''
+                : 'uPort addr: '+credentials.address
+              }
+            </Typography>
             <IconButton
               onClick={this.handleLogin}
               color="inherit"
-              className={classes.accountIcon}
             >
               {!credentials
                 ? <AccountCircle  />
