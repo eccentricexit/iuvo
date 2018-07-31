@@ -6,7 +6,7 @@ contract('IuvoCore', function (accounts) {
   const owner = accounts[0]
   const ratingOracle = accounts[1]
   const doctorA = accounts[9]
-  const patientA = accounts[8]  
+  const patientA = accounts[8]
 
   let pausableProxy
   let iuvoCoreByProxy
@@ -21,7 +21,7 @@ contract('IuvoCore', function (accounts) {
     await iuvoCoreByProxy.setRatingOracle(ratingOracle, { from: owner })
   }
 
-  const deployMockDoctor = async (iuvoCoreByProxy,doctorAccount) => {
+  const deployMockDoctor = async (iuvoCoreByProxy, doctorAccount) => {
     await iuvoCoreByProxy.setDoctor(
       'Dr. Nancy',
       'Love taking care of people',
@@ -33,26 +33,24 @@ contract('IuvoCore', function (accounts) {
 
   describe('Doctor CRUD operations', () => {
     beforeEach(deployContracts)
-  
+
     it('should allow adding doctors through proxy', async () => {
-      
       let doctorExists = await iuvoCoreByProxy.doctorExists(doctorA)
       let doctorCount = (await iuvoCoreByProxy.doctorsArrayLength()).toNumber()
 
-      assert.isFalse(doctorExists,'doctor should not be present yet')
-      assert.equal(doctorCount,0,'there should be no doctors')
+      assert.isFalse(doctorExists, 'doctor should not be present yet')
+      assert.equal(doctorCount, 0, 'there should be no doctors')
 
-      await deployMockDoctor(iuvoCoreByProxy,doctorA)      
+      await deployMockDoctor(iuvoCoreByProxy, doctorA)
 
       doctorExists = await iuvoCoreByProxy.doctorExists(doctorA)
       doctorCount = (await iuvoCoreByProxy.doctorsArrayLength()).toNumber()
 
-      assert.isTrue(doctorExists,'doctor should be present')
-      assert.equal(doctorCount,1,'there should be a doctor')
+      assert.isTrue(doctorExists, 'doctor should be present')
+      assert.equal(doctorCount, 1, 'there should be a doctor')
     })
 
     it('should allow editing doctors through proxy', async () => {
-
       await iuvoCoreByProxy.setDoctor(
         'Dr. Nanct',
         'Love taking care of people',
@@ -64,7 +62,7 @@ contract('IuvoCore', function (accounts) {
       const doctorPosition = (await iuvoCoreByProxy.doctorPosition.call(doctorA)).toNumber()
       let doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition)
 
-      assert.equal(doctorData[0],'Dr. Nanct','should have saved the data correctly')
+      assert.equal(doctorData[0], 'Dr. Nanct', 'should have saved the data correctly')
 
       await iuvoCoreByProxy.setDoctor(
         'Dr. Nancy',
@@ -73,73 +71,65 @@ contract('IuvoCore', function (accounts) {
         'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
         { from: doctorA }
       )
-      
+
       doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition)
-      assert.equal(doctorData[0],'Dr. Nancy','should have updated the data correctly')
-      
+      assert.equal(doctorData[0], 'Dr. Nancy', 'should have updated the data correctly')
     })
 
     it('should allow deleting doctors through proxy', async () => {
-
-      await deployMockDoctor(iuvoCoreByProxy,doctorA)
+      await deployMockDoctor(iuvoCoreByProxy, doctorA)
 
       let doctorExists = await iuvoCoreByProxy.doctorExists(doctorA)
-      assert.isTrue(doctorExists,'doctor should be present')
+      assert.isTrue(doctorExists, 'doctor should be present')
       let doctorCount = (await iuvoCoreByProxy.doctorsArrayLength()).toNumber()
-      assert.equal(doctorCount,1,'there should be a doctor')
-      
+      assert.equal(doctorCount, 1, 'there should be a doctor')
+
       await iuvoCoreByProxy.deleteDoctor({ from: doctorA })
 
       doctorExists = await iuvoCoreByProxy.doctorExists(doctorA)
-      assert.isFalse(doctorExists,'doctor should be present')
+      assert.isFalse(doctorExists, 'doctor should be present')
       doctorCount = (await iuvoCoreByProxy.doctorsArrayLength()).toNumber()
-      assert.equal(doctorCount,0,'there should be a doctor')
-      
+      assert.equal(doctorCount, 0, 'there should be a doctor')
     })
 
     it('should only the ratingOracle to set the doctors rating', async () => {
-      await deployMockDoctor(iuvoCoreByProxy,doctorA)
+      await deployMockDoctor(iuvoCoreByProxy, doctorA)
 
       const doctorPosition = (await iuvoCoreByProxy.doctorPosition.call(doctorA)).toNumber()
       let doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition)
 
-      assert.notEqual(doctorData[1],'5.0','doctor rating should not be 5.0 yet')
-      
+      assert.notEqual(doctorData[1], '5.0', 'doctor rating should not be 5.0 yet')
+
       await expectThrow(
-        iuvoCoreByProxy.setRating(doctorA, '5.0' ,{ from: doctorA })
+        iuvoCoreByProxy.setRating(doctorA, '5.0', { from: doctorA })
       )
 
-      await iuvoCoreByProxy.setRating(doctorA, '5.0' ,{ from: ratingOracle })
+      await iuvoCoreByProxy.setRating(doctorA, '5.0', { from: ratingOracle })
       doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition)
 
-      assert.equal(doctorData[1],'5.0','doctor rating should be 5.0 yet')
+      assert.equal(doctorData[1], '5.0', 'doctor rating should be 5.0 yet')
     })
-    
   })
 
   describe('Appointments', () => {
     beforeEach(deployContracts)
-  
-    it('should allow patients to hire doctors', async () => {
 
+    it('should allow patients to hire doctors', async () => {
       let numberOfAppointments = (await iuvoCoreByProxy.appointmentsLength()).toNumber()
-      assert.equal(numberOfAppointments,0,'there should be no appointments yet')
-      
+      assert.equal(numberOfAppointments, 0, 'there should be no appointments yet')
+
       await iuvoCoreByProxy.hireDoctor(
         doctorA,
-        "QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm",
+        'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
         0x0,
-        "https://kleros.io",
+        'https://kleros.io',
         100,
         0x0,
         { from: patientA }
       )
 
       numberOfAppointments = (await iuvoCoreByProxy.appointmentsLength()).toNumber()
-      assert.equal(numberOfAppointments,1,'there should be an appointment')
-      
-    })   
-    
+      assert.equal(numberOfAppointments, 1, 'there should be an appointment')
+    })
   })
-
 })

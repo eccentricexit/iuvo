@@ -36,25 +36,24 @@ class DoctorListContainer extends Component {
             // Using drizzle's call() instead of cacheCall() beacause
             // cachecCall() is not available here yet.
             iuvoCoreByProxyInstance.methods.doctorPosition(address).call()
-            .then(doctorPosition => {
-              return iuvoCoreByProxyInstance.methods.doctors(doctorPosition).call()
-            })
-            .then(doctor => {
-              ipfs.files.cat(doctor.profilePicIpfsAddr, (err, file) => {
-                if (err) {
-                  throw err
-                }
-                const img = file.toString('base64')
-                doctor.imgRaw = 'data:image/png;base64,' + img
+              .then(doctorPosition => {
+                return iuvoCoreByProxyInstance.methods.doctors(doctorPosition).call()
               })
-              this.doctors.push(doctor)
-            })
+              .then(doctor => {
+                ipfs.files.cat(doctor.profilePicIpfsAddr, (err, file) => {
+                  if (err) {
+                    throw err
+                  }
+                  const img = file.toString('base64')
+                  doctor.imgRaw = 'data:image/png;base64,' + img
+                })
+                this.doctors.push(doctor)
+              })
           })
 
           console.info('done adding doctors')
         })
     }
-    
   }
 
   render () {

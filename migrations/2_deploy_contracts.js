@@ -74,16 +74,15 @@ module.exports = async (deployer, network, accounts) => {
         '3.5',
         { from: ratingOracle }
       )
-        
+
       await iuvoCoreByProxy.hireDoctor(
         doctorA,
-        "QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm",
+        'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
         0x0,
-        "https://kleros.io",
+        'https://kleros.io',
         100,
         0x0,
         { from: patientA }
       )
-
     })
 }
