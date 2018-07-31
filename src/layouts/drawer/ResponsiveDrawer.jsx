@@ -71,6 +71,7 @@ const styles = theme => ({
   },
   accountAddress: {
     marginLeft: 'auto'
+    marginRight: '1em'
   }
 })
 
