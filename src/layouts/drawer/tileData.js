@@ -3,28 +3,28 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Timer from '@material-ui/icons/Timer'
-import StarIcon from '@material-ui/icons/Star'
-import ReportIcon from '@material-ui/icons/Report'
+import ViewListIcon from '@material-ui/icons/ViewList'
+import PersonIcon from '@material-ui/icons/Person'
 
 export const menuListItems = (
   <div>
     <ListItem button>
       <ListItemIcon>
-        <StarIcon />
+        <ViewListIcon />
       </ListItemIcon>
-      <ListItemText primary='Favorites' />
+      <ListItemText primary='Doctor List' />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <ReportIcon />
+        <PersonIcon />
       </ListItemIcon>
-      <ListItemText primary='Disputes' />
+      <ListItemText primary='My Account' />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <Timer />
       </ListItemIcon>
-      <ListItemText primary='Ongoing contracts' />
+      <ListItemText primary='Appointments' />
     </ListItem>
   </div>
 )
