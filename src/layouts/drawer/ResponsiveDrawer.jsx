@@ -70,7 +70,7 @@ const styles = theme => ({
     padding: theme.spacing.unit * 3,
   },
   accountAddress: {
-    marginLeft: 'auto'
+    marginLeft: 'auto',
     marginRight: '1em'
   }
 })
