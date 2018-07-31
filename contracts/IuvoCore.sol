@@ -63,27 +63,25 @@ contract IuvoCore is PausableUpgradeable{
     /** @dev Indicate `_doctor`'s data has been removed.
      *  @param _doctor The doctor's address.     
      */
-    event DoctorDataDeleted(
-        address _doctor        
-    );
+    event DoctorDataDeleted(address _doctor);
 
     /** @dev Indicate that the `_doctor`'s rating has been updated.
      *  @param _doctor The doctor's address.
      *  @param _rating The doctor's new rating.
      */
-    event DoctorRatingUpdated(
-        address _doctor,
-        string _rating
+    event DoctorRatingUpdated(address _doctor,string _rating
     );
 
     /** @dev Indicate that `_doctor` has been hired by `_patient`
      *  @param _doctor The doctor's address.
      *  @param _patient The patient that hired the doctor.
      */
-    event DoctorHired(
-        address _doctor,
-        address _patient
-    );
+    event DoctorHired(address _doctor,address _patient);
+
+    /** @dev Indicate that `_ratingOracle` has been set as the rating oracle.
+     *  @param _ratingOracle The doctor's address.     
+     */
+    event RatingOracleSet(address _ratingOracle);
 
     modifier onlyRatingOracle() {
         require(msg.sender==ratingOracle); 
@@ -148,7 +146,8 @@ contract IuvoCore is PausableUpgradeable{
      */
     function deleteDoctor() public whenNotPaused {
         require(doctorExists[msg.sender]);
-        uint256 toBeDeletedPosition = doctorPosition[msg.sender];
+        address doctorAddr = msg.sender;
+        uint256 toBeDeletedPosition = doctorPosition[doctorAddr];
         uint256 lastDoctorPosition = doctors.length-1;
 
         // Overwrite with last
@@ -162,8 +161,10 @@ contract IuvoCore is PausableUpgradeable{
         doctors.length--;
 
         // Remove from mapping
-        delete doctorPosition[msg.sender];
-        doctorExists[msg.sender] = false;
+        delete doctorPosition[doctorAddr];
+        doctorExists[doctorAddr] = false;
+
+        emit DoctorDataDeleted(doctorAddr);
     }
 
     /** @dev Hires a doctor and deploys a kleros arbitrable transaction contract.
@@ -206,6 +207,8 @@ contract IuvoCore is PausableUpgradeable{
 
         patientAppointments[_patient].push(appointments.length-1);
         doctorAppointments[_doctor].push(appointments.length-1);
+
+        emit DoctorHired(_doctor,_patient);
     }
 
     /** @dev Sets a doctor's rating. Only callable by the rating oracle.
@@ -227,6 +230,8 @@ contract IuvoCore is PausableUpgradeable{
      */
     function setRatingOracle(address _ratingOracle) public onlyOwner{
         ratingOracle = _ratingOracle;
+
+        emit RatingOracleSet(_ratingOracle);
     }
 
     /** @dev Returns the number of registered doctors.
