@@ -30,9 +30,17 @@ class DoctorListContainer extends Component {
         .returnDoctorsArray()
         .call()
         .then(doctorAddresses => {
+          // We must loop over each position because the evm doesn't support returning
+          // arrays of structs yet
           doctorAddresses.forEach(address => {
-            iuvoCoreByProxyInstance.methods.doctors(address).call().then(doctor => {
-              ipfs.files.cat(doctor.ipfsProfilePic, function (err, file) {
+            // Using drizzle's call() instead of cacheCall() beacause
+            // cachecCall() is not available here yet.
+            iuvoCoreByProxyInstance.methods.doctorPosition(address).call()
+            .then(doctorPosition => {
+              return iuvoCoreByProxyInstance.methods.doctors(doctorPosition).call()
+            })
+            .then(doctor => {
+              ipfs.files.cat(doctor.profilePicIpfsAddr, (err, file) => {
                 if (err) {
                   throw err
                 }
@@ -46,6 +54,7 @@ class DoctorListContainer extends Component {
           console.info('done adding doctors')
         })
     }
+    
   }
 
   render () {
