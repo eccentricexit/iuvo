@@ -8,7 +8,7 @@ import PersonIcon from '@material-ui/icons/Person'
 
 export const menuListItems = (
   <div>
-    <ListItem button>
+    <ListItem button onClick={() => {console.info('yay')}}>
       <ListItemIcon>
         <ViewListIcon />
       </ListItemIcon>

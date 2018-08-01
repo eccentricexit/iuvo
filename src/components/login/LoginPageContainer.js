@@ -4,7 +4,7 @@ import { drizzleConnect } from 'drizzle-react'
 import { uport } from '../../util/connectors'
 import { setUserData } from '../../actions'
 
-class LoginContainer extends Component {
+class LoginPageContainer extends Component {
   handleClick(){
     const { setUserData } = this.props
     uport.requestCredentials({requested: ['name','avatar']}).then(credentials => {
@@ -14,7 +14,6 @@ class LoginContainer extends Component {
 
   render () {
     const { userData } = this.props
-    console.info('userData',userData)
     const isOpen = userData ? false : true
     return <LoginPage isOpen={isOpen} handleClick={() => this.handleClick()} />
   }
@@ -25,7 +24,7 @@ const mapStateToProps = ({userData}) => {
 }
 
 export default drizzleConnect(
-  LoginContainer, 
+  LoginPageContainer, 
   mapStateToProps,  
   { setUserData }
 )

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
@@ -14,7 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Avatar from '@material-ui/core/Avatar'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import { menuListItems } from './tileData'
-import { uport } from '../../util/connectors'
+
 
 const drawerWidth = 240
 

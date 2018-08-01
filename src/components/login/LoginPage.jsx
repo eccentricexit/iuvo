@@ -2,11 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import Dialog from '@material-ui/core/Dialog'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import Slide from '@material-ui/core/Slide'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
@@ -33,7 +31,7 @@ const styles = {
 }
 
 const LoginPage = (props) => {
-  const { isOpen, handleClick, classes } = props  
+  const { handleClick, classes } = props  
   return (
     <div>
       <AppBar className={classes.appBar}>

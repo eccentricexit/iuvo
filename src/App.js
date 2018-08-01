@@ -3,18 +3,19 @@ import ResponsiveDrawerContainer from '../src/components/drawer/ResponsiveDrawer
 import { drizzleConnect } from 'drizzle-react'
 import PropTypes from 'prop-types'
 import './App.css'
-import LoginContainer from './components/login/LoginPageContainer'
+import LoginPageContainer from './components/login/LoginPageContainer'
 
 class App extends Component {
   render () {
     const { userData } = this.props
+    userData.initialized = true
     return (
       <div className='App'>
         {userData.initialized
           ? (<ResponsiveDrawerContainer currentPage='Home'>
               {this.props.children}
              </ResponsiveDrawerContainer>)
-          : <LoginContainer />
+          : <LoginPageContainer />
         }
       </div>
     )
