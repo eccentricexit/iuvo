@@ -10,10 +10,10 @@ class App extends Component {
     const { userData } = this.props
     return (
       <div className='App'>
-        {userData
-          ?(<ResponsiveDrawerContainer currentPage='Home'>
-            {this.props.children}
-            </ResponsiveDrawerContainer>)
+        {userData.initialized
+          ? (<ResponsiveDrawerContainer currentPage='Home'>
+              {this.props.children}
+             </ResponsiveDrawerContainer>)
           : <LoginContainer />
         }
       </div>

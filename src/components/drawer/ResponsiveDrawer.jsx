@@ -75,47 +75,33 @@ const styles = theme => ({
   }
 })
 
-class ResponsiveDrawer extends Component {
-  state = {
-    mobileOpen: false,
-    credentials: null
-  }
+const ResponsiveDrawer = (props) => {
+  
+  const { 
+    classes, 
+    theme, 
+    children, 
+    currentPage, 
+    handleDrawerToggle,
+    mobileOpen,    
+  } = props  
 
-  handleDrawerToggle = () => {
-    this.setState(state => ({ mobileOpen: !state.mobileOpen }))
-  }
+  const userData = props.userData.initialized 
+    ? props.userData.userData 
+    : props.userData
 
-  handleMenu = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  }
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  }
-
-  handleLogin = () => {
-    uport.requestCredentials({requested: ['name','avatar']}).then(credentials => {
-      console.info(credentials)
-      this.setState({ credentials })
-    })
-  }
-
-  render() {
-    const { classes, theme, children, currentPage } = this.props
-    const { credentials } = this.state
-
-    const drawer = (
-      <div>        
-        <div className={classes.toolbar}>          
-          <Favorite className={classes.icon} color="secondary"/>
-          <Typography variant="title" color="inherit" className={classes.title}>
-            IUVO
-          </Typography>          
-        </div>
-        <Divider />
-        <List>{menuListItems}</List>        
+  const drawer = (
+    <div>        
+      <div className={classes.toolbar}>          
+        <Favorite className={classes.icon} color="secondary"/>
+        <Typography variant="title" color="inherit" className={classes.title}>
+          IUVO
+        </Typography>          
       </div>
-    )
+      <Divider />
+      <List>{menuListItems}</List>        
+    </div>
+  )
 
     return (
       <div className={classes.root}>
@@ -124,7 +110,7 @@ class ResponsiveDrawer extends Component {
             <IconButton
               color="inherit"
               aria-label="Open drawer"
-              onClick={this.handleDrawerToggle}
+              onClick={handleDrawerToggle}
               className={classes.navIconHide}
             >
               <MenuIcon />
@@ -133,18 +119,17 @@ class ResponsiveDrawer extends Component {
               {currentPage}
             </Typography>
             <Typography className={classes.accountAddress} color="inherit">
-              {!credentials 
-                ? ''
-                : 'uPort addr: '+credentials.address
+              {userData
+                ? 'uPort addr: '+userData.address
+                : ''
               }
             </Typography>
             <IconButton
-              onClick={this.handleLogin}
               color="inherit"
             >
-              {!credentials
-                ? <AccountCircle  />
-                : <Avatar alt="Profile pic" src={credentials.avatar.uri} />
+              {userData
+                ? <Avatar alt="Profile pic" src={userData.avatar.uri} />
+                : <AccountCircle  />
               }
             </IconButton>
           </Toolbar>
@@ -153,8 +138,8 @@ class ResponsiveDrawer extends Component {
           <Drawer
             variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
             classes={{
               paper: classes.drawerPaper,
             }}
@@ -182,7 +167,7 @@ class ResponsiveDrawer extends Component {
         </main>
       </div>
     )
-  }
+  
 }
 
 ResponsiveDrawer.propTypes = {
