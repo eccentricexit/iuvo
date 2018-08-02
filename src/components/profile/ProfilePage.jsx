@@ -1,42 +1,31 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 
-
-const styles = {
-  appBar: {
-    position: 'relative'
-  },
-  flex: {
-    flex: 1    
-  },
-  card: {
-    maxWidth: 500,
-    marginTop: 64,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  centeredItem: {
-    flex: 1
-  }
-}
-
-const ProfilePage = (props) => {
-  const { classes } = props  
+const NotRegistered = (props) => {  
+  const { handleOpenSetDoctor } = props
   return (
-    <Grid container spacing={24} className={classes.container}>
-      <Grid item className={classes.categories}>
-        <h1>Hello there</h1>
-      </Grid>
-    </Grid>
+    <div>
+      <Typography variant="headline" component="h3">
+        You are not registerd as a doctor
+      </Typography>
+      <br />
+      <Button 
+        variant="contained" 
+        color="primary"
+        onClick={handleOpenSetDoctor}
+      >
+        Become a doctor
+      </Button>
+    </div>
   )
 }
 
-ProfilePage.propTypes = {
-  classes: PropTypes.object.isRequired
+const ProfilePage = (props) => {
+  const { handleOpenSetDoctor } = props  
+  return (
+    <NotRegistered handleOpenSetDoctor={handleOpenSetDoctor}/>
+  )
 }
 
-export default withStyles(styles)(ProfilePage)
+export default ProfilePage
