@@ -101,72 +101,72 @@ const ResponsiveDrawer = (props) => {
       <Divider />
       <List>{menuListItems}</List>        
     </div>
-  )
+  ) 
 
-    return (
-      <div className={classes.root}>
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={handleDrawerToggle}
-              className={classes.navIconHide}
-            >
-              <MenuIcon />
-            </IconButton> 
-            <Typography variant="title" color="inherit" noWrap>
-              {currentPage}
-            </Typography>
-            <Typography className={classes.accountAddress} color="inherit">
-              {userData
-                ? 'uPort addr: '+userData.address
-                : ''
-              }
-            </Typography>
-            <IconButton
-              color="inherit"
-            >
-              {userData
-                ? <Avatar alt="Profile pic" src={userData.avatar.uri} />
-                : <AccountCircle  />
-              }
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Hidden mdUp>
-          <Drawer
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
+  return (
+    <div className={classes.root}>
+      <AppBar className={classes.appBar}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="Open drawer"
+            onClick={handleDrawerToggle}
+            className={classes.navIconHide}
           >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            variant="permanent"
-            open
-            classes={{
-              paper: classes.drawerPaper,
-            }}
+            <MenuIcon />
+          </IconButton> 
+          <Typography variant="title" color="inherit" noWrap>
+            {currentPage}
+          </Typography>
+          <Typography className={classes.accountAddress} color="inherit">
+            {userData
+              ? 'uPort addr: '+userData.address
+              : ''
+            }
+          </Typography>
+          <IconButton
+            color="inherit"
           >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          {children}
-        </main>
-      </div>
-    )
+            {userData
+              ? <Avatar alt="Profile pic" src={userData.avatar.uri} />
+              : <AccountCircle  />
+            }
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Hidden mdUp>
+        <Drawer
+          variant="temporary"
+          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Hidden>
+      <Hidden smDown implementation="css">
+        <Drawer
+          variant="permanent"
+          open
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Hidden>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        {children}
+      </main>
+    </div>
+  )
   
 }
 

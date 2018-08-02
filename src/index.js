@@ -27,6 +27,9 @@ ReactDOM.render(
           <Route path='/profile' component={App}>
             <IndexRoute component={ProfilePageContaienr} />
           </Route>
+          <Route path='/appointments' component={App}>
+            <IndexRoute component={ProfilePageContaienr} />
+          </Route>
         </Router>
       </LoadingContainer>
     </DrizzleProvider>
