@@ -5,16 +5,16 @@ import { uport } from '../../util/connectors'
 import { setUserData } from '../../actions'
 
 class LoginPageContainer extends Component {
-  handleClick(){
+  handleClick () {
     const { setUserData } = this.props
-    uport.requestCredentials({requested: ['name','avatar']}).then(credentials => {
+    uport.requestCredentials({requested: ['name', 'avatar']}).then(credentials => {
       setUserData(credentials)
     })
   }
 
   render () {
     const { userData } = this.props
-    const isOpen = userData ? false : true
+    const isOpen = !userData
     return <LoginPage isOpen={isOpen} handleClick={() => this.handleClick()} />
   }
 }
@@ -24,7 +24,7 @@ const mapStateToProps = ({userData}) => {
 }
 
 export default drizzleConnect(
-  LoginPageContainer, 
-  mapStateToProps,  
+  LoginPageContainer,
+  mapStateToProps,
   { setUserData }
 )

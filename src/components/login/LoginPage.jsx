@@ -9,13 +9,12 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 
-
 const styles = {
   appBar: {
     position: 'relative'
   },
   flex: {
-    flex: 1    
+    flex: 1
   },
   card: {
     maxWidth: 500,
@@ -23,7 +22,7 @@ const styles = {
     marginLeft: 'auto',
     marginRight: 'auto',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   centeredItem: {
     flex: 1
@@ -31,7 +30,7 @@ const styles = {
 }
 
 const LoginPage = (props) => {
-  const { handleClick, classes } = props  
+  const { handleClick, classes } = props
   return (
     <div>
       <AppBar className={classes.appBar}>
@@ -43,18 +42,18 @@ const LoginPage = (props) => {
       </AppBar>
       <Card className={classes.card}>
         <CardContent className={classes.centeredItem}>
-          <Typography variant="headline" component="h3" >
+          <Typography variant='headline' component='h3' >
             No need to register.
           </Typography>
         </CardContent>
         <CardActions>
-          <Button 
-            variant="contained" 
-            color="primary" 
+          <Button
+            variant='contained'
+            color='primary'
             className={classes.centeredItem}
             onClick={handleClick}
           >
-            Click Login with <br/> uPort
+            Click Login with <br /> uPort
           </Button>
         </CardActions>
       </Card>

@@ -13,8 +13,8 @@ class App extends Component {
       <div className='App'>
         {userData.initialized
           ? (<ResponsiveDrawerContainer currentPage='Home'>
-              {this.props.children}
-             </ResponsiveDrawerContainer>)
+            {this.props.children}
+          </ResponsiveDrawerContainer>)
           : <LoginPageContainer />
         }
       </div>

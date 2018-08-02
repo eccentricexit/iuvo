@@ -1,56 +1,59 @@
 import React from 'react'
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
 
 const SetDoctorDialog = (props) => {
-  const { isOpen, handleCloseSetDoctor, handleSubmitSetDoctor } = props  
+  const { isOpen, handleCloseSetDoctor, handleSubmitSetDoctor } = props
   return (
     <Dialog
       open={isOpen}
       onClose={handleCloseSetDoctor}
-      aria-labelledby="form-dialog-title"
+      aria-labelledby='form-dialog-title'
     >
-      <DialogTitle id="form-dialog-title">Set your doctor data</DialogTitle>
+      <DialogTitle id='form-dialog-title'>Set your doctor data</DialogTitle>
       <DialogContent>
         <DialogContentText>
           This will register you as a doctor on iuvo.
         </DialogContentText>
         <TextField
           autoFocus
-          margin="dense"
-          id="name"
-          label="Name/Title"
-          placeholder="Dr. Smith"
-          type="email"
+          margin='dense'
+          id='name'
+          label='Name/Title'
+          placeholder='Dr. Smith'
+          type='email'
           fullWidth
         />
         <TextField
-          autoFocus
-          margin="dense"
-          id="bio"
-          label="Bio"
+          margin='dense'
+          id='bio'
+          label='Bio'
           fullWidth
-        />        
+        />
         <TextField
-          autoFocus
-          margin="dense"
-          id="ipfsContractAddr"
-          label="Contract IPFS Address"
+          margin='dense'
+          id='ipfsProfilePicAddr'
+          label='Profile picture IPFS Address'
+          fullWidth
+        />
+        <TextField
+          margin='dense'
+          id='ipfsContractAddr'
+          label='Contract IPFS Address'
           fullWidth
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCloseSetDoctor} color="primary">
+        <Button onClick={handleCloseSetDoctor} color='primary'>
           Cancel
         </Button>
-        <Button onClick={handleSubmitSetDoctor} color="primary">
-          Subscribe
+        <Button onClick={handleSubmitSetDoctor} color='primary'>
+          Submit
         </Button>
       </DialogActions>
     </Dialog>

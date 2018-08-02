@@ -15,59 +15,58 @@ import Avatar from '@material-ui/core/Avatar'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import { menuListItems } from './tileData'
 
-
 const drawerWidth = 240
 
 const styles = theme => ({
-  root: { 
-    flexGrow: 1,    
+  root: {
+    flexGrow: 1,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
     display: 'flex',
-    width: '100%',
-  },  
+    width: '100%'
+  },
   appBar: {
     position: 'absolute',
     marginLeft: drawerWidth,
     [theme.breakpoints.up('md')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
+      width: `calc(100% - ${drawerWidth}px)`
+    }
   },
   rowDirecton: {
     flexDirection: 'row'
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
+      display: 'none'
+    }
   },
   title: {
     color: theme.palette.text.secondary,
-    fontFamily:'Abril Fatface, cursive',
+    fontFamily: 'Abril Fatface, cursive',
     marginBottom: theme.spacing.unit / 2,
     '&:hover': {
-      color: theme.palette.primary.main,
-    },
+      color: theme.palette.primary.main
+    }
   },
   toolbar: {
-    ...theme.mixins.toolbar,      
+    ...theme.mixins.toolbar,
     display: 'flex',
     flexGrow: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   drawerPaper: {
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
-      position: 'relative',
-    },
+      position: 'relative'
+    }
   },
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 3
   },
   accountAddress: {
     marginLeft: 'auto',
@@ -76,86 +75,85 @@ const styles = theme => ({
 })
 
 const ResponsiveDrawer = (props) => {
-  
-  const { 
-    classes, 
-    theme, 
-    children, 
-    currentPage, 
+  const {
+    classes,
+    theme,
+    children,
+    currentPage,
     handleDrawerToggle,
-    mobileOpen,    
-  } = props  
+    mobileOpen
+  } = props
 
-  const userData = props.userData.initialized 
-    ? props.userData.userData 
+  const userData = props.userData.initialized
+    ? props.userData.userData
     : props.userData
 
   const drawer = (
-    <div>        
-      <div className={classes.toolbar}>          
-        <Favorite className={classes.icon} color="secondary"/>
-        <Typography variant="title" color="inherit" className={classes.title}>
+    <div>
+      <div className={classes.toolbar}>
+        <Favorite className={classes.icon} color='secondary' />
+        <Typography variant='title' color='inherit' className={classes.title}>
           IUVO
-        </Typography>          
+        </Typography>
       </div>
       <Divider />
-      <List>{menuListItems}</List>        
+      <List>{menuListItems}</List>
     </div>
-  ) 
+  )
 
   return (
     <div className={classes.root}>
       <AppBar className={classes.appBar}>
         <Toolbar>
           <IconButton
-            color="inherit"
-            aria-label="Open drawer"
+            color='inherit'
+            aria-label='Open drawer'
             onClick={handleDrawerToggle}
             className={classes.navIconHide}
           >
             <MenuIcon />
-          </IconButton> 
-          <Typography variant="title" color="inherit" noWrap>
+          </IconButton>
+          <Typography variant='title' color='inherit' noWrap>
             {currentPage}
           </Typography>
-          <Typography className={classes.accountAddress} color="inherit">
+          <Typography className={classes.accountAddress} color='inherit'>
             {userData
-              ? 'uPort addr: '+userData.address
+              ? 'uPort addr: ' + userData.address
               : ''
             }
           </Typography>
           <IconButton
-            color="inherit"
+            color='inherit'
           >
             {userData
-              ? <Avatar alt="Profile pic" src={userData.avatar.uri} />
-              : <AccountCircle  />
+              ? <Avatar alt='Profile pic' src={userData.avatar.uri} />
+              : <AccountCircle />
             }
           </IconButton>
         </Toolbar>
       </AppBar>
       <Hidden mdUp>
         <Drawer
-          variant="temporary"
+          variant='temporary'
           anchor={theme.direction === 'rtl' ? 'right' : 'left'}
           open={mobileOpen}
           onClose={handleDrawerToggle}
           classes={{
-            paper: classes.drawerPaper,
+            paper: classes.drawerPaper
           }}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true // Better open performance on mobile.
           }}
         >
           {drawer}
         </Drawer>
       </Hidden>
-      <Hidden smDown implementation="css">
+      <Hidden smDown implementation='css'>
         <Drawer
-          variant="permanent"
+          variant='permanent'
           open
           classes={{
-            paper: classes.drawerPaper,
+            paper: classes.drawerPaper
           }}
         >
           {drawer}
@@ -167,12 +165,11 @@ const ResponsiveDrawer = (props) => {
       </main>
     </div>
   )
-  
 }
 
 ResponsiveDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
 }
 
 export default withStyles(styles, { withTheme: true })(ResponsiveDrawer)
