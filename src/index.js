@@ -7,7 +7,8 @@ import { DrizzleProvider } from 'drizzle-react'
 // Layouts
 import App from './App'
 import HomeContainer from './components/home/HomeContainer'
-import ProfilePageContaienr from './components/profile/ProfilePageContainer'
+import ProfilePageContainer from './components/profile/ProfilePageContainer'
+import AppointmentsPageContainer from './components/appointments/AppointmentsPageContainer'
 import { LoadingContainer } from 'drizzle-react-components'
 
 import store from './store'
@@ -25,10 +26,10 @@ ReactDOM.render(
             <IndexRoute component={HomeContainer} />
           </Route>
           <Route path='/profile' component={App}>
-            <IndexRoute component={ProfilePageContaienr} />
+            <IndexRoute component={ProfilePageContainer} />
           </Route>
           <Route path='/appointments' component={App}>
-            <IndexRoute component={ProfilePageContaienr} />
+            <IndexRoute component={AppointmentsPageContainer} />
           </Route>
         </Router>
       </LoadingContainer>
