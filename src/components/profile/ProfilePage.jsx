@@ -74,7 +74,7 @@ const ProfilePage = (props) => {
               color='primary'
               onClick={() => handleOpenSetDoctor()}
             >
-              Update data
+              Update Data
             </Button>
           </CardActions>
         </Card>
