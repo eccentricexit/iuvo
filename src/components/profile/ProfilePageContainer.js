@@ -51,7 +51,7 @@ class ProfilePageContainer extends Component {
     const { isSetDoctorOpen } = this.state
     return (
       <div>
-        <ProfilePage handleOpenSetDoctor={() => this.handleOpenSetDoctor()}/>
+        <ProfilePage handleOpenSetDoctor={() => this.handleOpenSetDoctor()} {...this.props}/>
         <SetDoctorDialog 
           isOpen={isSetDoctorOpen} 
           handleSubmitSetDoctor={() => this.handleSubmitSetDoctor()} 
