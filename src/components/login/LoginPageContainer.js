@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import LoginPage from './LoginPage'
 import { drizzleConnect } from 'drizzle-react'
 import { uport } from '../../util/connectors'
-import { setUserData } from '../../actions'
+import { setUserData, setUportIuvoCoreInstance } from '../../actions'
 import { decode as mnidDecode } from 'mnid'
+import { web3 } from '../../util/connectors'
+import IuvoCoreJson from '../../../build/contracts/IuvoCore.json'
+import PausableProxyJson from '../../../build/contracts/PausableProxy.json'
 
 class LoginPageContainer extends Component {
   handleClick () {
@@ -13,6 +16,15 @@ class LoginPageContainer extends Component {
       credentials.decodedID = mnidDecode(credentials.address)
       credentials.specificNetworkAddress = credentials.decodedID.address
       setUserData(credentials)
+      
+      // We need to use uPort's web3 to sign transactions with it.
+      const IuvoCoreJsonAbi = IuvoCoreJson.abi
+      const IuvoCore = web3.eth.contract(IuvoCoreJsonAbi)
+      
+      // We do not reference the IuvoCore contract directly, instead we reference 
+      // the proxy contract. This is part of the upgradable pattern.
+      const pausableProxyAddress = PausableProxyJson.networks[process.env.NETWORK_ID].address
+      const iuvoCoreByProxy = IuvoCore.at(pausableProxyAddress)
     })
   }
 
@@ -30,5 +42,5 @@ const mapStateToProps = ({userData}) => {
 export default drizzleConnect(
   LoginPageContainer,
   mapStateToProps,
-  { setUserData }
+  { setUserData, setUportIuvoCoreInstance }
 )

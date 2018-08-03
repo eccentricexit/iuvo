@@ -2,7 +2,7 @@
   "name": "drizzle-box",
   "version": "1.0.0",
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node -r dotenv/config scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "chain": "geth --datadir=\"/tmp/eth/60/01\" --nodiscover --maxpeers 0 --port 30301 --rpc --rpcapi \"db,eth,net,web3\" --rpcport 8101 --verbosity 6 console",
@@ -66,7 +66,7 @@
     "cross-spawn": "4.0.2",
     "css-loader": "0.26.0",
     "detect-port": "1.0.1",
-    "dotenv": "2.0.0",
+    "dotenv": "^2.0.0",
     "drizzle": "^1.2.2",
     "drizzle-react": "^1.1.1",
     "drizzle-react-components": "^1.1.0",

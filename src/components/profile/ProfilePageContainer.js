@@ -3,7 +3,7 @@ import ProfilePage from './ProfilePage'
 import { drizzleConnect } from 'drizzle-react'
 import { setUserData } from '../../actions'
 import SetDoctorDialog from './SetDoctorDialog'
-
+import { web3 } from '../../util/connectors'
 
 class ProfilePageContainer extends Component {
   state = {
