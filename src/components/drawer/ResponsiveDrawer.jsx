@@ -118,7 +118,7 @@ const ResponsiveDrawer = (props) => {
           </Typography>
           <Typography className={classes.accountAddress} color='inherit'>
             {userData
-              ? 'uPort addr: ' + userData.address
+              ? 'Active account: ' + userData.specificNetworkAddress
               : ''
             }
           </Typography>

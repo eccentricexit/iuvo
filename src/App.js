@@ -8,13 +8,12 @@ import LoginPageContainer from './components/login/LoginPageContainer'
 class App extends Component {
   render () {
     const { userData } = this.props
-    userData.initialized = true
     return (
       <div className='App'>
         {userData.initialized
-          ? (<ResponsiveDrawerContainer currentPage='Home'>
-            {this.props.children}
-          </ResponsiveDrawerContainer>)
+          ? <ResponsiveDrawerContainer currentPage='Home'>
+              {this.props.children}
+            </ResponsiveDrawerContainer>
           : <LoginPageContainer />
         }
       </div>
