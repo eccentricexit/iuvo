@@ -26,6 +26,8 @@ class LoginPageContainer extends Component {
       const iuvoCoreByProxy = IuvoCore.at(pausableProxyAddress)
 
       setUportIuvoCoreInstance(iuvoCoreByProxy)
+    }).catch(err => {  
+      console.log(err)
     })
   }
 
