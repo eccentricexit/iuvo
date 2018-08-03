@@ -23,7 +23,7 @@ class ProfilePageContainer extends Component {
   }
 
   handleSubmitSetDoctor(){
-    console.info('TODO')
+    const { iuvoCoreByProxy } = this.props.uportContract
   }
 
   handleSetDoctor
@@ -43,8 +43,8 @@ class ProfilePageContainer extends Component {
   }
 }
 
-const mapStateToProps = ({userData}) => {
-  return {userData}
+const mapStateToProps = ({ userData, uportContract }) => {
+  return { userData, uportContract }
 }
 
 export default drizzleConnect(

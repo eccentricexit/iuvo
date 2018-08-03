@@ -10,9 +10,8 @@ import PausableProxyJson from '../../../build/contracts/PausableProxy.json'
 
 class LoginPageContainer extends Component {
   handleClick () {
-    const { setUserData } = this.props
+    const { setUserData, setUportIuvoCoreInstance } = this.props
     uport.requestCredentials({requested: ['name', 'avatar']}).then(credentials => {
-      console.info('uport addr: ',credentials.address)
       credentials.decodedID = mnidDecode(credentials.address)
       credentials.specificNetworkAddress = credentials.decodedID.address
       setUserData(credentials)
@@ -23,8 +22,10 @@ class LoginPageContainer extends Component {
       
       // We do not reference the IuvoCore contract directly, instead we reference 
       // the proxy contract. This is part of the upgradable pattern.
-      const pausableProxyAddress = PausableProxyJson.networks[process.env.NETWORK_ID].address
+      const pausableProxyAddress = PausableProxyJson.networks[process.env.REACT_APP_NETWORK_ID].address
       const iuvoCoreByProxy = IuvoCore.at(pausableProxyAddress)
+
+      setUportIuvoCoreInstance(iuvoCoreByProxy)
     })
   }
 
