@@ -32,52 +32,52 @@ const ProfilePage = (props) => {
       {!userData
         ? <NotRegistered handleOpenSetDoctor={handleOpenSetDoctor} />
         : <Card>
-            <CardContent>
-              <Typography variant='title' color='inherit'>
+          <CardContent>
+            <Typography variant='title' color='inherit'>
                 Doctor data
-              </Typography>
-              <TextField
-                autoFocus
-                margin='dense'
-                id='name'
-                label='Name/Title'
-                placeholder='Dr. Smith'
-                type='email'
-                fullWidth
-                disabled
-              />
-              <TextField
-                margin='dense'
-                id='bio'
-                label='Bio'
-                fullWidth
-                disabled
-              />
-              <TextField
-                margin='dense'
-                id='ipfsProfilePicAddr'
-                label='Profile picture IPFS Address'
-                fullWidth
-                disabled
-              />
-              <TextField
-                margin='dense'
-                id='ipfsContractAddr'
-                label='Contract IPFS Address'
-                fullWidth
-                disabled
-              />
-            </CardContent>
-            <CardActions>
-              <Button
-                variant='contained'
-                color='primary'
-                onClick={() => handleOpenSetDoctor()}
-              >
+            </Typography>
+            <TextField
+              autoFocus
+              margin='dense'
+              id='name'
+              label='Name/Title'
+              placeholder='Dr. Smith'
+              type='email'
+              fullWidth
+              disabled
+            />
+            <TextField
+              margin='dense'
+              id='bio'
+              label='Bio'
+              fullWidth
+              disabled
+            />
+            <TextField
+              margin='dense'
+              id='ipfsProfilePicAddr'
+              label='Profile picture IPFS Address'
+              fullWidth
+              disabled
+            />
+            <TextField
+              margin='dense'
+              id='ipfsContractAddr'
+              label='Contract IPFS Address'
+              fullWidth
+              disabled
+            />
+          </CardContent>
+          <CardActions>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={() => handleOpenSetDoctor()}
+            >
                 Update Data
-              </Button>
-            </CardActions>
-          </Card>
+            </Button>
+          </CardActions>
+        </Card>
       }
     </div>
   )

@@ -10,7 +10,6 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 
-
 const NoAppointments = (props) => {
   return (
     <div>
@@ -30,7 +29,6 @@ const NoAppointments = (props) => {
 }
 
 const AppointmentListItem = ({ appointment, classes }) => {
-  
   return (
     <ListItem dense button className={classes.listItem} key={name}>
       {/* <Avatar alt='Portrait' src={} /> */}
@@ -48,13 +46,13 @@ const AppointmentsPage = (props) => {
       {!appointments
         ? <NoAppointments />
         : <Card className={classes.card}>
-            <CardContent>
-              <Typography variant='title' color='inherit'>
+          <CardContent>
+            <Typography variant='title' color='inherit'>
                 Appointments
-              </Typography>            
-              <AppointmentListItem classes={classes} />            
-            </CardContent>
-          </Card>
+            </Typography>
+            <AppointmentListItem classes={classes} />
+          </CardContent>
+        </Card>
       }
     </div>
   )

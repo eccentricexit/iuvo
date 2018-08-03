@@ -3,9 +3,7 @@ import AppointmentsPage from './AppointmentsPage'
 import { drizzleConnect } from 'drizzle-react'
 import { setUserData } from '../../actions'
 
-
-class AppointmentsPageContainer extends Component {  
-
+class AppointmentsPageContainer extends Component {
   render () {
     return (
       <AppointmentsPage {...this.props} />
@@ -18,7 +16,7 @@ const mapStateToProps = ({userData}) => {
 }
 
 export default drizzleConnect(
-  AppointmentsPageContainer, 
-  mapStateToProps,  
+  AppointmentsPageContainer,
+  mapStateToProps,
   { setUserData }
 )
