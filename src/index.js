@@ -10,6 +10,24 @@ import HomeContainer from './components/home/HomeContainer'
 import ProfilePageContainer from './components/profile/ProfilePageContainer'
 import AppointmentsPageContainer from './components/appointments/AppointmentsPageContainer'
 import { LoadingContainer } from 'drizzle-react-components'
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
+// Checkout https://material.io/color/
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#534bae',
+      main: '#1a237e',
+      dark: '#000051',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      light: '#ffffe5',
+      main: '#ffecb3',
+      dark: '#cbba83',
+      contrastText: '#000000',
+    },
+  },
+});
 
 import store from './store'
 import drizzleOptions from './drizzleOptions'
@@ -20,19 +38,21 @@ const history = syncHistoryWithStore(browserHistory, store)
 ReactDOM.render(
   (
     <DrizzleProvider options={drizzleOptions} store={store}>
-      <LoadingContainer>
-        <Router history={history}>
-          <Route path='/' component={App}>
-            <IndexRoute component={HomeContainer} />
-          </Route>
-          <Route path='/profile' component={App}>
-            <IndexRoute component={ProfilePageContainer} />
-          </Route>
-          <Route path='/appointments' component={App}>
-            <IndexRoute component={AppointmentsPageContainer} />
-          </Route>
-        </Router>
-      </LoadingContainer>
+      <MuiThemeProvider theme={theme}>
+        <LoadingContainer>
+          <Router history={history}>
+            <Route path='/dashboard' component={App}>
+              <IndexRoute component={HomeContainer} />
+            </Route>
+            <Route path='/profile' component={App}>
+              <IndexRoute component={ProfilePageContainer} />
+            </Route>
+            <Route path='/appointments' component={App}>
+              <IndexRoute component={AppointmentsPageContainer} />
+            </Route>
+          </Router>
+        </LoadingContainer>
+      </MuiThemeProvider>
     </DrizzleProvider>
   ),
   document.getElementById('root')

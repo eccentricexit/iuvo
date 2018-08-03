@@ -1,36 +1,30 @@
 import React, { Component } from 'react'
 import ResponsiveDrawerContainer from '../src/components/drawer/ResponsiveDrawerContainer'
+import LoginPageContainer from './components/login/LoginPageContainer'
+import { HiddenOnlyAuth, VisibleOnlyAuth } from './util/wrappers'
 import { drizzleConnect } from 'drizzle-react'
 import PropTypes from 'prop-types'
 import './App.css'
-import LoginPageContainer from './components/login/LoginPageContainer'
 
 class App extends Component {
   render () {
-    const { userData } = this.props
-    userData.initialized = true
+    const OnlyAuthPages = VisibleOnlyAuth(() =>
+      <ResponsiveDrawerContainer currentPage='Home'>
+        {this.props.children}
+      </ResponsiveDrawerContainer>
+    )
+
+    const OnlyGuestPages = HiddenOnlyAuth(() =>
+      <LoginPageContainer />
+    )
+
     return (
       <div className='App'>
-        {userData.initialized
-          ? (<ResponsiveDrawerContainer currentPage='Home'>
-            {this.props.children}
-          </ResponsiveDrawerContainer>)
-          : <LoginPageContainer />
-        }
+        <OnlyAuthPages />
+        <OnlyGuestPages />
       </div>
     )
   }
 }
 
-// May still need this even with data function to refresh component on updates for this contract.
-const mapStateToProps = ({ userData }) => {
-  return {
-    userData
-  }
-}
-
-App.contextTypes = {
-  drizzle: PropTypes.object
-}
-
-export default drizzleConnect(App, mapStateToProps)
+export default App

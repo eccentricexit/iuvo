@@ -7,8 +7,10 @@ import { setUserData } from '../../actions'
 class LoginPageContainer extends Component {
   handleClick () {
     const { setUserData } = this.props
-    uport.requestCredentials({requested: ['name', 'avatar']}).then(credentials => {
-      setUserData(credentials)
+    uport.requestCredentials({requested: ['name', 'avatar']})
+    .then(credentials => {
+      userLoggedIn(credentials)
+      browserHistory.push('/dashboard')
     })
   }
 
