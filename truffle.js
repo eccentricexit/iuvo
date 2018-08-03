@@ -1,4 +1,4 @@
-const HDWalletProvider = require('truffle-hdwallet-provider');
+const HDWalletProvider = require('truffle-hdwallet-provider')
 const mnemonic = 'valley grocery power bridge language angle together ranch average high tribe meat';
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
       provider: function() {
         return new HDWalletProvider(mnemonic,'https://rinkeby.infura.io/<api-key>')
       },
-      network_id: 1
+      network_id: 4
     }
   },  
   solc: {
