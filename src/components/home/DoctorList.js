@@ -15,10 +15,9 @@ const styles = {
   }
 }
 
-function DoctorList (props) {
-  const { classes } = props
-  const doctors = props.doctors
-    ? Object.keys(props.doctors).map(doctorAddr => props.doctors[doctorAddr])
+const DoctorList = ({ classes, doctors }) => {
+  doctors = doctors
+    ? Object.keys(doctors).map(doctorAddr => doctors[doctorAddr])
     : []
   const numDoctors = doctors.length
 

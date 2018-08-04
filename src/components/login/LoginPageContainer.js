@@ -19,11 +19,13 @@ class LoginPageContainer extends Component {
       const iuvoCoreByProxy = getIuvoCoreReference(web3)
       setUportIuvoCoreInstance(iuvoCoreByProxy)
 
-      // callback hell since we don't have a Promise powered uPort web3 yet.
+      // Callback hell since we don't have a Promise powered uPort web3 yet.
       iuvoCoreByProxy.doctorsArrayLength.call(
         (err, res) => {
           if (err) { throw err }
+
           const numDocs = res.toNumber()
+
           for (let i = 0; i < numDocs; i++) {
             iuvoCoreByProxy.doctors(i, (err, res) => {
               if (err) { throw err }

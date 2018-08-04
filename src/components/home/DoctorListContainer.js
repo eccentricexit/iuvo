@@ -7,7 +7,7 @@ class DoctorListContainer extends Component {
   render () {
     const { doctors } = this.props.iuvoData
 
-    return <DoctorList {...this.props} {...doctors} />
+    return <DoctorList {...this.props} doctors={doctors} />
   }
 }
 

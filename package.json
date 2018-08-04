@@ -37,6 +37,7 @@
     "@material-ui/icons": "^1.1.0",
     "dotenv": "^6.0.0",
     "eth-block-tracker-es5": "^2.3.2",
+    "formik": "^1.0.2",
     "ipfs-api": "^22.2.4",
     "kleros-interaction": "0.0.18",
     "mnid": "^0.1.1",

@@ -26,10 +26,12 @@ const NotRegistered = (props) => {
 }
 
 const ProfilePage = (props) => {
-  const { handleOpenSetDoctor, userData } = props
+  const { handleOpenSetDoctor, userData, iuvoData } = props
+  const doctor = iuvoData.doctors[userData.specificNetworkAddress]
+
   return (
     <div>
-      {!userData
+      {!doctor || !doctor.doctorAddr
         ? <NotRegistered handleOpenSetDoctor={handleOpenSetDoctor} />
         : <Card>
           <CardContent>
@@ -37,16 +39,17 @@ const ProfilePage = (props) => {
                 Doctor data
             </Typography>
             <TextField
+              value={doctor.name}
               autoFocus
               margin='dense'
               id='name'
               label='Name/Title'
               placeholder='Dr. Smith'
-              type='email'
               fullWidth
               disabled
             />
             <TextField
+              value={doctor.bio}
               margin='dense'
               id='bio'
               label='Bio'
@@ -54,6 +57,7 @@ const ProfilePage = (props) => {
               disabled
             />
             <TextField
+              value={doctor.ipfsProfilePicAddr}
               margin='dense'
               id='ipfsProfilePicAddr'
               label='Profile picture IPFS Address'
@@ -62,6 +66,7 @@ const ProfilePage = (props) => {
             />
             <TextField
               margin='dense'
+              value={doctor.ipfsContractAddr}
               id='ipfsContractAddr'
               label='Contract IPFS Address'
               fullWidth
@@ -74,7 +79,14 @@ const ProfilePage = (props) => {
               color='primary'
               onClick={() => handleOpenSetDoctor()}
             >
-                Update Data
+              Edit
+            </Button>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={() => handleOpenSetDoctor()}
+            >
+              Delete
             </Button>
           </CardActions>
         </Card>

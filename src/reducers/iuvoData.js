@@ -2,7 +2,7 @@ import {
   SET_DOCTOR
 } from '../actions/types'
 
-export function iuvoData (state = { doctors: {}}, action) {
+export function iuvoData (state = { doctors: {} }, action) {
   const { payload } = action
   switch (action.type) {
     case SET_DOCTOR: {
