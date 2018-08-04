@@ -9,16 +9,34 @@ import { connect } from 'react-redux'
 class ProfilePageContainer extends Component {
   state = {
     isSettingDoctor: false,
-    statefulDoctor: null
+    doctor: null
   }
 
-  updateStatefulDoctor = doctor => {
-    this.state({
-      statefulDoctor: doctor
-    })
+  updateDoctor = doctor => {
+    const { iuvoCoreByProxy } = this.props
+    console.info('iuvoCoreByProxy',iuvoCoreByProxy)
+    iuvoCoreByProxy.iuvoCoreByProxy.setDoctor(
+      doctor.name,
+      doctor.bio,
+      doctor.profilePicIpfsAddr,
+      doctor.contractIpfsAddr,
+      (err,txHash) => {
+        if(err) { throw err }
+        waitForMined(
+          txHash,
+          { blockNumber: null},
+          web3,
+          function pendingCB () {
+            console.info('pending...')
+          },
+          function successCB (data) {
+            console.info('success!')
+          }
+        )
+    })    
   }
 
-  handleToggleEdit(){
+  handleToggleEdit = () => {
     this.setState({
       isSettingDoctor: !this.state.isSettingDoctor
     })
@@ -26,27 +44,34 @@ class ProfilePageContainer extends Component {
 
   handleDeleteDoctor(){
     console.info('TODO')
-  }  
+  }
+  
+  componentWillReceiveProps(nextProps){
+    const { iuvoData, userData } = nextProps       
+    const docFromRedux = iuvoData.doctors[userData.specificNetworkAddress]
+    console.info('docFromRedux',docFromRedux)
+  }
 
   render () {
-    const { iuvoData } = this.props
-    const doctor = iuvoData.doctors[userData.specificNetworkAddress]    
-    const { isSettingDoctor, userData, statefulDoctor } = this.state
-    if(doctor && !statefulDoctor){
+    const { iuvoData, userData } = this.props        
+    const docFromRedux = iuvoData.doctors[userData.specificNetworkAddress]
+    if(docFromRedux && !this.state.doctor){
       this.setState({
-        statefulDoctor : doctor
+        doctor: docFromRedux
       })
     }
-    console.info('statfulDoctor',statefulDoctor)
+    console.info('docFromRedux',docFromRedux)
+    console.info('doctor from stat',this.state.doctor)
 
     return (
       <div>
-        {!statefulDoctor || !statefulDoctor.doctorAddr
+        {!this.state.doctor || !this.state.doctor.doctorAddr
           ? <NotRegistered handleToggleEdit={this.handleToggleEdit} />
           : <DoctorForm 
-              isSettingDoctor={isSettingDoctor} 
-              updateDoctor={this.updateStatefulDoctor}
-              doctor={statefulDoctor}
+              isSettingDoctor={this.state.isSettingDoctor}
+              handleToggleEdit={this.handleToggleEdit}
+              updateDoctor={this.updateDoctor}
+              doctor={this.state.doctor}
             />
         }
       </div>
@@ -54,8 +79,8 @@ class ProfilePageContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ userData, iuvoData }) => {
-  return { userData, iuvoData }
+const mapStateToProps = ({ userData, iuvoData, iuvoCoreByProxy }) => {
+  return { userData, iuvoData, iuvoCoreByProxy }
 }
 
 export default connect(mapStateToProps, { setUserData })(ProfilePageContainer)
