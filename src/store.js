@@ -8,11 +8,11 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const routingMiddleware = routerMiddleware(browserHistory)
 
 const store = createStore(
-  reducer,  
+  reducer,
   composeEnhancers(
     applyMiddleware(
       thunkMiddleware,
-      routingMiddleware,
+      routingMiddleware
     )
   )
 )

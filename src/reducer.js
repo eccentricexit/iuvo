@@ -8,7 +8,7 @@ const reducer = combineReducers({
   routing: routerReducer,
   userData,
   iuvoCoreByProxy,
-  iuvoData,
+  iuvoData
 })
 
 export default reducer

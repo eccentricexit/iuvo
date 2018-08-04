@@ -10,7 +10,6 @@ import HomeContainer from './components/home/HomeContainer'
 import ProfilePageContainer from './components/profile/ProfilePageContainer'
 import AppointmentsPageContainer from './components/appointments/AppointmentsPageContainer'
 
-
 import store from './store'
 
 // Initialize react-router-redux.

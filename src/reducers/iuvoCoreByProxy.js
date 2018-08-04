@@ -1,5 +1,5 @@
 import {
-  SET_UPORT_IUVO_CORE  
+  SET_UPORT_IUVO_CORE
 } from '../actions/types'
 
 export function iuvoCoreByProxy (state = {}, action) {
@@ -10,7 +10,7 @@ export function iuvoCoreByProxy (state = {}, action) {
         ...state,
         iuvoCoreByProxy: payload
       }
-    }    
+    }
     default:
       return state
   }

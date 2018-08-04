@@ -4,7 +4,7 @@ import {
 
 export function userData (state = { initialized: false }, action) {
   const { payload } = action
-    switch (action.type) {
+  switch (action.type) {
     case SET_USER_DATA: {
       return {
         initialized: true,

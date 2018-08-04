@@ -3,7 +3,7 @@ export async function waitForMined (txHash, response, web3, pendingCB, successCB
     successCB()
   } else {
     pendingCB()
-    pollingLoop(txHash, response,  web3, pendingCB, successCB)
+    pollingLoop(txHash, response, web3, pendingCB, successCB)
   }
 }
 

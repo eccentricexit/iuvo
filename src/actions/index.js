@@ -11,7 +11,7 @@ export function setUserData (payload) {
   }
 }
 
-export function setUportIuvoCoreInstance(payload){
+export function setUportIuvoCoreInstance (payload) {
   return {
     type: SET_UPORT_IUVO_CORE,
     payload

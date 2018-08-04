@@ -11,21 +11,21 @@ import { ipfs } from '../../util/getIpfs'
 class LoginPageContainer extends Component {
   handleClick () {
     const { setUserData, setUportIuvoCoreInstance, setDoctor } = this.props
-    uport.requestCredentials({requested: ['name', 'avatar']}).then(credentials => {              
+    uport.requestCredentials({requested: ['name', 'avatar']}).then(credentials => {
       credentials.decodedID = mnidDecode(credentials.address)
-      credentials.specificNetworkAddress = credentials.decodedID.address        
+      credentials.specificNetworkAddress = credentials.decodedID.address
       setUserData(credentials)
-      
+
       const iuvoCoreByProxy = getIuvoCoreReference(web3)
       setUportIuvoCoreInstance(iuvoCoreByProxy)
-      
+
       // callback hell since we don't have a Promise powered uPort web3 yet.
       iuvoCoreByProxy.doctorsArrayLength.call(
-        (err,res) => {
+        (err, res) => {
           if (err) { throw err }
           const numDocs = res.toNumber()
-          for(let i = 0; i < numDocs ; i++){
-            iuvoCoreByProxy.doctors(i,(err,res) => {
+          for (let i = 0; i < numDocs; i++) {
+            iuvoCoreByProxy.doctors(i, (err, res) => {
               if (err) { throw err }
               const doctor = doctorFromArray(res)
               setDoctor(doctor)
@@ -36,11 +36,10 @@ class LoginPageContainer extends Component {
                 setDoctor(doctor)
               })
             })
-          }         
+          }
         }
       )
-
-    }).catch(err => {  
+    }).catch(err => {
       console.error(err)
     })
   }
@@ -57,6 +56,6 @@ const mapStateToProps = ({ userData }) => {
 }
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   { setUserData, setUportIuvoCoreInstance, setDoctor }
 )(LoginPageContainer)
