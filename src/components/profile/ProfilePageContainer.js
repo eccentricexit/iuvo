@@ -1,26 +1,24 @@
 import React, { Component } from 'react'
 import ProfilePage from './ProfilePage'
 import { setUserData } from '../../actions'
-import SetDoctorDialog from './SetDoctorDialog'
 import { web3 } from '../../util/connectors'
 import { waitForMined } from '../../util/waitForMined'
 import { connect } from 'react-redux'
 
 class ProfilePageContainer extends Component {
   state = {
-    isSetDoctorOpen: false
+    isSettingDoctor: false
   }
 
-  handleOpenSetDoctor(){
+  handleToggleEdit(){
     this.setState({
-      isSetDoctorOpen: true
+      isSettingDoctor: !this.state.isSettingDoctor
     })
-  }
+  } 
 
-  handleCloseSetDoctor(){
-    this.setState({
-      isSetDoctorOpen: false
-    })
+
+  handleDeleteDoctor(){
+    console.info('TODO')
   }
 
   handleSubmitSetDoctor(){
@@ -48,15 +46,15 @@ class ProfilePageContainer extends Component {
   }
 
   render () {
-    const { isSetDoctorOpen } = this.state
-    console.info('userData',this.props.userData)
+    const { isSettingDoctor } = this.state
     return (
       <div>
-        <ProfilePage handleOpenSetDoctor={() => this.handleOpenSetDoctor()} {...this.props}/>
-        <SetDoctorDialog 
-          isOpen={isSetDoctorOpen} 
-          handleSubmitSetDoctor={() => this.handleSubmitSetDoctor()} 
-          handleCloseSetDoctor={() => this.handleCloseSetDoctor()}
+        <ProfilePage 
+          isSettingDoctor={isSettingDoctor}
+          handleToggleEdit={() => this.handleToggleEdit()}
+          handleSubmitSetDoctor={() => this.handleSubmitSetDoctor()}
+          handleDeleteDoctor={() => this.handleDeleteDoctor()}
+          {...this.props}
         />
       </div>
     )

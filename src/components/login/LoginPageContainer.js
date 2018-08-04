@@ -15,6 +15,7 @@ class LoginPageContainer extends Component {
       credentials.decodedID = mnidDecode(credentials.address)
       credentials.specificNetworkAddress = credentials.decodedID.address
       setUserData(credentials)
+      console.info('userData',credentials)
 
       const iuvoCoreByProxy = getIuvoCoreReference(web3)
       setUportIuvoCoreInstance(iuvoCoreByProxy)
@@ -30,7 +31,7 @@ class LoginPageContainer extends Component {
             iuvoCoreByProxy.doctors(i, (err, res) => {
               if (err) { throw err }
               const doctor = doctorFromArray(res)
-              setDoctor(doctor)
+              setDoctor(doctor)              
 
               ipfs.files.cat(doctor.profilePicIpfsAddr, (err, file) => {
                 if (err) { throw err }

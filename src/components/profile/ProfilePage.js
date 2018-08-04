@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 
 const NotRegistered = (props) => {
-  const { handleOpenSetDoctor } = props
+  const { handleToggleEdit } = props
   return (
     <div>
       <Typography variant='headline' component='h3'>
@@ -17,7 +17,7 @@ const NotRegistered = (props) => {
       <Button
         variant='contained'
         color='primary'
-        onClick={handleOpenSetDoctor}
+        onClick={() => handleToggleEdit()}
       >
         Become a doctor
       </Button>
@@ -25,16 +25,20 @@ const NotRegistered = (props) => {
   )
 }
 
-const ProfilePage = ({ handleOpenSetDoctor, userData, iuvoData }) => {
-  console.info('iuvoData', iuvoData)
-  console.info('userData.specificNetworkAddress', userData.specificNetworkAddress)
+const ProfilePage = ({
+  userData,
+  iuvoData,
+  handleToggleEdit,
+  handleSubmitSetDoctor,
+  handleDeleteDoctor,
+  isSettingDoctor
+}) => {
   const doctor = iuvoData.doctors[userData.specificNetworkAddress]
-  console.info('doctor', doctor)
 
   return (
     <div>
       {!doctor || !doctor.doctorAddr
-        ? <NotRegistered handleOpenSetDoctor={handleOpenSetDoctor} />
+        ? <NotRegistered handleToggleEdit={handleToggleEdit} />
         : (
           <Card>
             <CardContent>
@@ -49,7 +53,7 @@ const ProfilePage = ({ handleOpenSetDoctor, userData, iuvoData }) => {
                 label='Name/Title'
                 placeholder='Dr. Smith'
                 fullWidth
-                disabled
+                disabled={!isSettingDoctor}
               />
               <TextField
                 value={doctor.bio}
@@ -57,7 +61,7 @@ const ProfilePage = ({ handleOpenSetDoctor, userData, iuvoData }) => {
                 id='bio'
                 label='Bio'
                 fullWidth
-                disabled
+                disabled={!isSettingDoctor}
               />
               <TextField
                 value={doctor.profilePicIpfsAddr}
@@ -65,7 +69,7 @@ const ProfilePage = ({ handleOpenSetDoctor, userData, iuvoData }) => {
                 id='profilePicIpfsAddr'
                 label='Profile picture IPFS Address'
                 fullWidth
-                disabled
+                disabled={!isSettingDoctor}
               />
               <TextField
                 margin='dense'
@@ -73,23 +77,41 @@ const ProfilePage = ({ handleOpenSetDoctor, userData, iuvoData }) => {
                 id='contractIpfsAddr'
                 label='Contract IPFS Address'
                 fullWidth
-                disabled
+                disabled={!isSettingDoctor}
               />
             </CardContent>
             <CardActions>
               <Button
                 variant='contained'
                 color='primary'
-                onClick={() => handleOpenSetDoctor()}
+                onClick={() => handleToggleEdit()}
+                disabled={isSettingDoctor}
               >
-              Edit
+                Edit
               </Button>
               <Button
                 variant='contained'
                 color='secondary'
-                onClick={() => handleOpenSetDoctor()}
+                onClick={() => handleDeleteDoctor()}
+                disabled={isSettingDoctor}
               >
-              Delete
+                Delete
+              </Button>
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={() => handleSubmitSetDoctor()}
+                disabled={!isSettingDoctor}
+              >
+                Submit
+              </Button>
+              <Button
+                variant='outlined'
+                color='primary'
+                onClick={() => handleToggleEdit()}
+                disabled={!isSettingDoctor}
+              >
+                Cancel
               </Button>
             </CardActions>
           </Card>
