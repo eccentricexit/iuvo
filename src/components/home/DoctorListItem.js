@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import { Typography } from '@material-ui/core'
 
+
 const DoctorListItem = ({ doctor, classes }) => {
   const { name, bio, rating, imgRaw } = doctor
 

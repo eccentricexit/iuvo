@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ResponsiveDrawerContainer from './components/drawer/ResponsiveDrawerContainer'
-import PropTypes from 'prop-types'
 import './App.css'
 import LoginPageContainer from './components/login/LoginPageContainer'
 
