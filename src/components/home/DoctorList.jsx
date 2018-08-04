@@ -16,7 +16,11 @@ const styles = {
 }
 
 function DoctorList (props) {
-  const { classes, doctors, numDoctors } = props
+  const { classes } = props
+  const doctors = props.doctors 
+    ? Object.keys(props.doctors).map(doctorAddr => props.doctors[doctorAddr])
+    : []
+  const numDoctors = doctors.length
 
   return (
     <Card className={classes.card}>

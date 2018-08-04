@@ -8,10 +8,10 @@ import { setDoctor } from '../../actions'
 class DoctorListContainer extends Component {  
  
   render () {
-    // const { iuvoData } = this.props
-    // console.info('doctorsList: ',iuvoData)
+    const { doctors } = this.props.iuvoData
+    console.info('doctorsList: ',doctors)
 
-    return <DoctorList {...this.props} doctors={[]} />
+    return <DoctorList {...this.props} doctors={doctors}/>
   }
 }
 

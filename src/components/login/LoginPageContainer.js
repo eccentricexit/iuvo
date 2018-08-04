@@ -5,7 +5,8 @@ import { setUserData, setUportIuvoCoreInstance, setDoctor } from '../../actions'
 import { decode as mnidDecode } from 'mnid'
 import { web3 } from '../../util/connectors'
 import { connect } from 'react-redux'
-import { getIuvoCoreReference } from '../../util/iuvoUtils'
+import { getIuvoCoreReference, doctorFromArray } from '../../util/iuvoUtils'
+import { ipfs } from '../../util/getIpfs'
 
 class LoginPageContainer extends Component {
   handleClick () {
@@ -18,21 +19,23 @@ class LoginPageContainer extends Component {
       const iuvoCoreByProxy = getIuvoCoreReference(web3)
       setUportIuvoCoreInstance(iuvoCoreByProxy)
       
-      const userAddr = credentials.specificNetworkAddress
-      // We need to iterate through each doctor since the evm can't return
-      // struct arrays yet.
+      // callback hell since we don't have a Promise powered uPort web3 yet.
       iuvoCoreByProxy.doctorsArrayLength.call(
-        userAddr,
         (err,res) => {
           if (err) { throw err }
           const numDocs = res.toNumber()
-          console.info('numDocs',numDocs)
-          const doctorsList = []
           for(let i = 0; i < numDocs ; i++){
-            // iuvoCoreByProxy.doctors(i,(err,res) => {
-            //   console.info('doctor: ',res)
-            //   // setDoctor(res)
-            // })
+            iuvoCoreByProxy.doctors(i,(err,res) => {
+              if (err) { throw err }
+              const doctor = doctorFromArray(res)
+              setDoctor(doctor)
+
+              ipfs.files.cat(doctor.profilePicIpfsAddr, (err, file) => {
+                if (err) { throw err }
+                doctor.imgRaw = 'data:image/png;base64,' + file.toString('base64')
+                setDoctor(doctor)
+              })
+            })
           }         
         }
       )

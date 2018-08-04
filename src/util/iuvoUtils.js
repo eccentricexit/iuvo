@@ -1,6 +1,7 @@
 import IuvoCoreJson from '../../build/contracts/IuvoCore.json'
 import PausableProxyJson from '../../build/contracts/PausableProxy.json'
 
+
 export const getIuvoCoreReference = (web3) => {
   // We need to use uPort's web3 to sign transactions with it.
   const IuvoCoreJsonAbi = IuvoCoreJson.abi
@@ -12,4 +13,15 @@ export const getIuvoCoreReference = (web3) => {
   const iuvoCoreByProxy = IuvoCore.at(pausableProxyAddress)
 
   return iuvoCoreByProxy
+}
+
+export const doctorFromArray = (doctor) => {
+  return {
+    name: doctor[0],
+    rating: doctor[1],
+    bio: doctor[2],
+    profilePicIpfsAddr: doctor[3],
+    contractIpfsAddr: doctor[4],
+    doctorAddr: doctor[5]
+  }
 }
