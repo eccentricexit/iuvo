@@ -8,7 +8,7 @@ export function userData (state = { initialized: false }, action) {
     case SET_USER_DATA: {
       return {
         initialized: true,
-        userData: payload
+        ...payload
       }
     }
     default:

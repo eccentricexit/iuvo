@@ -37,13 +37,13 @@ const SetDoctorDialog = (props) => {
         />
         <TextField
           margin='dense'
-          id='ipfsProfilePicAddr'
+          id='profilePicIpfsAddr'
           label='Profile picture IPFS Address'
           fullWidth
         />
         <TextField
           margin='dense'
-          id='ipfsContractAddr'
+          id='contractIpfsAddr'
           label='Contract IPFS Address'
           fullWidth
         />

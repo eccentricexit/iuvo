@@ -85,8 +85,8 @@ const ResponsiveDrawer = (props) => {
   } = props
 
   const userData = props.userData.initialized
-    ? props.userData.userData
-    : props.userData
+    ? props.userData
+    : undefined
 
   const drawer = (
     <div>

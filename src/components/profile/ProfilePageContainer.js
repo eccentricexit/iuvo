@@ -28,7 +28,7 @@ class ProfilePageContainer extends Component {
     iuvoCoreByProxy.setDoctor(
       'Dr. John McClaine',
       'Building relationships one happy patient at a time',
-      'QmPHFmDDcaXWPu7yxUC3PnZBvo9B61MgxHu6YUTsH7C8hD',
+      'QmThprKyc4eFS1xDTW1s8jd2Zhhsxj9vTW3UDHhLiFXBZW',
       'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
       (err,txHash) => {
         if(err) { throw err }
@@ -49,6 +49,7 @@ class ProfilePageContainer extends Component {
 
   render () {
     const { isSetDoctorOpen } = this.state
+    console.info('userData',this.props.userData)
     return (
       <div>
         <ProfilePage handleOpenSetDoctor={() => this.handleOpenSetDoctor()} {...this.props}/>
