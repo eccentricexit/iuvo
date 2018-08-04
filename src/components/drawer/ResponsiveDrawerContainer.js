@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ResponsiveDrawer from './ResponsiveDrawer'
-import { drizzleConnect } from 'drizzle-react'
+import { connect } from 'react-redux'
 
 
 class ResponsiveDrawerContainer extends Component {
@@ -33,13 +33,10 @@ class ResponsiveDrawerContainer extends Component {
   }
 }
 
-// May still need this even with data function to refresh component on updates for this contract.
-const mapStateToProps = ({ accounts,drizzleStatus,userData }) => {
+const mapStateToProps = ({ userData }) => {
   return {
-    accounts,
-    drizzleStatus,
     userData
   }
 }
 
-export default drizzleConnect(ResponsiveDrawerContainer, mapStateToProps)
+export default connect(mapStateToProps)(ResponsiveDrawerContainer)

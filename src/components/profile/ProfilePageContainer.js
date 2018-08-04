@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import ProfilePage from './ProfilePage'
-import { drizzleConnect } from 'drizzle-react'
 import { setUserData } from '../../actions'
 import SetDoctorDialog from './SetDoctorDialog'
 import { web3 } from '../../util/connectors'
 import { waitForMined } from '../../util/waitForMined'
+import { connect } from 'react-redux'
 
 class ProfilePageContainer extends Component {
   state = {
@@ -62,12 +62,8 @@ class ProfilePageContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ userData, uportContract }) => {
-  return { userData, uportContract }
+const mapStateToProps = ({ userData, iuvoData }) => {
+  return { userData, iuvoData }
 }
 
-export default drizzleConnect(
-  ProfilePageContainer, 
-  mapStateToProps,  
-  { setUserData }
-)
+export default connect(mapStateToProps, { setUserData })(ProfilePageContainer)

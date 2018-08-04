@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AppointmentsPage from './AppointmentsPage'
-import { drizzleConnect } from 'drizzle-react'
+import { connect } from 'react-redux'
 import { setUserData } from '../../actions'
 
 class AppointmentsPageContainer extends Component {
@@ -11,11 +11,11 @@ class AppointmentsPageContainer extends Component {
   }
 }
 
-const mapStateToProps = ({userData}) => {
-  return {userData}
+const mapStateToProps = ({ userData }) => {
+  return { userData }
 }
 
-export default drizzleConnect(
+export default connect(
   AppointmentsPageContainer,
   mapStateToProps,
   { setUserData }

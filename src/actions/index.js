@@ -1,18 +1,26 @@
 import {
   SET_USER_DATA,
-  SET_UPOR_IUVO_CORE
-} from '../actions/types'
+  SET_UPORT_IUVO_CORE,
+  SET_DOCTOR
+} from './types'
 
-export function setUserData (userData) {
+export function setUserData (payload) {
   return {
     type: SET_USER_DATA,
-    userData
+    payload
   }
 }
 
-export function setUportIuvoCoreInstance(iuvoCoreByProxy){
+export function setUportIuvoCoreInstance(payload){
   return {
-    type: SET_UPOR_IUVO_CORE,
-    iuvoCoreByProxy
+    type: SET_UPORT_IUVO_CORE,
+    payload
+  }
+}
+
+export function setDoctor (payload) {
+  return {
+    type: SET_DOCTOR,
+    payload
   }
 }

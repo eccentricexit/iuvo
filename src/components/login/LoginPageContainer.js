@@ -1,33 +1,44 @@
 import React, { Component } from 'react'
 import LoginPage from './LoginPage'
-import { drizzleConnect } from 'drizzle-react'
 import { uport } from '../../util/connectors'
-import { setUserData, setUportIuvoCoreInstance } from '../../actions'
+import { setUserData, setUportIuvoCoreInstance, setDoctor } from '../../actions'
 import { decode as mnidDecode } from 'mnid'
 import { web3 } from '../../util/connectors'
-import IuvoCoreJson from '../../../build/contracts/IuvoCore.json'
-import PausableProxyJson from '../../../build/contracts/PausableProxy.json'
+import { connect } from 'react-redux'
+import { getIuvoCoreReference } from '../../util/iuvoUtils'
 
 class LoginPageContainer extends Component {
   handleClick () {
-    const { setUserData, setUportIuvoCoreInstance } = this.props
-    uport.requestCredentials({requested: ['name', 'avatar']}).then(credentials => {
+    const { setUserData, setUportIuvoCoreInstance, setDoctor } = this.props
+    uport.requestCredentials({requested: ['name', 'avatar']}).then(credentials => {              
       credentials.decodedID = mnidDecode(credentials.address)
-      credentials.specificNetworkAddress = credentials.decodedID.address
+      credentials.specificNetworkAddress = credentials.decodedID.address        
       setUserData(credentials)
       
-      // We need to use uPort's web3 to sign transactions with it.
-      const IuvoCoreJsonAbi = IuvoCoreJson.abi
-      const IuvoCore = web3.eth.contract(IuvoCoreJsonAbi)
-      
-      // We do not reference the IuvoCore contract directly, instead we reference 
-      // the proxy contract. This is part of the upgradable pattern.
-      const pausableProxyAddress = PausableProxyJson.networks[process.env.REACT_APP_NETWORK_ID].address
-      const iuvoCoreByProxy = IuvoCore.at(pausableProxyAddress)
-
+      const iuvoCoreByProxy = getIuvoCoreReference(web3)
       setUportIuvoCoreInstance(iuvoCoreByProxy)
+      
+      const userAddr = credentials.specificNetworkAddress
+      // We need to iterate through each doctor since the evm can't return
+      // struct arrays yet.
+      iuvoCoreByProxy.doctorsArrayLength.call(
+        userAddr,
+        (err,res) => {
+          if (err) { throw err }
+          const numDocs = res.toNumber()
+          console.info('numDocs',numDocs)
+          const doctorsList = []
+          for(let i = 0; i < numDocs ; i++){
+            // iuvoCoreByProxy.doctors(i,(err,res) => {
+            //   console.info('doctor: ',res)
+            //   // setDoctor(res)
+            // })
+          }         
+        }
+      )
+
     }).catch(err => {  
-      console.log(err)
+      console.error(err)
     })
   }
 
@@ -38,12 +49,11 @@ class LoginPageContainer extends Component {
   }
 }
 
-const mapStateToProps = ({userData}) => {
-  return {userData}
+const mapStateToProps = ({ userData }) => {
+  return { userData }
 }
 
-export default drizzleConnect(
-  LoginPageContainer,
-  mapStateToProps,
-  { setUserData, setUportIuvoCoreInstance }
-)
+export default connect(
+  mapStateToProps, 
+  { setUserData, setUportIuvoCoreInstance, setDoctor }
+)(LoginPageContainer)

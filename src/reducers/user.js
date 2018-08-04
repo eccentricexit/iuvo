@@ -3,12 +3,12 @@ import {
 } from '../actions/types'
 
 export function userData (state = { initialized: false }, action) {
-  const { userData } = action
-  switch (action.type) {
+  const { payload } = action
+    switch (action.type) {
     case SET_USER_DATA: {
       return {
         initialized: true,
-        userData
+        userData: payload
       }
     }
     default:

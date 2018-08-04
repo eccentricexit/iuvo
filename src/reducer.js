@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux'
-import { routerReducer } from 'react-router-redux'
-import { drizzleReducers } from 'drizzle'
+import { routerReducer } from 'react-router-redux/lib'
 import { userData } from './reducers/user'
-import { uportContract } from './reducers/iuvoCore.js'
+import { iuvoCoreByProxy } from './reducers/iuvoCoreByProxy'
+import { iuvoData } from './reducers/iuvoData'
 
 const reducer = combineReducers({
   routing: routerReducer,
   userData,
-  uportContract,
-  ...drizzleReducers
+  iuvoCoreByProxy,
+  iuvoData,
 })
 
 export default reducer
