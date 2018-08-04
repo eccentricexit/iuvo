@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import ProfilePage from './ProfilePage'
+import DoctorForm from './DoctorForm'
+import NotRegistered from './NotRegistered'
 import { setUserData } from '../../actions'
 import { web3 } from '../../util/connectors'
 import { waitForMined } from '../../util/waitForMined'
@@ -7,7 +8,14 @@ import { connect } from 'react-redux'
 
 class ProfilePageContainer extends Component {
   state = {
-    isSettingDoctor: false
+    isSettingDoctor: false,
+    statefulDoctor: null
+  }
+
+  updateStatefulDoctor = doctor => {
+    this.state({
+      statefulDoctor: doctor
+    })
   }
 
   handleToggleEdit(){
@@ -16,46 +24,31 @@ class ProfilePageContainer extends Component {
     })
   } 
 
-
   handleDeleteDoctor(){
     console.info('TODO')
-  }
-
-  handleSubmitSetDoctor(){
-    const { iuvoCoreByProxy } = this.props.uportContract
-    iuvoCoreByProxy.setDoctor(
-      'Dr. John McClaine',
-      'Building relationships one happy patient at a time',
-      'QmThprKyc4eFS1xDTW1s8jd2Zhhsxj9vTW3UDHhLiFXBZW',
-      'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
-      (err,txHash) => {
-        if(err) { throw err }
-        waitForMined(
-          txHash,
-          { blockNumber: null},
-          web3,
-          function pendingCB () {
-            console.info('pending...')
-          },
-          function successCB (data) {
-            console.info('success!')
-          }
-        )
-        
-    })
-  }
+  }  
 
   render () {
-    const { isSettingDoctor } = this.state
+    const { iuvoData } = this.props
+    const doctor = iuvoData.doctors[userData.specificNetworkAddress]    
+    const { isSettingDoctor, userData, statefulDoctor } = this.state
+    if(doctor && !statefulDoctor){
+      this.setState({
+        statefulDoctor : doctor
+      })
+    }
+    console.info('statfulDoctor',statefulDoctor)
+
     return (
       <div>
-        <ProfilePage 
-          isSettingDoctor={isSettingDoctor}
-          handleToggleEdit={() => this.handleToggleEdit()}
-          handleSubmitSetDoctor={() => this.handleSubmitSetDoctor()}
-          handleDeleteDoctor={() => this.handleDeleteDoctor()}
-          {...this.props}
-        />
+        {!statefulDoctor || !statefulDoctor.doctorAddr
+          ? <NotRegistered handleToggleEdit={this.handleToggleEdit} />
+          : <DoctorForm 
+              isSettingDoctor={isSettingDoctor} 
+              updateDoctor={this.updateStatefulDoctor}
+              doctor={statefulDoctor}
+            />
+        }
       </div>
     )
   }
