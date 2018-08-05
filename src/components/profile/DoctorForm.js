@@ -94,15 +94,15 @@ class DoctorForm extends Component {
               variant='contained'
               color='primary'
               type='submit'
-              disabled={!this.props.isSettingDoctor || this.props.isSubmitting}
+              disabled={!this.props.isSettingDoctor || this.props.isSubmitting || this.props.isTxPending}
             >
-              {this.props.isSubmitting ? 'Please wait...' : 'Submit'}
+              {this.props.isSubmitting || this.props.isTxPending ? 'Please wait...' : 'Submit'}
             </Button>
             <Button
               variant='outlined'
               color='primary'
               onClick={this.props.handleToggleEdit}
-              disabled={!this.props.isSettingDoctor}
+              disabled={!this.props.isSettingDoctor || this.props.isTxPending}
             >
               Cancel
             </Button>
@@ -116,18 +116,3 @@ class DoctorForm extends Component {
 const EnhancedDoctorFrom = enhanceWithFormik(DoctorForm)
 
 export default EnhancedDoctorFrom
-
-// export default withFormik({
-//   mapPropsToValues: () => ({
-//     name: '',
-//     bio: '',
-//     profilePicIpfsAddr: '',
-//     contractIpfsAddr: ''
-//   }),
-//   handleSubmit: (payload, bag) => {
-//     console.info('payload', payload)
-//     bag.setSubmitting(false)
-//     bag.props.updateDoctor(payload)
-//   },
-//   displayName: 'DoctorForm'
-// })(DoctorForm)
