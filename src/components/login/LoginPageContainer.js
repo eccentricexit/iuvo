@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import LoginPage from './LoginPage'
-import { uport } from '../../util/connectors'
+import { uport, web3 } from '../../util/connectors'
 import { setUserData, setUportIuvoCoreInstance, setDoctor } from '../../actions'
 import { decode as mnidDecode } from 'mnid'
-import { web3 } from '../../util/connectors'
 import { connect } from 'react-redux'
-import { getIuvoCoreReference, doctorFromArray } from '../../util/iuvoUtils'
-import { ipfs } from '../../util/getIpfs'
+import { getIuvoCoreReference, updateLocalDoctorsData } from '../../util/iuvoUtils'
 
 class LoginPageContainer extends Component {
   handleClick () {
@@ -14,37 +12,24 @@ class LoginPageContainer extends Component {
     uport.requestCredentials({requested: ['name', 'avatar']}).then(credentials => {
       credentials.decodedID = mnidDecode(credentials.address)
       credentials.specificNetworkAddress = credentials.decodedID.address
+      console.info('Got user data: ', credentials)
       setUserData(credentials)
-      console.info('userData',credentials)
 
       const iuvoCoreByProxy = getIuvoCoreReference(web3)
       setUportIuvoCoreInstance(iuvoCoreByProxy)
+      updateLocalDoctorsData(iuvoCoreByProxy, setDoctor)
 
-      // Callback hell since we don't have a Promise powered uPort web3 yet.
-      iuvoCoreByProxy.doctorsArrayLength.call(
-        (err, res) => {
-          if (err) { throw err }
-
-          const numDocs = res.toNumber()
-
-          for (let i = 0; i < numDocs; i++) {
-            iuvoCoreByProxy.doctors(i, (err, res) => {
-              if (err) { throw err }
-              const doctor = doctorFromArray(res)
-              setDoctor(doctor)              
-
-              ipfs.files.cat(doctor.profilePicIpfsAddr, (err, file) => {
-                if (err) { throw err }
-                doctor.imgRaw = 'data:image/png;base64,' + file.toString('base64')
-                setDoctor(doctor)
-              })
-            })
-          }
-        }
-      )
     }).catch(err => {
       console.error(err)
     })
+  }
+
+  componentDidMount () {
+    console.info('LoginPage: componentDidMount')
+  }
+
+  componentWillReceiveProps () {
+    console.info('LoginPage: componentDidMount')
   }
 
   render () {

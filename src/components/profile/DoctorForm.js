@@ -18,7 +18,7 @@ const enhanceWithFormik = withFormik({
   handleSubmit: (payload, bag) => {
     console.info('payload', payload)
     bag.setSubmitting(false)
-    bag.props.updateDoctor(payload)
+    bag.props.handleSetDoctor(payload)
   },
   displayName: 'DoctorForm'
 })
@@ -55,6 +55,7 @@ class DoctorForm extends Component {
               value={this.props.values.bio}
               margin='dense'
               label='Bio'
+              placeholder='Ready to treat you...'
               fullWidth
               onChange={this.props.handleChange}
               onBlur={this.props.handleBlur}
@@ -65,6 +66,7 @@ class DoctorForm extends Component {
               value={this.props.values.profilePicIpfsAddr}
               margin='dense'
               label='Profile picture IPFS Address'
+              placeholder='QmPKhta...'
               fullWidth
               onChange={this.props.handleChange}
               onBlur={this.props.handleBlur}
@@ -75,6 +77,7 @@ class DoctorForm extends Component {
               margin='dense'
               value={this.props.values.contractIpfsAddr}
               label='Contract IPFS Address'
+              placeholder='QmVDht...'
               fullWidth
               onChange={this.props.handleChange}
               onBlur={this.props.handleBlur}
@@ -86,9 +89,17 @@ class DoctorForm extends Component {
               variant='contained'
               color='primary'
               onClick={this.props.handleToggleEdit}
-              disabled={this.props.isSettingDoctor}
+              disabled={this.props.isSettingDoctor || this.props.isTxPending}
             >
               Edit
+            </Button>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={this.props.handleDeleteDoctor}
+              disabled={this.props.isSettingDoctor || this.props.isTxPending}
+            >
+              Delete
             </Button>
             <Button
               variant='contained'

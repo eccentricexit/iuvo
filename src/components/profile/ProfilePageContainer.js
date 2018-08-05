@@ -1,23 +1,24 @@
 import React, { Component } from 'react'
 import DoctorForm from './DoctorForm'
 import NotRegistered from './NotRegistered'
-import { setUserData } from '../../actions'
+import { setUserData, setDoctor, deleteDoctor } from '../../actions'
 import { connect } from 'react-redux'
 import Snackbar from '@material-ui/core/Snackbar'
 import { web3 } from '../../util/connectors'
 import { waitForMined } from '../../util/waitForMined'
-
+import { updateLocalDoctorData } from '../../util/iuvoUtils'
 
 class ProfilePageContainer extends Component {
   state = {
     isSettingDoctor: false,
+    isCreatingDoctor: false,
     doctor: null,
     txPendingOpen: false,
     txConfirmedOpen: false
   }
 
-  updateDoctor = doctor => {
-    const { iuvoCoreByProxy } = this.props
+  handleSetDoctor = doctor => {
+    const { iuvoCoreByProxy, userData, setDoctor, deleteDoctor } = this.props
     const componentContext = this
 
     iuvoCoreByProxy.iuvoCoreByProxy.setDoctor(
@@ -29,7 +30,7 @@ class ProfilePageContainer extends Component {
         if(err) { throw err }
         waitForMined(
           txHash,
-          { blockNumber: null},
+          { blockNumber: null },
           web3,
           function pendingCB () {
             componentContext.setState({ txPendingOpen: true })
@@ -37,8 +38,15 @@ class ProfilePageContainer extends Component {
           function successCB (data) {            
             componentContext.setState({ 
               txPendingOpen: false,
+              isSettingDoctor: false,
               txConfirmedOpen: true
             })
+            updateLocalDoctorData(
+              iuvoCoreByProxy, 
+              userData.specificNetworkAddress, 
+              setDoctor,
+              deleteDoctor
+            )
           }
         )
     }) 
@@ -49,14 +57,61 @@ class ProfilePageContainer extends Component {
   }
 
   handleToggleEdit = () => {
-    this.setState({ isSettingDoctor: !this.state.isSettingDoctor  })
-  } 
-
-  handleDeleteDoctor(){
-    console.info('TODO')
+    this.setState({ isSettingDoctor: !this.state.isSettingDoctor })
+    this.setState({ isCreatingDoctor: false })
   }
 
-  componentWillReceiveProps () {
+  handleCreateDoctor = () => {
+    const { userData } = this.props
+    this.setState({ 
+      isCreatingDoctor:true,
+      isSettingDoctor: true,
+      doctor: {
+        doctorAddr: userData.specificNetworkAddress
+      }
+    })
+  }
+
+  handleDeleteDoctor = () => {
+    const { iuvoCoreByProxy, userData, deleteDoctor } = this.props
+    console.info('userData',userData)
+    const componentContext = this
+    
+    iuvoCoreByProxy.iuvoCoreByProxy.deleteDoctor(
+      (err,txHash) => {
+        if(err) { throw err }
+        waitForMined(
+          txHash,
+          { blockNumber: null },
+          web3,
+          function pendingCB () {
+            componentContext.setState({ txPendingOpen: true })
+          },
+          function successCB () {            
+            componentContext.setState({ 
+              txPendingOpen: false,
+              isSettingDoctor: false,
+              txConfirmedOpen: true
+            })
+            console.info('sending deleteDoctor for ',userData.specificNetworkAddress)
+            deleteDoctor(userData.specificNetworkAddress)
+          }
+        )
+    })
+  }  
+
+  componentWillReceiveProps (nextProps) {
+    console.info('ProfilePage: componentWillReceiveProps')
+    const { iuvoData, userData } = nextProps
+    const docFromRedux = iuvoData.doctors[userData.specificNetworkAddress]
+    console.info('docFromRedux',docFromRedux)
+    if(!docFromRedux && this.state.doctor){ // deleted doctor
+      this.setState({ doctor: docFromRedux })
+    }
+  }
+
+  componentDidMount() {
+    console.info('ProfilePage: componentDidMount')
     const { iuvoData, userData } = this.props
     const docFromRedux = iuvoData.doctors[userData.specificNetworkAddress]
     if(docFromRedux && !this.state.doctor){
@@ -67,14 +122,18 @@ class ProfilePageContainer extends Component {
   render () {
     return (
       <div>
-        {!this.state.doctor || !this.state.doctor.doctorAddr
-          ? <NotRegistered handleToggleEdit={this.handleToggleEdit} />
-          : <DoctorForm 
+        {this.state.doctor && this.state.doctor.doctorAddr
+          ? <DoctorForm
               isTxPending={this.state.txPendingOpen}
               isSettingDoctor={this.state.isSettingDoctor}
               handleToggleEdit={this.handleToggleEdit}
-              updateDoctor={this.updateDoctor}
+              handleSetDoctor={this.handleSetDoctor}
+              handleDeleteDoctor={this.handleDeleteDoctor}
               doctor={this.state.doctor}
+            />
+          : <NotRegistered 
+              handleCreateDoctor={this.handleCreateDoctor}
+              isCreatingDoctor={this.state.isCreatingDoctor}
             />
         }
         <Snackbar
@@ -112,4 +171,7 @@ const mapStateToProps = ({ userData, iuvoData, iuvoCoreByProxy }) => {
   return { userData, iuvoData, iuvoCoreByProxy }
 }
 
-export default connect(mapStateToProps, { setUserData })(ProfilePageContainer)
+export default connect(
+  mapStateToProps, 
+  { setUserData, setDoctor, deleteDoctor }
+)(ProfilePageContainer)
