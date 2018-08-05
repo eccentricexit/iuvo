@@ -7,12 +7,14 @@ export function iuvoData (state = { doctors: {} }, action) {
   const { payload } = action
   switch (action.type) {
     case SET_DOCTOR: {
-      console.info('received set doctor request')
       const doctor = payload
-      const doctors = Object.assign(...state.doctors, { [doctor.doctorAddr]: doctor })
+      const newDoctors = {
+        ...state.doctors,
+        [doctor.doctorAddr]: doctor
+      }
       return {
         ...state,
-        doctors
+        doctors: newDoctors
       }
     }
     case DELETE_DOCTOR: {
