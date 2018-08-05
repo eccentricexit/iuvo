@@ -18,7 +18,6 @@ class LoginPageContainer extends Component {
       const iuvoCoreByProxy = getIuvoCoreReference(web3)
       setUportIuvoCoreInstance(iuvoCoreByProxy)
       updateLocalDoctorsData(iuvoCoreByProxy, setDoctor)
-
     }).catch(err => {
       console.error(err)
     })

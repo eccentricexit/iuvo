@@ -4,7 +4,6 @@ import DoctorList from './DoctorList'
 import { setDoctor } from '../../actions'
 
 class DoctorListContainer extends Component {
-
   componentDidMount () {
     console.info('DoctorList: componentDidMount')
   }

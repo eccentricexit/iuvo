@@ -62,7 +62,7 @@ export const updateLocalDoctorData = (iuvoCoreByProxy, specificNetworkAddress, s
     if (err) { throw err }
     console.info('res', res)
 
-    if (res !== 0 ) { // doctor exists
+    if (res !== 0) { // doctor exists
       const posInStorage = res.toNumber()
       console.info('converted from bn: ', posInStorage)
       iuvoCoreByProxy.iuvoCoreByProxy.doctors(posInStorage, (err, res) => {
@@ -80,4 +80,3 @@ export const updateLocalDoctorData = (iuvoCoreByProxy, specificNetworkAddress, s
     }
   })
 }
-
