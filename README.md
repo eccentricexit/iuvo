@@ -1,12 +1,22 @@
 # iuvo
-
-<center><img alt="banner" src="assets/iuvo.jpg" /></center>
-
+<br />
+<br />
+<center><img alt="iuvo" src="assets/iuvo.jpg" /></center>
+<br />
+<br />
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 TODO: Put more badges here.
 
 > The decentralized health services marketplace.
+
+**Features:**
+- Upgradable pattern;
+- uPort integration;
+- IPFS integration;
+- Circuit breaks;
+- Automated tests;
+- Material UI.
 
 Contracts on Rinkeby:
 - IuvoCore: [TODO](https://rinkeby.etherscan.io/address/TODO)
@@ -17,6 +27,7 @@ Contracts on Rinkeby:
 - [iuvo](#iuvo)
     - [Table of Contents](#table-of-contents)
     - [Security](#security)
+    - [Screenshots](#screenshots)
     - [Install](#install)
     - [Tests](#tests)
     - [Usage](#usage)
@@ -24,19 +35,26 @@ Contracts on Rinkeby:
 
 ## Security
 
+TODO
+
+## Screenshots
+
+TODO
+
 ## Install
 
 Simply run `npm install`
 
 ## Tests
 
-Run the tests with `truffle test`
+1. Start a testnet by running `npm run ganache`
+2. Run the tests with `truffle test --network development`
 
 This project was built using the [Truffle Framework](), with tests written with [mocha]() and [chai](). They can be found inside the `test` folder.
 
 ## Usage
 
-This dapp integrates with uPort. This means you don't need Metamask, but you a smartphone with uPort installed.
+This dapp integrates with [uPort](). This means you don't need Metamask, but you do need a smartphone with uPort installed.
 
 Simply run `npm start`.
 
