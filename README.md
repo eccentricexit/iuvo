@@ -1,7 +1,7 @@
 # iuvo
 <br />
 <br />
-<center><img alt="iuvo" src="assets/iuvo.jpg" /></center>
+<p align="center"><img alt="iuvo" src="assets/iuvo.jpg" /></p>
 <br />
 <br />
 
