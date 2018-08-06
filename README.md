@@ -1,12 +1,14 @@
-# iuvo
 <br />
 <br />
-<p align="center"><img alt="iuvo" src="assets/iuvo.jpg" /></p>
+<p align="center"><img style="width:280px;" alt="iuvo" src="assets/iuvo.jpg" /></p>
 <br />
 <br />
 
-[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-TODO: Put more badges here.
+![uport-ready](https://img.shields.io/badge/uPort-ready-%235c50ca.svg)
+![ipfs-inside](https://img.shields.io/badge/ipfs-inside-6acad1.svg)
+![material-ui](https://img.shields.io/badge/material-ui-blue.svg)
+[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat)](https://github.com/RichardLitt/standard-readme)
+[![Build Status](https://travis-ci.org/mtsalenc/iuvo.svg?branch=master)](https://travis-ci.org/mtsalenc/iuvo)
 
 > The decentralized health services marketplace.
 
@@ -24,14 +26,13 @@ Contracts on Rinkeby:
 
 ## Table of Contents
 
-- [iuvo](#iuvo)
-    - [Table of Contents](#table-of-contents)
-    - [Security](#security)
-    - [Screenshots](#screenshots)
-    - [Install](#install)
-    - [Tests](#tests)
-    - [Usage](#usage)
-    - [License](#license)
+- [Table of Contents](#table-of-contents)
+- [Security](#security)
+- [Screenshots](#screenshots)
+- [Install](#install)
+- [Tests](#tests)
+- [Usage](#usage)
+- [License](#license)
 
 ## Security
 
