@@ -16,7 +16,6 @@ const mapStateToProps = ({ userData }) => {
 }
 
 export default connect(
-  AppointmentsPageContainer,
   mapStateToProps,
   { setUserData }
-)
+)(AppointmentsPageContainer)
