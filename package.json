@@ -7,8 +7,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "chain": "geth --datadir=\"/tmp/eth/60/01\" --nodiscover --maxpeers 0 --port 30301 --rpc --rpcapi \"db,eth,net,web3\" --rpcport 8101 --verbosity 6 console",
     "ganache": "ganache-cli -b 3 -p 9545 --mnemonic 'valley grocery power bridge language angle together ranch average high tribe meat' > /dev/null &",
-    "stop": "sudo kill `sudo lsof -t -i:9545`",
-    "format": "prettier-standard 'src/**/*.js'"
+    "stop": "sudo kill `sudo lsof -t -i:9545`"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -89,7 +88,7 @@
     "object-assign": "4.1.0",
     "openzeppelin-solidity": "^1.9.0",
     "path-exists": "2.1.0",
-    "postcss-loader": "1.0.0",
+    "postcss-loader": "1.0.0",    
     "promise": "7.1.1",
     "react-dev-utils": "^0.4.2",
     "recursive-readdir": "2.1.0",
