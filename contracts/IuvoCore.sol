@@ -1,9 +1,3 @@
-/**
- *  @title IuvoCore
- *  @author Matheus Alencar - <mtsalenc@gmail.com> 
- *  Bug Bounties: This code hasn't undertaken a bug bounty program. It
- *  was built for educational purposes only.
- */
 pragma solidity 0.4.24;
 
 import "./PausableUpgradeable.sol";

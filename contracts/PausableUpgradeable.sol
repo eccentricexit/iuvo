@@ -1,4 +1,4 @@
-pragma solidity ^0.4.24;
+pragma solidity 0.4.24;
 
 import "./PausableProxied.sol";
 
@@ -7,11 +7,11 @@ contract PausableUpgradeable is PausableProxied {
      * @notice Modifier to make body of function only execute if the contract has not already been initialized.
      */
     modifier initializeOnceOnly() {
-         if(!initialized[target]) {
-             initialized[target] = true;
-             emit EventInitialized(target);
-             _;
-         } else revert();
+        if(!initialized[target]) {
+            initialized[target] = true;
+            emit EventInitialized(target);
+            _;
+        } else revert();
     }
 
     /**
@@ -32,7 +32,7 @@ contract PausableUpgradeable is PausableProxied {
      * from being initialized more than once.
      * If a contract is upgraded twice, pay special attention that the state variables are not initialized again
      */
-    function initialize() initializeOnceOnly public {
+    function initialize() public initializeOnceOnly {
         // initialize contract state variables here
     }
 }
