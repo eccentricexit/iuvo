@@ -52,7 +52,7 @@ const AppointmentListItem = ({ appointment, doctor, classes }) => {
   if(!doctor){
     //doctor deleted his information after getting hired.
     doctor = {
-      name: 'This doctor has been deleted',
+      name: 'This doctor cleared his data.',
       rating: '',
       bio: ''
     }
