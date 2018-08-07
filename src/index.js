@@ -9,6 +9,7 @@ import App from './App'
 import HomeContainer from './components/home/HomeContainer'
 import ProfilePageContainer from './components/profile/ProfilePageContainer'
 import AppointmentsPageContainer from './components/appointments/AppointmentsPageContainer'
+import HireDoctorContainer from './components/hire/HireDoctorContainer'
 
 import store from './store'
 
@@ -27,6 +28,9 @@ ReactDOM.render(
         </Route>
         <Route path='/appointments' component={App}>
           <IndexRoute component={AppointmentsPageContainer} />
+        </Route>
+        <Route path='/doctor/:id' component={App}>
+          <IndexRoute component={HireDoctorContainer} />
         </Route>
       </Router>
     </Provider>
