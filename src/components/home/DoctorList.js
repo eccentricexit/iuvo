@@ -22,7 +22,7 @@ const DoctorList = ({ classes, doctors }) => {
   const numDoctors = doctors.length
 
   return (
-    <Card className={classes.card}>
+    <Card >
       <CardContent>
         <Typography className={classes.title} color='textSecondary'>
           Available Doctors: {numDoctors}

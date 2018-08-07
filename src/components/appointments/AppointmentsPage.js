@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import { browserHistory } from 'react-router'
-import ListItem from '@material-ui/core/ListItem'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Avatar from '@material-ui/core/Avatar'
@@ -41,16 +40,20 @@ const styles = theme => ({
   },
   avatar: {
     marginLeft: 20,
-    width: 220,
-    height: 220,
+    width: 190,
+    height: 190,
     alignSelf: 'center'
   }
 })
 
 const AppointmentListItem = ({ appointment, doctor, classes }) => {
   return (
-    <ListItem >
-      <Card className={classes.card} >
+    <div>
+      <Typography variant='title' color='inherit'>
+        Appointments
+      </Typography>
+      <br />
+      <Card className={classes.card}>
         <Avatar src={doctor.imgRaw} className={classes.avatar} />
         <div className={classes.grow}>
           <CardContent >
@@ -105,7 +108,7 @@ const AppointmentListItem = ({ appointment, doctor, classes }) => {
           </CardContent>
         </div>
       </Card>
-    </ListItem>
+    </div>
   )
 }
 
@@ -119,9 +122,9 @@ const AppointmentsPage = (props) => {
       {!appointments
         ? <NoAppointments />
         : <div>
-          <Typography variant='title' color='inherit'>
+          {/*<Typography variant='title' color='inherit'>
                 Appointments
-          </Typography>
+          </Typography>*/}
           {appointments.map((appointment, index) => (
             <StyledAppointmentItem
               appointment={appointment}
