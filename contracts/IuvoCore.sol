@@ -84,7 +84,10 @@ contract IuvoCore is PausableUpgradeable{
     event RatingOracleSet(address _ratingOracle);
 
     modifier onlyRatingOracle() {
-        require(msg.sender==ratingOracle); 
+        require(
+            msg.sender==ratingOracle,
+            "Only the rating oracle can call this function"
+        ); 
         _;  
     }
 
@@ -145,7 +148,10 @@ contract IuvoCore is PausableUpgradeable{
     /** @dev Deletes doctor's data.
      */
     function deleteDoctor() public whenNotPaused {
-        require(doctorExists[msg.sender]);
+        require(
+            doctorExists[msg.sender],
+            "A doctor for this address must exist to be deleted."
+        );
         address doctorAddr = msg.sender;
         uint256 toBeDeletedPosition = doctorPosition[doctorAddr];
         uint256 lastDoctorPosition = doctors.length-1;
@@ -216,7 +222,10 @@ contract IuvoCore is PausableUpgradeable{
      *  @param _rating The doctor's rating.
      */
     function setRating(address _doctor, string _rating) public onlyRatingOracle whenNotPaused{
-        require(doctorExists[_doctor]);
+        require(
+            doctorExists[_doctor],
+            "A doctor for this address a must exist receive a rating"
+        );
 
         uint256 doctorPositionInArray = doctorPosition[_doctor];
         Doctor storage docToUpdate = doctors[doctorPositionInArray];        
