@@ -13,6 +13,9 @@
 
 > The decentralized health services marketplace.
 
+On `iuvo`, you can hire doctors or put your services up on a list to be hired.
+Hiring a doctor, means deploying a [Kleros] arbitrable transaction, which gives an oportuninty to either party appeal if there is a dispute.
+
 **Features:**
 - Upgradable pattern;
 - uPort integration;
@@ -21,13 +24,11 @@
 - Automated tests;
 - Material UI.
 
-Contracts on Rinkeby:
-- IuvoCore: [TODO](https://rinkeby.etherscan.io/address/TODO)
-- PausableProxy: [0x5f17193cda988ddecb1c2255c1c4e8077ecc8b66](https://rinkeby.etherscan.io/address/0x5f17193cda988ddecb1c2255c1c4e8077ecc8b66)
+## Notes on local deployment
 
-## Security
+This project's frontend uses uPort's infrastructure for interaction and authentication. This means you must use Rinkeby.
 
-TODO
+You may however, deploy the contracts locally, run the tests and interact with them through `truffle console`.
 
 ## Screenshots
 
@@ -42,11 +43,11 @@ Simply run `npm install`
 1. Start a testnet by running `npm run ganache`
 2. Run the tests with `truffle test --network development`
 
-This project was built using the [Truffle Framework](), with tests written with [mocha]() and [chai](). They can be found inside the `test` folder.
+This project was built using the [Truffle Framework](https://truffleframework.com), with tests written with mocha and chai. They can be found inside the `test` folder.
 
 ## Usage
 
-This dapp integrates with [uPort](). This means you don't need Metamask, but you do need a smartphone with uPort installed.
+This dapp integrates with [uPort](https://www.uport.me/). This means you don't need Metamask, but you do need a smartphone with uPort installed.
 
 Simply run `npm start`.
 
