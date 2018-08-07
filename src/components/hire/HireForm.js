@@ -13,6 +13,7 @@ import Avatar from '@material-ui/core/Avatar'
 const enhanceWithFormik = withFormik({
   mapPropsToValues: (props) => ({
     name: props.doctor.name,
+    doctorAddr: props.doctor.doctorAddr,
     bio: props.doctor.bio,
     imgRaw: props.doctor.imgRaw,
     rating: props.doctor.rating,
@@ -21,7 +22,11 @@ const enhanceWithFormik = withFormik({
   }),
   mapValuesToPayload: x => x,
   handleSubmit: (payload, bag) => {
-    bag.props.handleRequestService(payload)
+    bag.props.handleRequestService(
+      payload,
+      '0x60c24da2a9220693b8f2f79d57dad8e5658eccd2', // Arbitrator
+      432000 // Dispute timeout
+    )
   },
   displayName: 'HireForm'
 })
@@ -91,11 +96,30 @@ class HireForm extends Component {
                 disabled
               />
               <TextField
+                id='doctorAddr'
+                value={this.props.values.doctorAddr}
+                onBlur={this.props.handleBlur}
+                autoFocus
+                margin='dense'
+                label='Address: '
+                disabled
+                fullWidth
+              />
+              <TextField
                 id='arbitrator'
                 value='0x60c24da2a9220693b8f2f79d57dad8e5658eccd2'
                 margin='dense'
                 label='Kleros arbitrator address'
-                placeholder='0x0345263'
+                fullWidth
+                onChange={this.props.handleChange}
+                onBlur={this.props.handleBlur}
+                disabled
+              />
+              <TextField
+                id='timeout'
+                value='5 days'
+                margin='dense'
+                label='Time after which a non responding party looses a dispute'
                 fullWidth
                 onChange={this.props.handleChange}
                 onBlur={this.props.handleBlur}
