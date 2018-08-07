@@ -1,13 +1,13 @@
 # Funds Management
 
-Iuvo is a platform for selling and buying medical services and as such requires handling of user's funds. When designing the contract the concerns were taken into account:
+Iuvo is a platform for selling and buying medical services and as such requires handling of user's funds. When designing the contract the following concerns were taken into account:
 
 - Withdrawing funds should be protected against reentrancy;
 - Interactions with other contracts should follow Check-Effects-Interaction;
 - Transfers should favor pull over push transfers;
-- Locked up funds.
+- Prevent locked up funds.
 
-Instead of implementing and working around constraints in code, one solution is to use [Kleros'](kleros.io) `kleros-interaction` library and it's `ArbitrableTransaction` contract. This has several advantages:
+Instead of implementing and working around constraints in code, a design solution is used: [Kleros'](kleros.io) `kleros-interaction` library and it's `ArbitrableTransaction` contract. This has several advantages:
 
 - Doesn't manage large quantities of funds in a single contract;
 - Using audited contracts, avoids developers mistakes when trying to "reinvent the wheel";
