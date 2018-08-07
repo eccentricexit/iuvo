@@ -14,7 +14,8 @@ class AppointmentsPageContainer extends Component {
 const mapStateToProps = ({ userData, iuvoData }) => {
   return {
     userData,
-    appointments: iuvoData.appointments
+    appointments: iuvoData.appointments,
+    doctors: iuvoData.doctors
   }
 }
 

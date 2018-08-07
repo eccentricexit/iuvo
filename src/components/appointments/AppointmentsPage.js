@@ -5,8 +5,9 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import { browserHistory } from 'react-router'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import Divider from '@material-ui/core/Divider'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Avatar from '@material-ui/core/Avatar'
 
 const NoAppointments = (props) => {
   return (
@@ -26,39 +27,110 @@ const NoAppointments = (props) => {
   )
 }
 
-const AppointmentListItem = ({ appointment, key }) => {
+const styles = theme => ({
+  card: {
+    display: 'flex'
+  },
+  cover: {
+    width: 221,
+    height: 221,
+    alignSelf: 'center'
+  },
+  grow: {
+    flex: 1
+  },
+  avatar: {
+    marginLeft: 20,
+    width: 220,
+    height: 220,
+    alignSelf: 'center'
+  }
+})
+
+const AppointmentListItem = ({ appointment, doctor, classes }) => {
+
   return (
-    <ListItem dense button key={name}>
-      {/* <Avatar alt='Portrait' src={} /> */}
-      <ListItemText primary={'asdfasd'} secondary={'asfasdf'} />
-      <Typography>{`rating: 3142`}</Typography>
-      <Divider />
+    <ListItem >
+      <Card className={classes.card} >
+        <Avatar src={doctor.imgRaw} className={classes.avatar} />
+        <div className={classes.grow}>
+          <CardContent >
+            <Typography variant='title' color='inherit'>
+                Doctor data
+            </Typography>
+            <TextField
+              id='name'
+              value={doctor.name}
+              autoFocus
+              margin='dense'
+              label='Name/Title'
+              disabled
+              fullWidth
+            />
+            <TextField
+              id='rating'
+              value={doctor.rating}
+              autoFocus
+              margin='dense'
+              label='Rating'
+              disabled
+              fullWidth
+            />
+            <TextField
+              id='bio'
+              value={doctor.bio}
+              margin='dense'
+              label='Bio'
+              fullWidth
+
+              disabled
+            />
+            <TextField
+              id='doctorAddr'
+              value={doctor.doctorAddr}
+
+              autoFocus
+              margin='dense'
+              label='Address: '
+              disabled
+              fullWidth
+            />
+            <TextField
+              id='arbitrableContract'
+              value={appointment.arbitrableAppointment}
+              margin='dense'
+              label='Kleros arbitrable contract address'
+              fullWidth
+              disabled
+            />
+          </CardContent>
+        </div>
+      </Card>
     </ListItem>
   )
 }
 
-const AppointmentsPage = (props) => {
-  // const { appointments } = props
-  const appointments = [{
-    arbitrableAppointment: '0x3c238e38784a95cb49b1216af4391fae197ae496',
-    contractIpfsAddr: '0x3c238e38784a95cb49b1216af4391fae197ae496',
-    doctor: '0xb6ceaf96b4686b57d14c36a5932f5a9eb07bbac6',
-    patient: '0x3b768d17af19f200647245c04f840747226bd5f0'
-  }]
+const StyledAppointmentItem = withStyles(styles, { withTheme: true })(AppointmentListItem)
 
-  console.info('appointments', appointments)
+const AppointmentsPage = (props) => {
+  const { appointments, doctors } = props
+  
   return (
     <div>
       {!appointments
         ? <NoAppointments />
-        : <Card >
-          <CardContent>
-            <Typography variant='title' color='inherit'>
+        : <div>
+          <Typography variant='title' color='inherit'>
                 Appointments
-            </Typography>
-            <AppointmentListItem />
-          </CardContent>
-        </Card>
+          </Typography>
+          {appointments.map((appointment, index) => (
+            <StyledAppointmentItem
+              appointment={appointment}
+              key={index}
+              doctor={doctors[appointment.doctor]}
+            />
+          ))}
+        </div>
       }
     </div>
   )
