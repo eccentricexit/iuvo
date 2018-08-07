@@ -11,8 +11,11 @@ class AppointmentsPageContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ userData }) => {
-  return { userData }
+const mapStateToProps = ({ userData, iuvoData }) => {
+  return {
+    userData,
+    appointments: iuvoData.appointments
+  }
 }
 
 export default connect(

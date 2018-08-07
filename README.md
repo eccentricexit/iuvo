@@ -23,7 +23,7 @@
 
 Contracts on Rinkeby:
 - IuvoCore: [TODO](https://rinkeby.etherscan.io/address/TODO)
-- PausableProxy: [TODO](https://rinkeby.etherscan.io/address/TODO)
+- PausableProxy: [0x5f17193cda988ddecb1c2255c1c4e8077ecc8b66](https://rinkeby.etherscan.io/address/0x5f17193cda988ddecb1c2255c1c4e8077ecc8b66)
 
 ## Security
 

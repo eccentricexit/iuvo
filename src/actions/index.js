@@ -2,11 +2,19 @@ import {
   SET_USER_DATA,
   SET_UPORT_IUVO_CORE,
   SET_DOCTOR,
-  DELETE_DOCTOR
+  DELETE_DOCTOR,
+  ADD_APPOINTMENT
 } from './types'
 
+export function addAppointment (appointment) {
+  console.info('creating add appointment action for: ', appointment)
+  return {
+    type: ADD_APPOINTMENT,
+    payload: appointment
+  }
+}
+
 export function deleteDoctor (address) {
-  console.info('creating delete doctor action for: ', address)
   return {
     type: DELETE_DOCTOR,
     payload: address

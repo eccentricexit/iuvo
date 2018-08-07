@@ -26,9 +26,9 @@ const NoAppointments = (props) => {
   )
 }
 
-const AppointmentListItem = ({ appointment, classes }) => {
+const AppointmentListItem = ({ appointment, key }) => {
   return (
-    <ListItem dense button className={classes.listItem} key={name}>
+    <ListItem dense button key={name}>
       {/* <Avatar alt='Portrait' src={} /> */}
       <ListItemText primary={'asdfasd'} secondary={'asfasdf'} />
       <Typography>{`rating: 3142`}</Typography>
@@ -38,17 +38,25 @@ const AppointmentListItem = ({ appointment, classes }) => {
 }
 
 const AppointmentsPage = (props) => {
-  const { appointments, classes } = props
+  // const { appointments } = props
+  const appointments = [{
+    arbitrableAppointment: '0x3c238e38784a95cb49b1216af4391fae197ae496',
+    contractIpfsAddr: '0x3c238e38784a95cb49b1216af4391fae197ae496',
+    doctor: '0xb6ceaf96b4686b57d14c36a5932f5a9eb07bbac6',
+    patient: '0x3b768d17af19f200647245c04f840747226bd5f0'
+  }]
+
+  console.info('appointments', appointments)
   return (
     <div>
       {!appointments
         ? <NoAppointments />
-        : <Card className={classes.card}>
+        : <Card >
           <CardContent>
             <Typography variant='title' color='inherit'>
                 Appointments
             </Typography>
-            <AppointmentListItem classes={classes} />
+            <AppointmentListItem />
           </CardContent>
         </Card>
       }

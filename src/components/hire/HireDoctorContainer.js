@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import HireForm from './HireForm'
-import { setUserData, setDoctor, deleteDoctor } from '../../actions'
 import { connect } from 'react-redux'
 import Snackbar from '@material-ui/core/Snackbar'
 import { web3 } from '../../util/connectors'
 import { waitForMined } from '../../util/waitForMined'
+import { updateLocalAppointmentsData } from '../../util/iuvoUtils'
+import { setUserData, setDoctor, deleteDoctor, addAppointment } from '../../actions'
 
 class HireDoctorContainer extends Component {
   state = {
@@ -13,16 +14,8 @@ class HireDoctorContainer extends Component {
   }
 
   handleRequestService = (doctor,arbitrator,timeout) => {
-    console.info('request service from container: ',doctor)
-    const { iuvoCoreByProxy } = this.props
-    const componentContext = this
-
-    console.info('data:', doctor.doctorAddr)
-    console.info('data:', doctor.contractIpfsAddr)
-    console.info('data:', arbitrator)
-    console.info('data:', 'kleros.io')
-    console.info('data:', timeout)
-    console.info('data:', '0x0')
+    const { iuvoCoreByProxy, userData, addAppointment } = this.props
+    const componentContext = this    
 
     iuvoCoreByProxy.iuvoCoreByProxy.hireDoctor(
       doctor.doctorAddr,
@@ -40,12 +33,17 @@ class HireDoctorContainer extends Component {
           function pendingCB () {
             componentContext.setState({ txPendingOpen: true })
           },
-          function successCB (data) {
-            console.info('success data',data)
+          function successCB () {
             componentContext.setState({ 
               txPendingOpen: false,
               txConfirmedOpen: true
             })
+
+            updateLocalAppointmentsData(
+              iuvoCoreByProxy,
+              userData,
+              addAppointment
+            )
           }
         )
       }
@@ -55,7 +53,6 @@ class HireDoctorContainer extends Component {
 
 
   handleViewContract = (doctor) => {
-    console.info('request view contract from container')
     const contractTab = window.open(
       `https://gateway.ipfs.io/ipfs/${doctor.contractIpfsAddr}`,
       '_blank'
@@ -124,5 +121,5 @@ const mapStateToProps = ({ userData, iuvoData, iuvoCoreByProxy }, ownProps) => {
 
 export default connect(
   mapStateToProps, 
-  { setUserData, setDoctor, deleteDoctor }
+  { setUserData, setDoctor, deleteDoctor, addAppointment }
 )(HireDoctorContainer)

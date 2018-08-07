@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
 import LoginPage from './LoginPage'
 import { uport, web3 } from '../../util/connectors'
-import { setUserData, setUportIuvoCoreInstance, setDoctor } from '../../actions'
 import { decode as mnidDecode } from 'mnid'
 import { connect } from 'react-redux'
-import { getIuvoCoreReference, updateLocalDoctorsData } from '../../util/iuvoUtils'
+import { setUserData, setUportIuvoCoreInstance, setDoctor, addAppointment } from '../../actions'
+import {
+  getIuvoCoreReference,
+  updateLocalDoctorsData,
+  updateLocalAppointmentsData
+} from '../../util/iuvoUtils'
 
 class LoginPageContainer extends Component {
   handleClick () {
-    const { setUserData, setUportIuvoCoreInstance, setDoctor } = this.props
+    const { setUserData, setUportIuvoCoreInstance, setDoctor, addAppointment } = this.props
     uport.requestCredentials({requested: ['name', 'avatar']}).then(credentials => {
       credentials.decodedID = mnidDecode(credentials.address)
       credentials.specificNetworkAddress = credentials.decodedID.address
@@ -18,6 +22,11 @@ class LoginPageContainer extends Component {
       const iuvoCoreByProxy = getIuvoCoreReference(web3)
       setUportIuvoCoreInstance(iuvoCoreByProxy)
       updateLocalDoctorsData(iuvoCoreByProxy, setDoctor)
+      updateLocalAppointmentsData(
+        iuvoCoreByProxy,
+        credentials.specificNetworkAddress,
+        addAppointment
+      )
     }).catch(err => {
       console.error(err)
     })
@@ -44,5 +53,11 @@ const mapStateToProps = ({ userData }) => {
 
 export default connect(
   mapStateToProps,
-  { setUserData, setUportIuvoCoreInstance, setDoctor }
+  {
+    setUserData,
+    setUportIuvoCoreInstance,
+    setDoctor,
+    updateLocalAppointmentsData,
+    addAppointment
+  }
 )(LoginPageContainer)
