@@ -47,14 +47,25 @@ const styles = theme => ({
 })
 
 const AppointmentListItem = ({ appointment, doctor, classes }) => {
+  console.info('appointment', appointment)
+  console.info('doctor', doctor)
+  if(!doctor){
+    //doctor deleted his information after getting hired.
+    doctor = {
+      name: 'This doctor has been deleted',
+      rating: '',
+      bio: ''
+    }
+  }
   return (
     <div>
-      <Typography variant='title' color='inherit'>
-        Appointments
-      </Typography>
-      <br />
       <Card className={classes.card}>
-        <Avatar src={doctor.imgRaw} className={classes.avatar} />
+        <Avatar 
+          src={doctor.imgRaw 
+            ? doctor.imgRaw 
+            : 'https://image.freepik.com/free-icon/user-image-with-black-background_318-34564.jpg'} 
+          className={classes.avatar} 
+        />
         <div className={classes.grow}>
           <CardContent >
             <Typography variant='title' color='inherit'>
@@ -89,8 +100,7 @@ const AppointmentListItem = ({ appointment, doctor, classes }) => {
             />
             <TextField
               id='doctorAddr'
-              value={doctor.doctorAddr}
-
+              value={appointment.doctor}
               autoFocus
               margin='dense'
               label='Address: '
@@ -119,20 +129,21 @@ const AppointmentsPage = (props) => {
 
   return (
     <div>
-      {!appointments
+      {!appointments || appointments.length === 0
         ? <NoAppointments />
         : <div>
-          {/*<Typography variant='title' color='inherit'>
-                Appointments
-          </Typography>*/}
-          {appointments.map((appointment, index) => (
-            <StyledAppointmentItem
-              appointment={appointment}
-              key={index}
-              doctor={doctors[appointment.doctor]}
-            />
-          ))}
-        </div>
+            <Typography variant='title' color='inherit'>
+              Appointments
+            </Typography>
+            <br />
+            {appointments.map((appointment, index) => (
+              <StyledAppointmentItem
+                appointment={appointment}
+                key={index}
+                doctor={doctors[appointment.doctor]}
+              />
+            ))}
+          </div>
       }
     </div>
   )
