@@ -74,7 +74,6 @@ class ProfilePageContainer extends Component {
 
   handleDeleteDoctor = () => {
     const { iuvoCoreByProxy, userData, deleteDoctor } = this.props
-    console.info('userData',userData)
     const componentContext = this
     
     iuvoCoreByProxy.iuvoCoreByProxy.deleteDoctor(
@@ -93,7 +92,6 @@ class ProfilePageContainer extends Component {
               isSettingDoctor: false,
               txConfirmedOpen: true
             })
-            console.info('sending deleteDoctor for ',userData.specificNetworkAddress)
             deleteDoctor(userData.specificNetworkAddress)
           }
         )
@@ -101,17 +99,14 @@ class ProfilePageContainer extends Component {
   }  
 
   componentWillReceiveProps (nextProps) {
-    console.info('ProfilePage: componentWillReceiveProps')
     const { iuvoData, userData } = nextProps
     const docFromRedux = iuvoData.doctors[userData.specificNetworkAddress]
-    console.info('docFromRedux',docFromRedux)
     if(!docFromRedux && this.state.doctor){ // deleted doctor
       this.setState({ doctor: docFromRedux })
     }
   }
 
   componentDidMount() {
-    console.info('ProfilePage: componentDidMount')
     const { iuvoData, userData } = this.props
     const docFromRedux = iuvoData.doctors[userData.specificNetworkAddress]
     if(docFromRedux && !this.state.doctor){

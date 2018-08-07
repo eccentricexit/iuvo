@@ -32,14 +32,6 @@ class LoginPageContainer extends Component {
     })
   }
 
-  componentDidMount () {
-    console.info('LoginPage: componentDidMount')
-  }
-
-  componentWillReceiveProps () {
-    console.info('LoginPage: componentDidMount')
-  }
-
   render () {
     const { userData } = this.props
     const isOpen = !userData

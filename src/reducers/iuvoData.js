@@ -26,7 +26,6 @@ export function iuvoData (state = { doctors: {}, appointments: [] }, action) {
       return newState
     }
     case ADD_APPOINTMENT: {
-      console.info('received add appointment request')
       const appointment = payload
       const newState = { ...state }
       newState.appointments.push(appointment)

@@ -16,7 +16,6 @@ const enhanceWithFormik = withFormik({
   }),
   mapValuesToPayload: x => x,
   handleSubmit: (payload, bag) => {
-    console.info('payload', payload)
     bag.setSubmitting(false)
     bag.props.handleSetDoctor(payload)
   },

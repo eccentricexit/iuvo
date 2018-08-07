@@ -48,7 +48,6 @@ const styles = theme => ({
 })
 
 const AppointmentListItem = ({ appointment, doctor, classes }) => {
-
   return (
     <ListItem >
       <Card className={classes.card} >
@@ -114,7 +113,7 @@ const StyledAppointmentItem = withStyles(styles, { withTheme: true })(Appointmen
 
 const AppointmentsPage = (props) => {
   const { appointments, doctors } = props
-  
+
   return (
     <div>
       {!appointments

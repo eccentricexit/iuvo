@@ -106,10 +106,9 @@ export const updateLocalAppointmentsData = (iuvoCoreByProxy, userAddress, addApp
           console.info('appointment', res)
           const appointment = appointmentFromArray(res)
 
-          if(appointment.patient === userAddress){
+          if (appointment.patient === userAddress) {
             addAppointment(appointment)
           }
-
         })
       }
     }

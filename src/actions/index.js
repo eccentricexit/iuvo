@@ -7,7 +7,6 @@ import {
 } from './types'
 
 export function addAppointment (appointment) {
-  console.info('creating add appointment action for: ', appointment)
   return {
     type: ADD_APPOINTMENT,
     payload: appointment
@@ -36,7 +35,6 @@ export function setUportIuvoCoreInstance (iuvoCoreByProxy) {
 }
 
 export function setDoctor (doctor) {
-  console.info('sending setDoctor')
   return {
     type: SET_DOCTOR,
     payload: doctor
