@@ -23,3 +23,9 @@ Instead of fully executing a function and using if-else to implement business ru
 Curation, reputation management and rating are dificult things to do on enviroments operating with pseudonyms due to sybil attacks. One way to solve this problem is to use an Oracle.
 
 To restrict which account can call the `setRating`, IuvoCore implements the `onlyRatingOracle` custom modifier.
+
+# Code Style and Compiler Version
+
+Care was taken to ensure functions, variables visibility are not ambigous, by making them all explicit. Additionally, Events were also prefixed with `Log` so they are not confused with function calls (as recomended by Consensys Best Practices).
+
+Compiler version has also been locked in pragma.
