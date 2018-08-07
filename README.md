@@ -34,14 +34,18 @@ Simply run `npm install`
 
 ## Tests
 
-1. Start a testnet by running `npm run ganache`
-2. Run the tests with `truffle test --network development`
+1. `ganache-cli`
+2. `truffle test`
 
-This project was built using the [Truffle Framework](https://truffleframework.com), with tests written with mocha and chai. They can be found inside the `test` folder.
+This project was built using the [Truffle Framework](https://truffleframework.com), with tests written with mocha and chai so they can be found inside the `test` folder.
 
 ## Usage
 
+The frontend usage depends on weather want to interact with the contracts already deployed on Rinkeby testnet, newly deployed contracts to Rinkeby or contracts on your own testnet.
+
 ### Interacting with the deployed contracts
+
+> This is what you want to grade this project.
 
 This project's frontend uses [uPort's](https://www.uport.me/) infrastructure for interaction and authentication. This means that:
 - You don't need Metamask, but you do need a smartphone with uPort installed. 
@@ -57,17 +61,17 @@ For new contracts we have two options: deploy on a local testnet and deploy on r
 
 #### Local testnet: 
 
-If you choose to deploy locally, you will have to interact with the contracts directly through the `truffle console`. This is because the frontend requires uPort's infrastructure and smartcontracts.
+If you choose to deploy locally, you will have to interact with the contracts directly through the `truffle console`. This is because the frontend requires uPort's infrastructure and smart contracts.
 
-Also note that to hire a doctor, you need to pass the function an address of an arbitrator. This can be any address if you don't plan on raising a dispute.
+Also note that to hire a doctor, you need to pass the function an address of an arbitrator. This can be any address if you don't plan on raising a dispute (you probably don't).
 
 #### Rinkeby testnet:
 
-If you choose to deploy the contracts to Rinkeby, you get the benefit of using the frontend. But you need to update it's configuration with your own dapp data.
+If you choose to deploy the contracts to Rinkeby, you get the benefit of using the frontend. But you need to update it's configuration with your own dapp data:
 
 1. See [uPort's documentation](https://developer.uport.me/gettingstarted#1-get-the-u-port-app) on how to register.
 2. Update `src/util/connectors.js`
-
+3. `npm start`
 
 ## License
 
