@@ -2,9 +2,17 @@ pragma solidity 0.4.24;
 
 import "./PausableProxied.sol";
 
+
+/*
+ * @title PausableUpgradeable
+ * @author Jack Tanner. Made pausable by Matheus Alencar.
+ * @notice Original repo is here: https://github.com/jackandtheblockstalk/upgradeable-proxy
+ * 
+ */
 contract PausableUpgradeable is PausableProxied {
     /*
-     * @notice Modifier to make body of function only execute if the contract has not already been initialized.
+     * @notice Modifier to make body of function only execute if the contract has not already 
+     * been initialized.
      */
     modifier initializeOnceOnly() {
         if(!initialized[target]) {

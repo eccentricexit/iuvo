@@ -4,7 +4,9 @@ import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
 
 /*
  * @title Proxied v0.5
- * @author Jack Tanner
+ * @author Jack Tanner. Made pausable by Matheus Alencar.
+ * Original code can be found here: https://github.com/jackandtheblockstalk/upgradeable-proxy
+ *
  * @notice The Proxied contract acts as the parent contract to Proxy and Upgradeable with and creates space for
  * state variables, functions and events that will be used in the upgraeable system.
  *
@@ -16,7 +18,7 @@ import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
  * calling upgradeTo()
  *
  * @param initialized - This mapping records which targets have been initialized with the Upgradeable.initialize()
- * function. Target Upgradeable contracts can only be intitialed once.
+ * function. Target Upgradeable contracts can only be intitialed once.  
  */
 contract PausableProxied is Pausable {
     address public target;

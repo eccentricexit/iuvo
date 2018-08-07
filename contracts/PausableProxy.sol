@@ -3,7 +3,14 @@ pragma solidity 0.4.24;
 import "./PausableProxied.sol";
 import "./PausableUpgradeable.sol";
 
+
+/**
+ *  @title IuvoCore
+ *  @author Jack Tanner. Made pausable by Matheus Alencar.
+  * @notice Original repo is here: https://github.com/jackandtheblockstalk/upgradeable-proxy
+ */
 contract PausableProxy is PausableProxied {
+
     /*
      * @notice Constructor sets the target and emmits an event with the first target
      * @param _target - The target Upgradeable contracts address
