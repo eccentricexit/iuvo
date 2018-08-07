@@ -52,7 +52,7 @@ contract IuvoCore is PausableUpgradeable{
      *  @param _profilePicIpfsAddr The doctor's profile picture ipfs address/hash
      *  @param _contractIpfsAddr The contract's ipfs address/hash
      */
-    event NewDoctorData(
+    event LogNewDoctorData(
         address _doctor,
         string _name,  
         string _bio,
@@ -63,25 +63,25 @@ contract IuvoCore is PausableUpgradeable{
     /** @dev Indicate `_doctor`'s data has been removed.
      *  @param _doctor The doctor's address.     
      */
-    event DoctorDataDeleted(address _doctor);
+    event LogDoctorDataDeleted(address _doctor);
 
     /** @dev Indicate that the `_doctor`'s rating has been updated.
      *  @param _doctor The doctor's address.
      *  @param _rating The doctor's new rating.
      */
-    event DoctorRatingUpdated(address _doctor,string _rating
+    event LogDoctorRatingUpdated(address _doctor,string _rating
     );
 
     /** @dev Indicate that `_doctor` has been hired by `_patient`
      *  @param _doctor The doctor's address.
      *  @param _patient The patient that hired the doctor.
      */
-    event DoctorHired(address _doctor,address _patient);
+    event LogDoctorHired(address _doctor,address _patient);
 
     /** @dev Indicate that `_ratingOracle` has been set as the rating oracle.
      *  @param _ratingOracle The doctor's address.     
      */
-    event RatingOracleSet(address _ratingOracle);
+    event LogRatingOracleSet(address _ratingOracle);
 
     modifier onlyRatingOracle() {
         require(
@@ -136,7 +136,7 @@ contract IuvoCore is PausableUpgradeable{
         uint256 doctorPos = doctorPosition[doctorAddr];
         Doctor storage updatedDoctor = doctors[doctorPos];
 
-        emit NewDoctorData(
+        emit LogNewDoctorData(
             doctorAddr,
             updatedDoctor.name,
             updatedDoctor.bio,
@@ -170,7 +170,7 @@ contract IuvoCore is PausableUpgradeable{
         delete doctorPosition[doctorAddr];
         doctorExists[doctorAddr] = false;
 
-        emit DoctorDataDeleted(doctorAddr);
+        emit LogDoctorDataDeleted(doctorAddr);
     }
 
     /** @dev Hires a doctor and deploys a kleros arbitrable transaction contract.
@@ -214,7 +214,7 @@ contract IuvoCore is PausableUpgradeable{
         patientAppointments[_patient].push(appointments.length-1);
         doctorAppointments[_doctor].push(appointments.length-1);
 
-        emit DoctorHired(_doctor,_patient);
+        emit LogDoctorHired(_doctor,_patient);
     }
 
     /** @dev Sets a doctor's rating. Only callable by the rating oracle.
@@ -231,7 +231,7 @@ contract IuvoCore is PausableUpgradeable{
         Doctor storage docToUpdate = doctors[doctorPositionInArray];        
         docToUpdate.rating = _rating;
 
-        emit DoctorRatingUpdated(_doctor,_rating);
+        emit LogDoctorRatingUpdated(_doctor,_rating);
     }
 
     /** @dev Sets the rating oracle.
@@ -240,7 +240,7 @@ contract IuvoCore is PausableUpgradeable{
     function setRatingOracle(address _ratingOracle) public onlyOwner{
         ratingOracle = _ratingOracle;
 
-        emit RatingOracleSet(_ratingOracle);
+        emit LogRatingOracleSet(_ratingOracle);
     }
 
     /** @dev Returns the number of registered doctors.
