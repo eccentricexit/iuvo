@@ -7,7 +7,8 @@ import "kleros-interaction/contracts/standard/arbitration/Arbitrator.sol";
 /**
  *  @title IuvoCoreV2
  *  @author Matheus Alencar - <mtsalenc@gmail.com>
- *  @dev This contract was written to test upgradability.
+ *  @dev This contract was written to test upgradability. Some of it's methods were
+ *  purposely changed and do not function correctly.
  */
 contract IuvoCoreV2 is PausableUpgradeable{
 
@@ -74,7 +75,7 @@ contract IuvoCoreV2 is PausableUpgradeable{
     /** @dev Indicate that `_ratingOracle` has been set as the rating oracle.
      *  @param _ratingOracle The doctor's address.     
      */
-    event LogRatingOracleSet(address _ratingOracle);
+    event LogRatingOracleSet(address _ratingOracle);    
 
     modifier onlyRatingOracle() {
         require(
@@ -232,14 +233,13 @@ contract IuvoCoreV2 is PausableUpgradeable{
      */
     function setRatingOracle(address _ratingOracle) public onlyOwner{
         ratingOracle = _ratingOracle;
-
         emit LogRatingOracleSet(_ratingOracle);
     }
 
-    /** @dev Returns the number of registered doctors.
+    /** @dev Returns a fixed number. Only used to test upgradability.
      */
     function doctorsArrayLength() public view returns (uint256) {
-        return doctors.length;
+        return 10001;
     }
 
     /** @dev Returns the number registered appointments.

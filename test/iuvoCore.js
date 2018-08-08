@@ -1,7 +1,7 @@
 const IuvoCore = artifacts.require('./IuvoCore.sol')
 const PausableProxy = artifacts.require('./PausableProxy.sol')
-const { expectThrow } = require('../helpers/utils')
 const IuvoCoreV2 = artifacts.require('./mock/IuvoCoreV2.sol')
+const { expectThrow } = require('../helpers/utils')
 
 contract('IuvoCore', function (accounts) {
   const owner = accounts[0]
@@ -191,6 +191,89 @@ contract('IuvoCore', function (accounts) {
       doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition)
 
       assert.equal(doctorData[1], '5.0', 'doctor rating should be 5.0 yet')
+    })
+  })
+
+  describe('Contract Upgradability', () => {
+    beforeEach(deployContracts)
+
+    it('should call new contract methods after upgrade', async () => {
+      const iuvoCoreV2 = await IuvoCoreV2.new()
+      await iuvoCoreByProxy.upgradeTo(iuvoCoreV2.address)
+      await iuvoCoreByProxy.initialize()
+
+      const doctorsArrayLength = (await iuvoCoreByProxy.doctorsArrayLength()).toNumber()
+      assert.equal(doctorsArrayLength, 10001, 'new method should have been called')
+    })
+
+    it('should retain oracle after upgrade', async () => {
+      await iuvoCoreByProxy.setRatingOracle(ratingOracle, { from: owner })
+
+      const iuvoCoreV2 = await IuvoCoreV2.new()
+      await iuvoCoreByProxy.upgradeTo(iuvoCoreV2.address)
+      await iuvoCoreByProxy.initialize()
+
+      const ratingOracleFromState = await iuvoCoreByProxy.ratingOracle()
+
+      assert.equal(ratingOracleFromState, ratingOracle, 'oracles should be the same')
+    })
+
+    it('should retain doctors data after contract upgrades', async () => {
+      await iuvoCoreByProxy.setDoctor(
+        'Dr. Nancy',
+        'Love taking care of people',
+        'QmcSD36n81qTdHWCiHoFt1jiVpcW1eZoHJALFbBJxYRhLf',
+        'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
+        { from: doctorA }
+      )
+
+      const iuvoCoreV2 = await IuvoCoreV2.new()
+      await iuvoCoreByProxy.upgradeTo(iuvoCoreV2.address)
+      await iuvoCoreByProxy.initialize()
+
+      const doctorExists = await iuvoCoreByProxy.doctorExists(doctorA)
+
+      assert.isTrue(doctorExists, 'doctor should still exist')
+    })
+
+    it('should retain patient appointments after upgrade', async () => {
+      await iuvoCoreByProxy.setDoctor(
+        'Dr. Nancy',
+        'Love taking care of people',
+        'QmcSD36n81qTdHWCiHoFt1jiVpcW1eZoHJALFbBJxYRhLf',
+        'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
+        { from: doctorA }
+      )
+
+      await iuvoCoreByProxy.hireDoctor(
+        doctorA,
+        'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
+        0x0,
+        'https://kleros.io',
+        100,
+        0x0,
+        { from: patientA }
+      )
+
+      const iuvoCoreV2 = await IuvoCoreV2.new()
+      await iuvoCoreByProxy.upgradeTo(iuvoCoreV2.address)
+      await iuvoCoreByProxy.initialize()
+
+      const numAppointments = await iuvoCoreByProxy.patientAppointmentsLength(patientA)
+      assert.equal(numAppointments, 1, 'patient appointments should have been retained')
+    })
+
+    it('should not allow upgrades when paused', async () => {
+      
+      // const pausableProxyRef = PausableProxy.at(iuvoCoreByProxy.address)
+      // await pausableProxyRef.pause()
+
+      await iuvoCoreByProxy.pause()
+
+      const iuvoCoreV2 = await IuvoCoreV2.new()
+      await expectThrow(
+        iuvoCoreByProxy.upgradeTo(iuvoCoreV2.address)
+      )
     })
   })
 })

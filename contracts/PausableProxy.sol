@@ -25,7 +25,7 @@ contract PausableProxy is PausableProxied {
      * contracts
      * @param _target - The target Upgradeable contracts address
      */
-    function upgradeTo(address _target) public onlyOwner {
+    function upgradeTo(address _target) public onlyOwner whenNotPaused {
         assert(target != _target);
 
         address oldTarget = target;
@@ -37,7 +37,7 @@ contract PausableProxy is PausableProxied {
     /*
      * @notice Performs an upgrade and then executes a transaction. Intended use to upgrade and initialize atomically
      */
-    function upgradeTo(address _target, bytes _data) public onlyOwner {
+    function upgradeTo(address _target, bytes _data) public onlyOwner whenNotPaused {
         upgradeTo(_target);
         assert(target.delegatecall(_data));
     }
@@ -47,7 +47,7 @@ contract PausableProxy is PausableProxied {
      * @dev Will use the delegatecall opcode to retain the current state of the Proxy contract and use the logic
      * from the target contract to process it.
      */
-    function () payable public {
+    function () payable public whenNotPaused {
         bytes memory data = msg.data;
         address impl = target;
 

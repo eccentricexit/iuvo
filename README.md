@@ -34,10 +34,6 @@ Simply run `npm install`
 
 ## Tests
 
-> Important: The project specs require to have at least 5 tests for each contract. This project
-has 5 tests for the IuvoCore contract only because the others are only being used and come from
-external libraries.
-
 1. `ganache-cli`
 2. `truffle test`
 
