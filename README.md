@@ -26,13 +26,6 @@ When you hire a doctor, a new [Kleros](https://kleros.io/) arbitrable transactio
 - Automated tests;
 - Material UI.
 
-## Screenshots
-
-![](assets/dashboard.png)
-![](assets/doctordetails.png)
-![](assets/editprofile.png)
-![](assets/appointments.png)
-
 ## Install
 
 Simply run `npm install`
@@ -77,6 +70,13 @@ If you choose to deploy the contracts to Rinkeby, you get the benefit of using t
 1. See [uPort's documentation](https://developer.uport.me/gettingstarted#1-get-the-u-port-app) on how to register.
 2. Update `src/util/connectors.js`
 3. `npm start`
+
+## Screenshots
+
+![](assets/dashboard.png)
+![](assets/doctordetails.png)
+![](assets/editprofile.png)
+![](assets/appointments.png)
 
 ## License
 
