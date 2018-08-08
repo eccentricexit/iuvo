@@ -6,10 +6,10 @@
 <br />
 <br />
 
-![](https://img.shields.io/badge/uPort-ready-%235c50ca.svg)
-![](https://img.shields.io/badge/kleros-ready-292b2c.svg)
-![](https://img.shields.io/badge/ipfs-inside-6acad1.svg)
-![](https://img.shields.io/badge/material-ui-blue.svg)
+[![](https://img.shields.io/badge/uPort-ready-%235c50ca.svg)](https://www.uport.me)
+[![](https://img.shields.io/badge/kleros-ready-292b2c.svg)](https://kleros.io)
+[![](https://img.shields.io/badge/ipfs-inside-6acad1.svg)](https://ipfs.io)
+[![](https://img.shields.io/badge/material-ui-blue.svg)](material-ui.com)
 [![](https://travis-ci.org/mtsalenc/iuvo.svg?branch=master)](https://travis-ci.org/mtsalenc/iuvo)
 
 > The decentralized health services marketplace.
