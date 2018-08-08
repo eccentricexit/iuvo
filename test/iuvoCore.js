@@ -264,10 +264,6 @@ contract('IuvoCore', function (accounts) {
     })
 
     it('should not allow upgrades when paused', async () => {
-      
-      // const pausableProxyRef = PausableProxy.at(iuvoCoreByProxy.address)
-      // await pausableProxyRef.pause()
-
       await iuvoCoreByProxy.pause()
 
       const iuvoCoreV2 = await IuvoCoreV2.new()
