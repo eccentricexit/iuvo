@@ -28,7 +28,10 @@ When you hire a doctor, a new [Kleros](https://kleros.io/) arbitrable transactio
 
 ## Screenshots
 
-TODO
+![](assets/dashboard.png)
+![](assets/doctordetails.png)
+![](assets/editprofile.png)
+![](assets/appointments.png)
 
 ## Install
 
