@@ -6,6 +6,10 @@ The Iuvo dapp holds precious user information, namely their reputation and publi
 
 The strategy consists of having a Proxy contract that forwards calls to the most recent version of the contract (defined in `target`) with the use of `DELEGATE CALL`. This means code on `target` will be executed in the context of the Proxy. With this, we can retain user`s data across upgrades.
 
+The upgradable system was built by modifing a simplified version of openzeppelin's proxy contract to
+add allow circuit breaks on the proxy contract. To accomplish this I used openzeppelin's Pausable 
+contracts from ethpm.
+
 # Circuit Breaks
 
 If an attack is detected, it is valuable to have a circuit break that can halt operations on the contract until a proper investigation can take place. 

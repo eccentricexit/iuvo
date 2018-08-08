@@ -32,8 +32,8 @@ Simply run `npm install`
 
 ## Tests
 
-1. `ganache-cli`
-2. `truffle test`
+1. `ganache-cli` in one terminal;
+2. `truffle test` in another.
 
 This project was built using the [Truffle Framework](https://truffleframework.com), with tests written with mocha and chai so they can be found inside the `test` folder.
 

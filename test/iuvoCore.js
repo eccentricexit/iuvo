@@ -89,9 +89,7 @@ contract('IuvoCore', function (accounts) {
       await iuvoCoreByProxy.deleteDoctor({ from: doctorA })
 
       doctorExists = await iuvoCoreByProxy.doctorExists(doctorA)
-      assert.isFalse(doctorExists, 'doctor should be present')
-      doctorCount = (await iuvoCoreByProxy.doctorsArrayLength()).toNumber()
-      assert.equal(doctorCount, 0, 'there should be a doctor')
+      assert.isFalse(doctorExists, 'doctor should be marked as deleted')
     })
   })
 

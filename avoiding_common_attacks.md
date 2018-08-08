@@ -24,6 +24,12 @@ IuvoCore makes use of two struct arrays. Iterating through arrays can be a sourc
 
 To prevent this problem, a combination of address and uint mappings are used to reference specific positions in the arrays.
 
+# Overflow/Underflow Protection
+
+Arrays can also be a source of bugs or attacks if we don't safeguard against overflow/underflow 
+attacks on the index used to access them. To protect against this attack, I used openzeppelin's 
+SafeMath library from ethpm to do subtraction operations where needed.
+
 # `msg.sender` in favor of `tx.origin`
 
 The iuvo dapp uses authorization in many critical places: Contract upgradability, circuit breajs, doctor rating, hiring and doctor CRUD operations.

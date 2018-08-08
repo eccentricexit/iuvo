@@ -1,5 +1,6 @@
 pragma solidity 0.4.24;
 
+import "zeppelin/contracts/math/SafeMath.sol";
 import "./PausableUpgradeable.sol";
 import "kleros-interaction/contracts/standard/arbitration/ArbitrableTransaction.sol";
 import "kleros-interaction/contracts/standard/arbitration/Arbitrator.sol";
@@ -11,6 +12,7 @@ import "kleros-interaction/contracts/standard/arbitration/Arbitrator.sol";
  *  This contract was built for educational purposes.
  */
 contract IuvoCore is PausableUpgradeable{
+    using SafeMath for uint256;
 
     address public ratingOracle;
 
@@ -122,7 +124,7 @@ contract IuvoCore is PausableUpgradeable{
                 doctorAddr
             );
             doctors.push(newDoc);
-            doctorPosition[doctorAddr] = doctors.length-1;
+            doctorPosition[doctorAddr] = doctors.length.sub(1);
             doctorExists[doctorAddr] = true;
             doctorAddresses.push(doctorAddr);
         }
@@ -139,7 +141,9 @@ contract IuvoCore is PausableUpgradeable{
         );
     }
 
-    /** @dev Deletes doctor's data.
+    /** @notice This clears a doctors information and marks it as deleted. 
+     *  However, we don't remove it from the array as appointments point to 
+     *  it to fetch information.
      */
     function deleteDoctor() public whenNotPaused {
         require(
@@ -147,21 +151,14 @@ contract IuvoCore is PausableUpgradeable{
             "A doctor for this address must exist to be deleted."
         );
         address doctorAddr = msg.sender;
-        uint256 toBeDeletedPosition = doctorPosition[doctorAddr];
-        uint256 lastDoctorPosition = doctors.length-1;
-
-        // Overwrite with last
-        doctors[toBeDeletedPosition] = doctors[lastDoctorPosition];
-
-        // Update position
-        doctorPosition[doctors[toBeDeletedPosition].doctorAddr] = toBeDeletedPosition;
-
-        // Delete last item
-        delete doctors[lastDoctorPosition];
-        doctors.length--;
-
-        // Remove from mapping
-        delete doctorPosition[doctorAddr];
+        uint256 doctorPositionInArray = doctorPosition[doctorAddr];
+        
+        Doctor storage docToUpdate = doctors[doctorPositionInArray];
+        docToUpdate.name = "";
+        docToUpdate.bio = "";
+        docToUpdate.profilePicIpfsAddr = "";
+        docToUpdate.contractIpfsAddr = "";
+        
         doctorExists[doctorAddr] = false;
 
         emit LogDoctorDataDeleted(doctorAddr);
@@ -205,8 +202,8 @@ contract IuvoCore is PausableUpgradeable{
 
         appointments.push(appointment);
 
-        patientAppointments[_patient].push(appointments.length-1);
-        doctorAppointments[_doctor].push(appointments.length-1);
+        patientAppointments[_patient].push(appointments.length.sub(1));
+        doctorAppointments[_doctor].push(appointments.length.sub(1));
 
         emit LogDoctorHired(_doctor,_patient);
     }
@@ -233,37 +230,36 @@ contract IuvoCore is PausableUpgradeable{
      */
     function setRatingOracle(address _ratingOracle) public onlyOwner{
         ratingOracle = _ratingOracle;
-
         emit LogRatingOracleSet(_ratingOracle);
     }
 
-    /** @dev Returns the number of registered doctors.
+    /** @return The number of registered doctors.
      */
     function doctorsArrayLength() public view returns (uint256) {
         return doctors.length;
     }
 
-    /** @dev Returns the number registered appointments.
+    /** @return The number registered appointments.
      */
     function appointmentsLength() public view returns (uint256) {
         return appointments.length;
     }
 
-    /** @dev Returns the number appointments associated with a `_doctor`.
+    /** @return The number appointments associated with a `_doctor`.
      *  @param _doctor The doctor being queried.
      */
     function doctorAppointmentsLength(address _doctor) public view returns (uint256) {
         return doctorAppointments[_doctor].length;
     }
 
-    /** @dev Returns the number appointments associated with a `_patient`.
+    /** @return The number appointments associated with a `_patient`.
      *  @param _patient The patient being queried.
      */
     function patientAppointmentsLength(address _patient) public view returns (uint256) {
         return patientAppointments[_patient].length;
     }
 
-    /** @dev Returns the number appointments associated with a `_doctor`.
+    /** @return The number appointments associated with a `_doctor`.
      */
     function returnDoctorsArray() public view returns (address[]) {
         return doctorAddresses;

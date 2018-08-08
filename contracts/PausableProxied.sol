@@ -1,6 +1,6 @@
 pragma solidity 0.4.24;
 
-import "openzeppelin-solidity/contracts/lifecycle/Pausable.sol";
+import "zeppelin/contracts/lifecycle/Pausable.sol";
 
 /*
  * @title Proxied v0.5
