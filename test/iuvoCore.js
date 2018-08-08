@@ -1,12 +1,14 @@
 const IuvoCore = artifacts.require('./IuvoCore.sol')
 const PausableProxy = artifacts.require('./PausableProxy.sol')
 const { expectThrow } = require('../helpers/utils')
+const IuvoCoreV2 = artifacts.require('./mock/IuvoCoreV2.sol')
 
 contract('IuvoCore', function (accounts) {
   const owner = accounts[0]
   const ratingOracle = accounts[1]
   const doctorA = accounts[9]
-  const patientA = accounts[8]
+  const doctorB = accounts[8]
+  const patientA = accounts[7]
 
   let pausableProxy
   let iuvoCoreByProxy
@@ -91,24 +93,6 @@ contract('IuvoCore', function (accounts) {
       doctorCount = (await iuvoCoreByProxy.doctorsArrayLength()).toNumber()
       assert.equal(doctorCount, 0, 'there should be a doctor')
     })
-
-    it('should only the ratingOracle to set the doctors rating', async () => {
-      await deployMockDoctor(iuvoCoreByProxy, doctorA)
-
-      const doctorPosition = (await iuvoCoreByProxy.doctorPosition.call(doctorA)).toNumber()
-      let doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition)
-
-      assert.notEqual(doctorData[1], '5.0', 'doctor rating should not be 5.0 yet')
-
-      await expectThrow(
-        iuvoCoreByProxy.setRating(doctorA, '5.0', { from: doctorA })
-      )
-
-      await iuvoCoreByProxy.setRating(doctorA, '5.0', { from: ratingOracle })
-      doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition)
-
-      assert.equal(doctorData[1], '5.0', 'doctor rating should be 5.0 yet')
-    })
   })
 
   describe('Appointments', () => {
@@ -130,6 +114,83 @@ contract('IuvoCore', function (accounts) {
 
       numberOfAppointments = (await iuvoCoreByProxy.appointmentsLength()).toNumber()
       assert.equal(numberOfAppointments, 1, 'there should be an appointment')
+    })
+  })
+
+  describe('Circuit breaks and acess control', () => {
+    beforeEach(deployContracts)
+
+    it('should not allow calling functions when paused', async () => {
+      await iuvoCoreByProxy.pause()
+
+      await expectThrow(
+        iuvoCoreByProxy.setDoctor(
+          'Dr. Nanct',
+          'Love taking care of people',
+          'QmcSD36n81qTdHWCiHoFt1jiVpcW1eZoHJALFbBJxYRhLf',
+          'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
+          { from: doctorA }
+        )
+      )
+
+      await iuvoCoreByProxy.unpause()
+
+      await iuvoCoreByProxy.setDoctor(
+        'Dr. Nanct',
+        'Love taking care of people',
+        'QmcSD36n81qTdHWCiHoFt1jiVpcW1eZoHJALFbBJxYRhLf',
+        'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
+        { from: doctorA }
+      )
+
+      await iuvoCoreByProxy.pause()
+
+      await expectThrow(
+        iuvoCoreByProxy.setRating(doctorA, '5.0', { from: doctorA })
+      )
+
+      await expectThrow(
+        iuvoCoreByProxy.deleteDoctor({ from: doctorA })
+      )
+
+      await expectThrow(
+        iuvoCoreByProxy.setDoctor(
+          'Dr. Nanct',
+          'Love taking care of people',
+          'QmcSD36n81qTdHWCiHoFt1jiVpcW1eZoHJALFbBJxYRhLf',
+          'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
+          { from: doctorB }
+        )
+      )
+      await expectThrow(
+        iuvoCoreByProxy.hireDoctor(
+          doctorA,
+          'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
+          0x0,
+          'https://kleros.io',
+          100,
+          0x0,
+          { from: patientA }
+        )
+      )
+    })
+
+    it('should only the ratingOracle to set the doctors rating', async () => {
+      await deployMockDoctor(iuvoCoreByProxy, doctorA)
+
+      const doctorPosition = (await iuvoCoreByProxy.doctorPosition.call(doctorA)).toNumber()
+      let doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition)
+
+      assert.notEqual(doctorData[1], '5.0', 'doctor rating should not be 5.0 yet')
+
+      await expectThrow(
+        iuvoCoreByProxy.setRating(doctorA, '5.0', { from: doctorA })
+      )
+
+      await iuvoCoreByProxy.setRating(doctorA, '5.0', { from: ratingOracle })
+      doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition)
+
+      assert.equal(doctorData[1], '5.0', 'doctor rating should be 5.0 yet')
     })
   })
 })
