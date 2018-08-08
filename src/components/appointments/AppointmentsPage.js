@@ -28,7 +28,9 @@ const NoAppointments = (props) => {
 
 const styles = theme => ({
   card: {
-    display: 'flex'
+    display: 'flex',
+    marginTop: 10,
+    marginBottom: 10
   },
   cover: {
     width: 221,
@@ -49,8 +51,8 @@ const styles = theme => ({
 const AppointmentListItem = ({ appointment, doctor, classes }) => {
   console.info('appointment', appointment)
   console.info('doctor', doctor)
-  if(!doctor){
-    //doctor deleted his information after getting hired.
+  if (!doctor) {
+    // doctor deleted his information after getting hired.
     doctor = {
       name: 'This doctor cleared his data.',
       rating: '',
@@ -60,11 +62,11 @@ const AppointmentListItem = ({ appointment, doctor, classes }) => {
   return (
     <div>
       <Card className={classes.card}>
-        <Avatar 
-          src={doctor.imgRaw 
-            ? doctor.imgRaw 
-            : 'https://image.freepik.com/free-icon/user-image-with-black-background_318-34564.jpg'} 
-          className={classes.avatar} 
+        <Avatar
+          src={doctor.imgRaw
+            ? doctor.imgRaw
+            : 'https://image.freepik.com/free-icon/user-image-with-black-background_318-34564.jpg'}
+          className={classes.avatar}
         />
         <div className={classes.grow}>
           <CardContent >
@@ -132,18 +134,18 @@ const AppointmentsPage = (props) => {
       {!appointments || appointments.length === 0
         ? <NoAppointments />
         : <div>
-            <Typography variant='title' color='inherit'>
+          <Typography variant='title' color='inherit'>
               Appointments
-            </Typography>
-            <br />
-            {appointments.map((appointment, index) => (
-              <StyledAppointmentItem
-                appointment={appointment}
-                key={index}
-                doctor={doctors[appointment.doctor]}
-              />
-            ))}
-          </div>
+          </Typography>
+          <br />
+          {appointments.map((appointment, index) => (
+            <StyledAppointmentItem
+              appointment={appointment}
+              key={index}
+              doctor={doctors[appointment.doctor]}
+            />
+          ))}
+        </div>
       }
     </div>
   )
