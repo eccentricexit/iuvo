@@ -103,7 +103,7 @@ class HireDoctorContainer extends Component {
           ContentProps={{
             'aria-describedby': 'msg-tx-confirmed',
           }}
-          message={<span id="msg-tx-confirmed">Transaction confirmed!</span>}
+          message={<span id="msg-tx-confirmed">Transaction processed!</span>}
         />
       </div>
     )
