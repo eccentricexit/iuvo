@@ -118,7 +118,7 @@ const ResponsiveDrawer = (props) => {
           </Typography>
           <Typography className={classes.accountAddress} color='inherit'>
             {userData
-              ? 'Active account: ' + userData.specificNetworkAddress
+              ? `Active account: ${userData.specificNetworkAddress} Balance: ${userData.balanceInEther}`
               : ''
             }
           </Typography>
