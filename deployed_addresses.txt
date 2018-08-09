@@ -1,7 +1,7 @@
 # Deployed contracts on Rinkeby:
 
-- IuvoCoreV1: [0x675f8bb31c7689df60e7c019e0c4fe9d0d8052f2](https://rinkeby.etherscan.io/address/0x675f8bb31c7689df60e7c019e0c4fe9d0d8052f2)
-- PausableProxy: [0x5f17193cda988ddecb1c2255c1c4e8077ecc8b66](https://rinkeby.etherscan.io/address/0x5f17193cda988ddecb1c2255c1c4e8077ecc8b66)
+- IuvoCoreV1: [0xf3defd7f60d824e55f1184452f9fccacf7ce5a93](https://rinkeby.etherscan.io/address/0x675f8bb31c7689df60e7c019e0c4fe9d0d8052f2)
+- PausableProxy: [0xf59a569744dcd7b21f78afb4d353c7731c10c7f1](https://rinkeby.etherscan.io/address/0xf59a569744dcd7b21f78afb4d353c7731c10c7f1)
 
 All interaction with the core contract must happen through the proxy. See below for na example with web3js.
 
