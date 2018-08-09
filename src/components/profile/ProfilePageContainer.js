@@ -63,11 +63,15 @@ class ProfilePageContainer extends Component {
 
   handleCreateDoctor = () => {
     const { userData } = this.props
+    const startOfHash = userData.avatar.uri.lastIndexOf('/')+1
+    const userProfilePicHash = userData.avatar.uri.substring(startOfHash)
     this.setState({ 
       isCreatingDoctor:true,
       isSettingDoctor: true,
       doctor: {
-        doctorAddr: userData.specificNetworkAddress
+        doctorAddr: userData.specificNetworkAddress,
+        contractIpfsAddr: 'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm', //solidity docs by default
+        profilePicIpfsAddr: userProfilePicHash
       }
     })
   }

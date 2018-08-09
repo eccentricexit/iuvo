@@ -64,7 +64,7 @@ class DoctorForm extends Component {
               id='profilePicIpfsAddr'
               value={this.props.values.profilePicIpfsAddr}
               margin='dense'
-              label='Profile picture IPFS Address'
+              label='Profile picture IPFS Address. (Your uPort picture by default)'
               placeholder='QmPKhta...'
               fullWidth
               onChange={this.props.handleChange}
@@ -75,7 +75,7 @@ class DoctorForm extends Component {
               id='contractIpfsAddr'
               margin='dense'
               value={this.props.values.contractIpfsAddr}
-              label='Contract IPFS Address'
+              label='Contract IPFS Address. (Solidity docs by default)'
               placeholder='QmVDht...'
               fullWidth
               onChange={this.props.handleChange}
