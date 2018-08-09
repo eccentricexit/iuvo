@@ -54,9 +54,12 @@ Simply run `npm install`
 
 ## Usage
 
-The frontend usage depends on weather want to interact with the contracts already deployed on Rinkeby testnet, newly deployed contracts to Rinkeby or contracts on your own testnet.
+The frontend depends on uPort and usage depends on weather:
+1. You want to interact with the contracts already deployed on Rinkeby testnet;
+2. You want to interact with your own, newly deployed contracts instances to Rinkeby;
+3. You want to interact with contracts on your own testnet.
 
-> If you are a reviewer, you want to interact with the contracts already deployed. See the next section.
+> If you are a reviewer, you want option 1: interact with the contracts already deployed. See the next section.
 
 ### Interacting with the deployed contracts
 
@@ -69,6 +72,7 @@ This project's frontend uses [uPort's](https://www.uport.me/) infrastructure for
 See below on how to use the frontend with your own instances of the contracts.
 
 TODO: Ask me for test ether
+TODO: QR codes may get big.
 
 Simply run `npm start` to serve the frontend.
 
