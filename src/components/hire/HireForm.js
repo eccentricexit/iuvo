@@ -17,6 +17,7 @@ const enhanceWithFormik = withFormik({
     bio: props.doctor.bio,
     imgRaw: props.doctor.imgRaw,
     rating: props.doctor.rating,
+    price: props.doctor.price,
     profilePicIpfsAddr: props.doctor.profilePicIpfsAddr,
     contractIpfsAddr: props.doctor.contractIpfsAddr
   }),
@@ -91,6 +92,15 @@ class HireForm extends Component {
                 value={this.props.values.bio}
                 margin='dense'
                 label='Bio'
+                fullWidth
+                onBlur={this.props.handleBlur}
+                disabled
+              />
+              <TextField
+                id='price'
+                value={this.props.values.price}
+                margin='dense'
+                label='Price in ether'
                 fullWidth
                 onBlur={this.props.handleBlur}
                 disabled

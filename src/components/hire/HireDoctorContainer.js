@@ -30,6 +30,7 @@ class HireDoctorContainer extends Component {
       'kleros.io',
       timeout,
       '0x0',
+      { value: web3.toWei(doctor.price,'ether') },
       (err,txHash) => {
         if(err) { throw err }
         waitForMined(
@@ -74,6 +75,7 @@ class HireDoctorContainer extends Component {
   render () {
     const { iuvoData, doctorAddr } = this.props
     const doctor = iuvoData.doctors[doctorAddr]
+    if(doctor) { doctor.price = 0.003 }
 
     return (
       <div>
