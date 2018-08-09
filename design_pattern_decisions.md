@@ -2,12 +2,11 @@
 
 As much as developers audit and check code for bugs, one can never be completly sure that all components of a dapp will work correctly indefinetly. This problem is further complicated by the constraint of immutability of smart contracts. 
 
-The Iuvo dapp holds precious user information, namely their reputation and public image. This means it is a good idea to trade simplicity for the upgradable smart contracts pattern.
+The Iuvo dapp could hold precious user information, namely their reputation and public image. This means it is a good idea to trade simplicity for the upgradable smart contracts pattern.
 
-The strategy consists of having a Proxy contract that forwards calls to the most recent version of the contract (defined in `target`) with the use of `DELEGATE CALL`. This means code on `target` will be executed in the context of the Proxy. With this, we can retain user`s data across upgrades.
+The strategy consists of having a Proxy contract that forwards calls to the most recent version of the contract (defined in `target`) with the use of `DELEGATE CALL`. Code on `target` will be executed in the context of the Proxy, where all the data is persisted. With this, we can retain user`s data across upgrades to logic.
 
-The upgradable system was built by modifing a simplified version of openzeppelin's proxy contract to
-add allow circuit breaks on the proxy contract. To accomplish this I used openzeppelin's Pausable 
+The upgradable system was built by modifing a simplified version of openzeppelin's proxy contract to allow circuit breaks on the proxy contract. To accomplish this I used openzeppelin's Pausable 
 contracts from ethpm.
 
 # Circuit Breaks
@@ -20,7 +19,7 @@ Aditionally, the contracts that make up the Upgradable Pattern were also modifie
 
 # Failing Loudly
 
-Instead of fully executing a function and using if-else to implement business rules, IuvoCore throws errors along with messages by using solidity's `require()`.
+Instead of fully executing a function and using if-else to implement business rules, IuvoCore throws errors along with explanatory messages by using solidity's `require()`.
 
 # Access Restrictions
 

@@ -19,14 +19,14 @@ On `iuvo`, you can hire doctors or put your services up on a list to be hired.
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
 - [What is this?](#what-is-this)
-- [Tests](#tests)
+- [User stories](#user-stories)
 - [Install](#install)
+- [Tests](#tests)
 - [Usage](#usage)
     - [Interacting with the deployed contracts](#interacting-with-the-deployed-contracts)
     - [Interacting with new contracts](#interacting-with-new-contracts)
         - [Local testnet:](#local-testnet)
         - [Rinkeby testnet:](#rinkeby-testnet)
-    - [User stories](#user-stories)
 - [Screenshots](#screenshots)
 - [License](#license)
 
@@ -51,16 +51,31 @@ See the "User stories" section of this document for a better overview.
 
 > **Note for the reviewer**: You will need some test ether to hire doctors. Ping me @ mtsalenc@gmail.com if you don't want to use rinkeby's faucet.
 
+## User stories
+- As a user, I can log into the dapp with uPort on my smartphone and see a list of doctors.
+
+- As a user, I can click on a doctor from a list to see details about that doctor. This view allows me to hire that doctor or see his terms of service contract.
+
+- When a doctor is hired, a new [Kleros](https://kleros.io/) arbitrable transaction contract is deployed. I can see the contract address on the appointment in the Appointments list.
+
+- When someone clicks to "See contract" on the doctor view, a new tab is opened with the doctor's data from an ipfs gateway.
+
+- As a user, I can place my services for hiring by creating a profile. Once that is done, I can see myself on the list of doctors.
+
+- As a doctor, I can delete my doctor profile so my services are no longer listed on the list of doctors.
+
+- As a user, I can see a list of appointments with details of where the contract is deployed and who the arbitrator is.
+
+## Install
+
+Simply run `npm install`
+
 ## Tests
 
 1. `ganache-cli` in one terminal;
 2. `truffle test` in another.
 
 This project was built using the [Truffle Framework](https://truffleframework.com), with tests written with mocha and chai so they can be found inside the `test` folder.
-
-## Install
-
-Simply run `npm install`
 
 ## Usage
 
@@ -102,21 +117,6 @@ If you choose to deploy the contracts to Rinkeby, you get the benefit of using t
 1. See [uPort's documentation](https://developer.uport.me/gettingstarted#1-get-the-u-port-app) on how to register.
 2. Update `src/util/connectors.js`
 3. `npm start`
-
-### User stories
-- As a user, I can log into the dapp with uPort on my smartphone and see a list of doctors.
-
-- As a user, I can click on a doctor from a list to see details about that doctor. This view allows me to hire that doctor or see his terms of service contract.
-
-- When a doctor is hired, a new [Kleros](https://kleros.io/) arbitrable transaction contract is deployed. I can see the contract address on the appointment in the Appointments list.
-
-- When someone clicks to "See contract" on the doctor view, a new tab is opened with the doctor's data from an ipfs gateway.
-
-- As a user, I can place my services for hiring by creating a profile. Once that is done, I can see myself on the list of doctors.
-
-- As a doctor, I can delete my doctor profile so my services are no longer listed on the list of doctors.
-
-- As a user, I can see a list of appointments with details of where the contract is deployed and who the arbitrator is.
 
 ## Screenshots
 
