@@ -5,6 +5,12 @@ import Snackbar from '@material-ui/core/Snackbar'
 import { web3 } from '../../util/connectors'
 import { waitForMined } from '../../util/waitForMined'
 import { updateLocalAppointmentsData } from '../../util/iuvoUtils'
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle'
 import { 
   setUserData,
   setDoctor,
@@ -16,12 +22,22 @@ import {
 class HireDoctorContainer extends Component {
   state = {
     txPendingOpen: false,
-    txConfirmedOpen: false
+    txConfirmedOpen: false,
+    notEnoughFundsDialogOpen: false
+  }
+  
+  handleCloseFundsDialog = () => {
+    this.setState({ notEnoughFundsDialogOpen: false })
   }
 
-  handleRequestService = (doctor,arbitrator,timeout) => {
+  handleRequestService = async (doctor,arbitrator,timeout) => {
     const { iuvoCoreByProxy, userData, addAppointment, clearAppointments } = this.props
-    const componentContext = this    
+    const componentContext = this
+    
+    if(userData.balanceInEther<doctor.price){
+      this.setState({ notEnoughFundsDialogOpen: true })
+      return;
+    }
 
     iuvoCoreByProxy.iuvoCoreByProxy.hireDoctor(
       doctor.doctorAddr,
@@ -73,8 +89,13 @@ class HireDoctorContainer extends Component {
   }
   
   render () {
-    const { iuvoData, doctorAddr } = this.props
+    const { iuvoData, doctorAddr, userData } = this.props
     const doctor = iuvoData.doctors[doctorAddr]
+    
+    if(!userData || !userData.specificNetworkAddress){
+      return <h1>No user data available</h1>
+    }
+  
     if(doctor) { doctor.price = 0.003 }
 
     return (
@@ -114,6 +135,26 @@ class HireDoctorContainer extends Component {
           }}
           message={<span id="msg-tx-confirmed">Transaction processed!</span>}
         />
+        <Dialog
+          open={this.state.notEnoughFundsDialogOpen}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Not enough funds"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              You seem to not have enough funds to hire this doctor. His services
+              cost 0.003 ether, but you only have {userData.balanceInEther}. Either mail the developer 
+              (mtsalenc@gmail.com) to get some or use Rinkeby's faucet: https://faucet.rinkeby.io/
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseFundsDialog} color="primary" autoFocus>
+              Will do!
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     )
   }

@@ -16,18 +16,25 @@ class LoginPageContainer extends Component {
     uport.requestCredentials({requested: ['name', 'avatar']}).then(credentials => {
       credentials.decodedID = mnidDecode(credentials.address)
       credentials.specificNetworkAddress = credentials.decodedID.address
-      console.info('Got user data: ', credentials)
-      setUserData(credentials)
-
-      const iuvoCoreByProxy = getIuvoCoreReference(web3)
-      setUportIuvoCoreInstance(iuvoCoreByProxy)
-      updateLocalDoctorsData(iuvoCoreByProxy, setDoctor)
-      updateLocalAppointmentsData(
-        iuvoCoreByProxy,
-        credentials.specificNetworkAddress,
-        addAppointment,
-        web3
-      )
+      web3.eth.getBalance(credentials.specificNetworkAddress,(err,res) => {
+        if(err) { throw err }
+        const balanceInWei = res.toNumber()  
+        const balanceInEther = web3.fromWei(balanceInWei,'ether')
+        credentials.balanceInEther = balanceInEther
+        
+        console.info('Got user data: ', credentials)
+        setUserData(credentials)
+  
+        const iuvoCoreByProxy = getIuvoCoreReference(web3)
+        setUportIuvoCoreInstance(iuvoCoreByProxy)
+        updateLocalDoctorsData(iuvoCoreByProxy, setDoctor)
+        updateLocalAppointmentsData(
+          iuvoCoreByProxy,
+          credentials.specificNetworkAddress,
+          addAppointment,
+          web3
+        )
+      })
     }).catch(err => {
       console.error(err)
     })
