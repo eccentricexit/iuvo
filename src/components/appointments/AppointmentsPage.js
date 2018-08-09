@@ -65,7 +65,7 @@ const AppointmentListItem = ({ appointment, doctor, classes }) => {
         <Avatar
           src={doctor.imgRaw
             ? doctor.imgRaw
-            : 'https://image.freepik.com/free-icon/user-image-with-black-background_318-34564.jpg'}
+            : 'http://music.virginia.edu/sites/music.virginia.edu/files/styles/faculty_profile_image/public/default_images/person-placeholder_3.png?itok=dtpqDURH'}
           className={classes.avatar}
         />
         <div className={classes.grow}>

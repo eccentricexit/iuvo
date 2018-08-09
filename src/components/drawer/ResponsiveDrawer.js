@@ -125,7 +125,7 @@ const ResponsiveDrawer = (props) => {
           <IconButton
             color='inherit'
           >
-            {userData
+            {userData && userData.avatar && userData.avatar.uri
               ? <Avatar alt='Profile pic' src={userData.avatar.uri} />
               : <AccountCircle />
             }

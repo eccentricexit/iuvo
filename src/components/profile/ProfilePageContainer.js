@@ -62,9 +62,14 @@ class ProfilePageContainer extends Component {
   }
 
   handleCreateDoctor = () => {
-    const { userData } = this.props
-    const startOfHash = userData.avatar.uri.lastIndexOf('/')+1
-    const userProfilePicHash = userData.avatar.uri.substring(startOfHash)
+    const { userData } = this.props    
+    let userProfilePicHash = 'Qme3dntqtA4Pu7Rb3T9YB3zuKEBML5cRETswq5z7NCexZs' //profile pic placeholder
+
+    if(userData && userData.avatar && userData.avatar.uri){
+      let startOfHash = userData.avatar.uri.lastIndexOf('/')+1
+      userProfilePicHash = userData.avatar.uri.substring(startOfHash)
+    }
+
     this.setState({ 
       isCreatingDoctor:true,
       isSettingDoctor: true,
