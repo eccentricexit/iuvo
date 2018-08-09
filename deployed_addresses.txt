@@ -3,7 +3,8 @@
 - IuvoCore: [0xf3defd7f60d824e55f1184452f9fccacf7ce5a93](https://rinkeby.etherscan.io/address/0xf3defd7f60d824e55f1184452f9fccacf7ce5a93)
 - PausableProxy: [0xf59a569744dcd7b21f78afb4d353c7731c10c7f1](https://rinkeby.etherscan.io/address/0xf59a569744dcd7b21f78afb4d353c7731c10c7f1)
 
-All interaction with the core contract must happen through the proxy. See below for na example with web3js.
+All interaction with the core contract must happen through the proxy because that is where all the data has to be stored to persist between upgrades. 
+See below for na example with web3js.
 
 ```
 let IuvoCore = web3.eth.contract(<abi array here>)

@@ -15,20 +15,31 @@
 > The decentralized health services marketplace.
 
 On `iuvo`, you can hire doctors or put your services up on a list to be hired.
+
+## What is this?
+
+TODO
+
 When you hire a doctor, a new [Kleros](https://kleros.io/) arbitrable transaction contract is deployed, which gives both parties an oportuninty to appeal if there is a dispute.
+
+- User story 1
+- User story 2
+- ...
 
 **Features:**
 - Upgradable pattern;
 - uPort integration;
 - IPFS integration;
+- Kleros integration;
 - Circuit breaks;
-- Arbitrable transactions;
+- Acess restrictions;
+- EthPM package usage;
 - Automated tests;
 - Material UI.
 
-## Install
+## Notes for the reviewer
 
-Simply run `npm install`
+TODO: Ask me for test ether
 
 ## Tests
 
@@ -37,9 +48,15 @@ Simply run `npm install`
 
 This project was built using the [Truffle Framework](https://truffleframework.com), with tests written with mocha and chai so they can be found inside the `test` folder.
 
+## Install
+
+Simply run `npm install`
+
 ## Usage
 
 The frontend usage depends on weather want to interact with the contracts already deployed on Rinkeby testnet, newly deployed contracts to Rinkeby or contracts on your own testnet.
+
+> If you are a reviewer, you want to interact with the contracts already deployed. See the next section.
 
 ### Interacting with the deployed contracts
 
@@ -50,6 +67,8 @@ This project's frontend uses [uPort's](https://www.uport.me/) infrastructure for
 - You will interact with the contracts already deployed on Rinkeby.
 
 See below on how to use the frontend with your own instances of the contracts.
+
+TODO: Ask me for test ether
 
 Simply run `npm start` to serve the frontend.
 
