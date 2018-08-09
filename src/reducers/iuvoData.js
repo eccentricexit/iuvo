@@ -1,7 +1,8 @@
 import {
   SET_DOCTOR,
   DELETE_DOCTOR,
-  ADD_APPOINTMENT
+  ADD_APPOINTMENT,
+  CLEAR_APPOINTMENTS
 } from '../actions/types'
 
 export function iuvoData (state = { doctors: {}, appointments: [] }, action) {
@@ -29,6 +30,11 @@ export function iuvoData (state = { doctors: {}, appointments: [] }, action) {
       const appointment = payload
       const newState = { ...state }
       newState.appointments.push(appointment)
+      return newState
+    }
+    case CLEAR_APPOINTMENTS: {
+      const newState = { ...state }
+      newState.appointments = []
       return newState
     }
     default:

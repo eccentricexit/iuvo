@@ -5,7 +5,13 @@ import Snackbar from '@material-ui/core/Snackbar'
 import { web3 } from '../../util/connectors'
 import { waitForMined } from '../../util/waitForMined'
 import { updateLocalAppointmentsData } from '../../util/iuvoUtils'
-import { setUserData, setDoctor, deleteDoctor, addAppointment } from '../../actions'
+import { 
+  setUserData,
+  setDoctor,
+  deleteDoctor,
+  addAppointment,
+  clearAppointments
+} from '../../actions'
 
 class HireDoctorContainer extends Component {
   state = {
@@ -14,7 +20,7 @@ class HireDoctorContainer extends Component {
   }
 
   handleRequestService = (doctor,arbitrator,timeout) => {
-    const { iuvoCoreByProxy, userData, addAppointment } = this.props
+    const { iuvoCoreByProxy, userData, addAppointment, clearAppointments } = this.props
     const componentContext = this    
 
     iuvoCoreByProxy.iuvoCoreByProxy.hireDoctor(
@@ -38,7 +44,7 @@ class HireDoctorContainer extends Component {
               txPendingOpen: false,
               txConfirmedOpen: true
             })
-
+            clearAppointments()
             updateLocalAppointmentsData(
               iuvoCoreByProxy,
               userData.specificNetworkAddress,
@@ -111,7 +117,7 @@ class HireDoctorContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ userData, iuvoData, iuvoCoreByProxy }, ownProps) => {
+const mapStateToProps = ({ userData, iuvoData, iuvoCoreByProxy, }, ownProps) => {
   return { 
     doctorAddr: ownProps.params.id,
     userData,
@@ -122,5 +128,5 @@ const mapStateToProps = ({ userData, iuvoData, iuvoCoreByProxy }, ownProps) => {
 
 export default connect(
   mapStateToProps, 
-  { setUserData, setDoctor, deleteDoctor, addAppointment }
+  { setUserData, setDoctor, deleteDoctor, addAppointment, clearAppointments }
 )(HireDoctorContainer)

@@ -3,8 +3,15 @@ import {
   SET_UPORT_IUVO_CORE,
   SET_DOCTOR,
   DELETE_DOCTOR,
-  ADD_APPOINTMENT
+  ADD_APPOINTMENT,
+  CLEAR_APPOINTMENTS
 } from './types'
+
+export function clearAppointments () {
+  return {
+    type: CLEAR_APPOINTMENTS
+  }
+}
 
 export function addAppointment (appointment) {
   return {
