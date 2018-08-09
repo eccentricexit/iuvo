@@ -25,7 +25,8 @@ class LoginPageContainer extends Component {
       updateLocalAppointmentsData(
         iuvoCoreByProxy,
         credentials.specificNetworkAddress,
-        addAppointment
+        addAppointment,
+        web3
       )
     }).catch(err => {
       console.error(err)

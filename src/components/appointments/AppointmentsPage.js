@@ -70,9 +70,6 @@ const AppointmentListItem = ({ appointment, doctor, classes }) => {
         />
         <div className={classes.grow}>
           <CardContent >
-            <Typography variant='title' color='inherit'>
-                Doctor data
-            </Typography>
             <TextField
               id='name'
               value={doctor.name}

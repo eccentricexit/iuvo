@@ -41,8 +41,9 @@ class HireDoctorContainer extends Component {
 
             updateLocalAppointmentsData(
               iuvoCoreByProxy,
-              userData,
-              addAppointment
+              userData.specificNetworkAddress,
+              addAppointment,
+              web3
             )
           }
         )

@@ -63,6 +63,7 @@ export const updateLocalDoctorData = (iuvoCoreByProxy, userAddress, setDoctor) =
 
 export const updateLocalDoctorsData = (iuvoCoreByProxy, setDoctor) => {
   console.info('fetching doctors from blockchain')
+  console.info('proxy addr', iuvoCoreByProxy.address)
 
   iuvoCoreByProxy.doctorsArrayLength.call(
     (err, res) => {
@@ -88,9 +89,11 @@ export const updateLocalDoctorsData = (iuvoCoreByProxy, setDoctor) => {
   )
 }
 
-export const updateLocalAppointmentsData = (iuvoCoreByProxy, userAddress, addAppointment) => {
+export const updateLocalAppointmentsData = (iuvoCoreByProxy, userAddress, addAppointment, web3) => {
+  iuvoCoreByProxy = getIuvoCoreReference(web3)
   console.info('fetching appointments from blockchain', iuvoCoreByProxy)
   console.info('userAddr', userAddress)
+  
 
   iuvoCoreByProxy.patientAppointmentsLength.call(
     userAddress,
