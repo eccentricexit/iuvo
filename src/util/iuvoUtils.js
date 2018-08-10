@@ -37,7 +37,7 @@ export const appointmentFromArray = (appointment) => {
 
 export const updateLocalDoctorData = (iuvoCoreByProxy, userAddress, setDoctor) => {
   console.info('fetching doctor from blockchain')
-  
+
   iuvoCoreByProxy.iuvoCoreByProxy.doctorPosition(userAddress, (err, res) => {
     if (err) { throw err }
 
@@ -72,16 +72,16 @@ export const updateLocalDoctorsData = (iuvoCoreByProxy, setDoctor) => {
         iuvoCoreByProxy.doctors(i, (err, res) => {
           if (err) { throw err }
           const doctor = doctorFromArray(res)
-          iuvoCoreByProxy.doctorExists(doctor.doctorAddr, (err,res) => {
+          iuvoCoreByProxy.doctorExists(doctor.doctorAddr, (err, res) => {
             if (err) { throw err }
-            if(res === true){
+            if (res === true) {
               setDoctor(doctor)
               ipfs.files.cat(doctor.profilePicIpfsAddr, (err, file) => {
                 if (err) { throw err }
                 doctor.imgRaw = 'data:image/png;base64,' + file.toString('base64')
                 setDoctor(doctor)
               })
-            } 
+            }
           })
         })
       }
@@ -92,7 +92,6 @@ export const updateLocalDoctorsData = (iuvoCoreByProxy, setDoctor) => {
 export const updateLocalAppointmentsData = (iuvoCoreByProxy, userAddress, addAppointment, web3) => {
   iuvoCoreByProxy = getIuvoCoreReference(web3)
   console.info('fetching appointments from blockchain', iuvoCoreByProxy)
-  
 
   iuvoCoreByProxy.patientAppointmentsLength.call(
     userAddress,

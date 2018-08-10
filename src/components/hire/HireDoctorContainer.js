@@ -5,11 +5,11 @@ import Snackbar from '@material-ui/core/Snackbar'
 import { web3 } from '../../util/connectors'
 import { waitForMined } from '../../util/waitForMined'
 import { updateLocalAppointmentsData } from '../../util/iuvoUtils'
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { 
   setUserData,
@@ -36,7 +36,7 @@ class HireDoctorContainer extends Component {
     
     if(userData.balanceInEther<doctor.price){
       this.setState({ notEnoughFundsDialogOpen: true })
-      return;
+      return
     }
 
     iuvoCoreByProxy.iuvoCoreByProxy.hireDoctor(

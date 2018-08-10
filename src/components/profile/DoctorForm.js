@@ -69,7 +69,7 @@ class DoctorForm extends Component {
               fullWidth
               onChange={this.props.handleChange}
               onBlur={this.props.handleBlur}
-              disabled={!this.props.isSettingDoctor}
+              disabled
             />
             <TextField
               id='contractIpfsAddr'
@@ -80,7 +80,7 @@ class DoctorForm extends Component {
               fullWidth
               onChange={this.props.handleChange}
               onBlur={this.props.handleBlur}
-              disabled={!this.props.isSettingDoctor}
+              disabled
             />
           </CardContent>
           <CardActions>

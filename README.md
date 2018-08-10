@@ -98,7 +98,9 @@ See below on how to use the frontend with your own instances of the contracts.
 
 Simply run `npm start` to serve the frontend.
 
-> **Note regarding uPort**: for now, uPort QRCodes can get quite big. Just zoom out if one doesn't fit your screen.
+> **Regarding field validation**: Fields do not have any validation yet.
+> **Regarding uPort**: For now, uPort QRCodes can get quite big. Just zoom out if one doesn't fit your screen.
+> **Regarding ipfs addresses**: By default, ipfs hash fields for profile picture and pdf come pre-filled. If this were to be used in production, we would allow the user to set this field.
 
 ### Interacting with new contracts
 
