@@ -1,14 +1,14 @@
 sudo: required
 language: node_js
 node_js:
-  - "9.11.2"
+  - "9.10.1"
 cache:
   directories:
   - node_modules
 install:
-  - npm install
   - npm install -g truffle
   - npm install -g ganache-cli
+  - npm install
 script:
   - npm run ganache
   - sleep 5
