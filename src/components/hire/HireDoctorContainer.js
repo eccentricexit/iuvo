@@ -39,8 +39,6 @@ class HireDoctorContainer extends Component {
       return
     }
     
-    console.info('user addr', userData.specificNetworkAddress)
-
     iuvoCoreByProxy.iuvoCoreByProxy.hireDoctor(
       doctor.doctorAddr,
       doctor.contractIpfsAddr,
