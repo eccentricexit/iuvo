@@ -7,6 +7,12 @@ import Snackbar from '@material-ui/core/Snackbar'
 import { web3 } from '../../util/connectors'
 import { waitForMined } from '../../util/waitForMined'
 import { updateLocalDoctorData } from '../../util/iuvoUtils'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
 
 class ProfilePageContainer extends Component {
   state = {
@@ -14,12 +20,22 @@ class ProfilePageContainer extends Component {
     isCreatingDoctor: false,
     doctor: null,
     txPendingOpen: false,
-    txConfirmedOpen: false
+    txConfirmedOpen: false,
+    notEnoughFundsDialogOpen: false  
   }
+
+  handleCloseFundsDialog = () => {
+    this.setState({ notEnoughFundsDialogOpen: false })
+  }  
 
   handleSetDoctor = doctor => {
     const { iuvoCoreByProxy, userData, setDoctor, deleteDoctor } = this.props
     const componentContext = this
+    
+    if(userData.balanceInEther<0.0001){
+      this.setState({ notEnoughFundsDialogOpen: true })
+      return
+    }
 
     iuvoCoreByProxy.iuvoCoreByProxy.setDoctor(
       doctor.name,
@@ -85,6 +101,11 @@ class ProfilePageContainer extends Component {
     const { iuvoCoreByProxy, userData, deleteDoctor } = this.props
     const componentContext = this
     
+    if(userData.balanceInEther<0.0001){
+      this.setState({ notEnoughFundsDialogOpen: true })
+      return
+    }
+    
     iuvoCoreByProxy.iuvoCoreByProxy.deleteDoctor(
       (err,txHash) => {
         if(err) { throw err }
@@ -124,6 +145,7 @@ class ProfilePageContainer extends Component {
   }
 
   render () {
+    const { userData } = this.props
     return (
       <div>
         {this.state.doctor && this.state.doctor.doctorAddr
@@ -166,6 +188,26 @@ class ProfilePageContainer extends Component {
           }}
           message={<span id="msg-tx-confirmed">Transaction processed!</span>}
         />
+        <Dialog
+          open={this.state.notEnoughFundsDialogOpen}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Not enough funds"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              You only have {userData.balanceInEther} which may not be enough to 
+              interact with the contract. Either mail the developer 
+              (mtsalenc@gmail.com) to get some or use Rinkeby's faucet: https://faucet.rinkeby.io/
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseFundsDialog} color="primary" autoFocus>
+              Will do!
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     )
   }
