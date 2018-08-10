@@ -197,7 +197,7 @@ class ProfilePageContainer extends Component {
           <DialogTitle id="alert-dialog-title">{"Not enough funds"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              You only have {userData.balanceInEther} which may not be enough to 
+              You have {userData.balanceInEther} ether which may not be enough to 
               interact with the contract. Either mail the developer 
               (mtsalenc@gmail.com) to get some or use Rinkeby's faucet: https://faucet.rinkeby.io/
             </DialogContentText>

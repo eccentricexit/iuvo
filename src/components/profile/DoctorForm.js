@@ -43,6 +43,7 @@ class DoctorForm extends Component {
               onChange={this.props.handleChange}
               onBlur={this.props.handleBlur}
               autoFocus
+              required
               margin='dense'
               label='Name/Title'
               placeholder='Dr. Smith'
@@ -54,6 +55,7 @@ class DoctorForm extends Component {
               value={this.props.values.bio}
               margin='dense'
               label='Bio'
+              required
               placeholder='Ready to treat you...'
               fullWidth
               onChange={this.props.handleChange}

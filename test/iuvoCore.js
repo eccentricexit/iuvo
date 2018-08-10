@@ -99,7 +99,9 @@ contract('IuvoCore', function (accounts) {
     it('should allow patients to hire doctors', async () => {
       let numberOfAppointments = (await iuvoCoreByProxy.appointmentsLength()).toNumber()
       assert.equal(numberOfAppointments, 0, 'there should be no appointments yet')
-
+      
+      await deployMockDoctor(iuvoCoreByProxy, doctorA)
+      
       await iuvoCoreByProxy.hireDoctor(
         doctorA,
         'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',

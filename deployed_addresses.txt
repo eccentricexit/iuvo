@@ -1,14 +1,14 @@
 # Deployed contracts on Rinkeby:
 
-- IuvoCore: [0xf3defd7f60d824e55f1184452f9fccacf7ce5a93](https://rinkeby.etherscan.io/address/0xf3defd7f60d824e55f1184452f9fccacf7ce5a93)
-- PausableProxy: [0xf59a569744dcd7b21f78afb4d353c7731c10c7f1](https://rinkeby.etherscan.io/address/0xf59a569744dcd7b21f78afb4d353c7731c10c7f1)
+- IuvoCore: [0xc77f61046dc1bb8fdd84e42540ee632931504684](https://rinkeby.etherscan.io/address/0xc77f61046dc1bb8fdd84e42540ee632931504684)
+- PausableProxy: [0x85fe1b6c94ee37118853bb8b66ddab36d4fc03f1](https://rinkeby.etherscan.io/address/0x85fe1b6c94ee37118853bb8b66ddab36d4fc03f1)
 
 All interaction with the core contract must happen through the proxy because that is where all the data has to be stored to persist between upgrades. 
 See below for na example with web3js.
 
 ```
 let IuvoCore = web3.eth.contract(<abi array here>)
-let iuvoCoreByProxy = IuvoCore.at('0xf59a569744dcd7b21f78afb4d353c7731c10c7f1') // Note that this is the proxy address, not the iuvocore address.
+let iuvoCoreByProxy = IuvoCore.at('0x85fe1b6c94ee37118853bb8b66ddab36d4fc03f1') // Note that this is the proxy address, not the iuvocore address.
 
 iuvoCoreByProxy.someMethod(someCallback)
 ```

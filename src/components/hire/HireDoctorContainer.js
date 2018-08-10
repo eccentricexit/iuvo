@@ -38,6 +38,8 @@ class HireDoctorContainer extends Component {
       this.setState({ notEnoughFundsDialogOpen: true })
       return
     }
+    
+    console.info('user addr', userData.specificNetworkAddress)
 
     iuvoCoreByProxy.iuvoCoreByProxy.hireDoctor(
       doctor.doctorAddr,
@@ -46,7 +48,10 @@ class HireDoctorContainer extends Component {
       'kleros.io',
       timeout,
       '0x0',
-      { value: web3.toWei(doctor.price,'ether') },
+      { 
+        value: web3.toWei(doctor.price,'ether'), 
+        from: userData.specificNetworkAddress
+      },
       (err,txHash) => {
         if(err) { throw err }
         waitForMined(
@@ -145,7 +150,7 @@ class HireDoctorContainer extends Component {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               You seem to not have enough funds to hire this doctor. His services
-              cost 0.003 ether, but you only have {userData.balanceInEther}. Either mail the developer 
+              cost 0.003 ether, but you have {userData.balanceInEther} ether. Either mail the developer 
               (mtsalenc@gmail.com) to get some or use Rinkeby's faucet: https://faucet.rinkeby.io/
             </DialogContentText>
           </DialogContent>

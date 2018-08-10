@@ -49,8 +49,6 @@ const styles = theme => ({
 })
 
 const AppointmentListItem = ({ appointment, doctor, classes }) => {
-  console.info('appointment', appointment)
-  console.info('doctor', doctor)
   if (!doctor) {
     // doctor deleted his information after getting hired.
     doctor = {
@@ -125,7 +123,6 @@ const StyledAppointmentItem = withStyles(styles, { withTheme: true })(Appointmen
 
 const AppointmentsPage = (props) => {
   const { appointments, doctors } = props
-
   return (
     <div>
       {!appointments || appointments.length === 0

@@ -184,6 +184,7 @@ contract IuvoCore is PausableUpgradeable{
         payable
         whenNotPaused
     {
+        require(doctorExists[_doctor]);
         address _patient = msg.sender;
         address arbitrableAppointment = new ArbitrableTransaction(
             Arbitrator(_arbitrator),
@@ -200,10 +201,11 @@ contract IuvoCore is PausableUpgradeable{
             _contractIpfsAddr
         );
 
-        appointments.push(appointment);
+        uint256 length = appointments.push(appointment);
+        uint256 appointmentPos = length.sub(1);
 
-        patientAppointments[_patient].push(appointments.length.sub(1));
-        doctorAppointments[_doctor].push(appointments.length.sub(1));
+        patientAppointments[_patient].push(appointmentPos);
+        doctorAppointments[_doctor].push(appointmentPos);
 
         emit LogDoctorHired(_doctor,_patient);
     }

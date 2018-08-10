@@ -31,7 +31,7 @@ export const appointmentFromArray = (appointment) => {
     doctor: appointment[0],
     patient: appointment[1],
     arbitrableAppointment: appointment[2],
-    contractIpfsAddr: appointment[2]
+    contractIpfsAddr: appointment[3]
   }
 }
 
@@ -41,20 +41,20 @@ export const updateLocalDoctorData = (iuvoCoreByProxy, userAddress, setDoctor) =
   iuvoCoreByProxy.iuvoCoreByProxy.doctorPosition(userAddress, (err, res) => {
     if (err) { throw err }
 
-    if (res !== 0) { // doctor exists
-      const posInStorage = res.toNumber()
-      iuvoCoreByProxy.iuvoCoreByProxy.doctors(posInStorage, (err, res) => {
-        if (err) { throw err }
-        const doctor = doctorFromArray(res)
-        setDoctor(doctor)
+    
+    const posInStorage = res.toNumber()
+    iuvoCoreByProxy.iuvoCoreByProxy.doctors(posInStorage, (err, res) => {
+      if (err) { throw err }
+      const doctor = doctorFromArray(res)
+      setDoctor(doctor)
 
-        ipfs.files.cat(doctor.profilePicIpfsAddr, (err, file) => {
-          if (err) { throw err }
-          doctor.imgRaw = 'data:image/png;base64,' + file.toString('base64')
-          setDoctor(doctor)
-        })
+      ipfs.files.cat(doctor.profilePicIpfsAddr, (err, file) => {
+        if (err) { throw err }
+        doctor.imgRaw = 'data:image/png;base64,' + file.toString('base64')
+        setDoctor(doctor)
       })
-    }
+    })
+    
   })
 }
 
@@ -99,16 +99,13 @@ export const updateLocalAppointmentsData = (iuvoCoreByProxy, userAddress, addApp
       if (err) { throw err }
 
       const numAppointments = res.toNumber()
-      console.info(`got ${numAppointments} appointments`)
 
       for (let i = 0; i < numAppointments; i++) {
         iuvoCoreByProxy.appointments(i, (err, res) => {
           if (err) { throw err }
           const appointment = appointmentFromArray(res)
 
-          if (appointment.patient === userAddress) {
-            addAppointment(appointment)
-          }
+          addAppointment(appointment)
         })
       }
     }
