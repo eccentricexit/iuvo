@@ -38,6 +38,8 @@ This is an app and market place to work as a meeting point between anyone who:
 
 See the "User stories" section of this document for a better overview.
 
+> **Feel free to report issues**: If you have any problems using the frontend, either open an issue or ping me at mtsalenc@gmail.com.
+
 **Features:**
 - Upgradable pattern;
 - uPort integration;
