@@ -41,7 +41,6 @@ export const updateLocalDoctorData = (iuvoCoreByProxy, userAddress, setDoctor) =
   iuvoCoreByProxy.iuvoCoreByProxy.doctorPosition(userAddress, (err, res) => {
     if (err) { throw err }
 
-    
     const posInStorage = res.toNumber()
     iuvoCoreByProxy.iuvoCoreByProxy.doctors(posInStorage, (err, res) => {
       if (err) { throw err }
@@ -54,7 +53,6 @@ export const updateLocalDoctorData = (iuvoCoreByProxy, userAddress, setDoctor) =
         setDoctor(doctor)
       })
     })
-    
   })
 }
 

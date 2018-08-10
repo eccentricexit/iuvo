@@ -58,7 +58,7 @@ contract('IuvoCore', function (accounts) {
     // Users should also be able to update their data through the proxy.
     it('should allow editing doctors through proxy', async () => {
       await iuvoCoreByProxy.setDoctor(
-        'Dr. Nanct', //simulating typo error
+        'Dr. Nanct', // simulating typo error
         'Love taking care of people',
         'QmcSD36n81qTdHWCiHoFt1jiVpcW1eZoHJALFbBJxYRhLf',
         'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
@@ -66,7 +66,7 @@ contract('IuvoCore', function (accounts) {
       )
 
       const doctorPosition = (await iuvoCoreByProxy.doctorPosition.call(doctorA)).toNumber()
-      let doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition) //fetch the saved doctor
+      let doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition) // fetch the saved doctor
 
       assert.equal(doctorData[0], 'Dr. Nanct', 'should have saved the data correctly')
 
@@ -105,9 +105,9 @@ contract('IuvoCore', function (accounts) {
     it('should allow patients to hire doctors', async () => {
       let numberOfAppointments = (await iuvoCoreByProxy.appointmentsLength()).toNumber()
       assert.equal(numberOfAppointments, 0, 'there should be no appointments yet')
-      
+
       await deployMockDoctor(iuvoCoreByProxy, doctorA)
-      
+
       await iuvoCoreByProxy.hireDoctor(
         doctorA,
         'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
@@ -213,7 +213,7 @@ contract('IuvoCore', function (accounts) {
       await iuvoCoreByProxy.initialize()
 
       const doctorsArrayLength = (await iuvoCoreByProxy.doctorsArrayLength()).toNumber()
-      // Nothing special about the number 10001. This was just a random value chosen 
+      // Nothing special about the number 10001. This was just a random value chosen
       // to test that new logic is available at the call.
       assert.equal(doctorsArrayLength, 10001, 'new method should have been called')
     })
