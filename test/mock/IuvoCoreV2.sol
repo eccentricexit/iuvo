@@ -239,7 +239,7 @@ contract IuvoCoreV2 is PausableUpgradeable{
     /** @dev Returns a fixed number. Only used to test upgradability.
      */
     function doctorsArrayLength() public view returns (uint256) {
-        return 10001;
+        return 10001; // Nothing special about this number. This is just to test upgradability.
     }
 
     /** @dev Returns the number registered appointments.
