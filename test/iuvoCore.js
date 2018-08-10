@@ -33,9 +33,12 @@ contract('IuvoCore', function (accounts) {
     )
   }
 
+  // This section tests core contract functionality
   describe('Doctor CRUD operations', () => {
     beforeEach(deployContracts)
 
+    // All function calls should go through the proxy and be forwarded to the target
+    // contract. A user should be able to add himself as a doctor.
     it('should allow adding doctors through proxy', async () => {
       let doctorExists = await iuvoCoreByProxy.doctorExists(doctorA)
       let doctorCount = (await iuvoCoreByProxy.doctorsArrayLength()).toNumber()
@@ -52,9 +55,10 @@ contract('IuvoCore', function (accounts) {
       assert.equal(doctorCount, 1, 'there should be a doctor')
     })
 
+    // Users should also be able to update their data through the proxy.
     it('should allow editing doctors through proxy', async () => {
       await iuvoCoreByProxy.setDoctor(
-        'Dr. Nanct',
+        'Dr. Nanct', //simulating typo error
         'Love taking care of people',
         'QmcSD36n81qTdHWCiHoFt1jiVpcW1eZoHJALFbBJxYRhLf',
         'QmeKSTWokWbyJ8BG122WLty4adXi1mXEee2evxuHQWNfYm',
@@ -62,7 +66,7 @@ contract('IuvoCore', function (accounts) {
       )
 
       const doctorPosition = (await iuvoCoreByProxy.doctorPosition.call(doctorA)).toNumber()
-      let doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition)
+      let doctorData = await iuvoCoreByProxy.doctors.call(doctorPosition) //fetch the saved doctor
 
       assert.equal(doctorData[0], 'Dr. Nanct', 'should have saved the data correctly')
 
@@ -78,6 +82,7 @@ contract('IuvoCore', function (accounts) {
       assert.equal(doctorData[0], 'Dr. Nancy', 'should have updated the data correctly')
     })
 
+    // Users should be able to delete their doctor profile under normal conditions.
     it('should allow deleting doctors through proxy', async () => {
       await deployMockDoctor(iuvoCoreByProxy, doctorA)
 
@@ -93,6 +98,7 @@ contract('IuvoCore', function (accounts) {
     })
   })
 
+  // Users should be able to hire doctors.
   describe('Appointments', () => {
     beforeEach(deployContracts)
 
@@ -117,6 +123,7 @@ contract('IuvoCore', function (accounts) {
     })
   })
 
+  // This section tests circuit breaks and function calls when the contract is paused.
   describe('Circuit breaks and acess control', () => {
     beforeEach(deployContracts)
 
@@ -175,6 +182,7 @@ contract('IuvoCore', function (accounts) {
       )
     })
 
+    // User access to the setRating should be restricted to the oracle.
     it('should only the ratingOracle to set the doctors rating', async () => {
       await deployMockDoctor(iuvoCoreByProxy, doctorA)
 
@@ -194,6 +202,8 @@ contract('IuvoCore', function (accounts) {
     })
   })
 
+  // This section tests contract logic upgradability and data persistance between
+  // upgrades.
   describe('Contract Upgradability', () => {
     beforeEach(deployContracts)
 
