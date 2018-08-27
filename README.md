@@ -116,7 +116,7 @@ Also note that to hire a doctor, you need to pass the function an address of an 
 
 #### Rinkeby testnet:
 
-If you choose to deploy the contracts to Rinkeby, you get the benefit of using the frontend. But you need to update it's configuration with your own dapp data:
+If you choose to deploy the contracts to Rinkeby, you get the benefit of using the frontend. But you need to update it's configuration with your own dapp data and infura api key on truffle.js (for truffle migrations):
 
 1. See [uPort's documentation](https://developer.uport.me/gettingstarted#1-get-the-u-port-app) on how to register.
 2. Update `src/util/connectors.js`
