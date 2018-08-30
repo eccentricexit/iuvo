@@ -14,7 +14,7 @@
 
 > The decentralized health services marketplace.
 
-On `iuvo`, you can hire doctors or put your services up on a list to be hired.
+On `iuvo`, you can hire doctors or put your services up on a list to be hired. Built for educational purposes.
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
