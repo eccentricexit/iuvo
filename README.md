@@ -12,7 +12,7 @@
 [![](https://img.shields.io/badge/material-ui-blue.svg)](https://material-ui.com)
 [![](https://travis-ci.org/mtsalenc/iuvo.svg?branch=master)](https://travis-ci.org/mtsalenc/iuvo)
 
-> The decentralized health services marketplace.
+> The decentralized health services marketplace. Buidlt for educational purposes.
 
 On `iuvo`, you can hire doctors or put your services up on a list to be hired. Built for educational purposes.
 
@@ -32,7 +32,7 @@ On `iuvo`, you can hire doctors or put your services up on a list to be hired. B
 
 ## What is this?
 
-This is an app and market place to work as a meeting point between anyone who: 
+This is an app (built for educational purposes) and market place to work as a meeting point between anyone who: 
 - Wants to hire a doctor for an appointment;
 - Wants to display themselves as a doctor available for hiring.
 
