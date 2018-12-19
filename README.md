@@ -12,9 +12,11 @@
 [![](https://img.shields.io/badge/material-ui-blue.svg)](https://material-ui.com)
 [![](https://travis-ci.org/mtsalenc/iuvo.svg?branch=master)](https://travis-ci.org/mtsalenc/iuvo)
 
-> The decentralized health services marketplace. Buidlt for educational purposes.
+> The decentralized health services marketplace. Built for educational purposes.
 
-On `iuvo`, you can hire doctors or put your services up on a list to be hired. Built for educational purposes.
+On `iuvo`, you can hire doctors or put your services up on a list to be hired. 
+
+# IMPORTANT: Secure smart contract upgradability is *hard* and evolving quickly. Many patterns are now deprecated due to security vulnerabilty and the one used here is probably one of them. Be responsible.
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
