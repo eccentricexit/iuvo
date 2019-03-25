@@ -40,8 +40,6 @@ This is an app (built for educational purposes) and market place to work as a me
 
 See the "User stories" section of this document for a better overview.
 
-> **Feel free to report issues**: If you have any problems using the frontend, either open an issue or ping me at mtsalenc@gmail.com.
-
 **Features:**
 - Upgradable pattern;
 - uPort integration;
@@ -53,7 +51,7 @@ See the "User stories" section of this document for a better overview.
 - Automated tests;
 - Material UI.
 
-> **Note for the reviewer**: You will need some test ether to hire doctors. Ping me @ mtsalenc@gmail.com if you don't want to use rinkeby's faucet.
+> **Note for the reviewer**: You will need some test ether to hire doctors.
 
 ## User stories
 - As a user, I can log into the dapp with uPort on my smartphone and see a list of doctors.
