@@ -16,7 +16,7 @@
 
 On `iuvo`, you can hire doctors or put your services up on a list to be hired. 
 
-# IMPORTANT: Secure smart contract upgradability is *hard* and evolving quickly. Many patterns are now deprecated due to security vulnerabilty and the one used here is probably one of them. Be responsible.
+# IMPORTANT: Secure smart contract upgradability is *hard* and evolving quickly. Many patterns are now deprecated due to security vulnerabilties and the one used here is probably one of them. Be responsible.
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
